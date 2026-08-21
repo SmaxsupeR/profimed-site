@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+
+# design-sync: сгенерированная сборка и машинное состояние
+ds-bundle
+.design-sync/.cache
+.design-sync/learnings
+.design-sync/node_modules
