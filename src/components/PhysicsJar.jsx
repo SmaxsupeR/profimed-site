@@ -6,8 +6,8 @@ import { createGlassesSim, GEO, DEFAULT_SPAWN_INTERVAL_MS } from './glassesPhysi
 // референса — светлый и тёмный набор, чтобы контур банки и очков не терялся
 // на тёмном фоне.
 const PALETTE = {
-  light: { jar: '#013E3A', jarFaint: '#013E3A33', glass: '#0A7C71' },
-  dark: { jar: '#2C9989', jarFaint: '#2C998933', glass: '#63B7A9' },
+  light: { jar: '#244744', jarFaint: '#24474433', glass: '#3F736F' },
+  dark: { jar: '#53938E', jarFaint: '#53938E33', glass: '#8FBDB9' },
 };
 
 // Канвас с падающими в банку очками (Matter.js). Библиотека грузится

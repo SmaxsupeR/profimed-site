@@ -5,10 +5,10 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
-  --pm-logo-tint: #004D49; /* primary-600 */
+  --pm-logo-tint: #2E5653; /* primary-600 */
 }
 :root.dark {
-  --pm-logo-tint: #2C9989; /* primary-400 — светлее для контраста на тёмном фоне */
+  --pm-logo-tint: #53938E; /* primary-400 — светлее для контраста на тёмном фоне */
 }
 
 body {
