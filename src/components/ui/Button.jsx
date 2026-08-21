@@ -8,10 +8,12 @@
 const VARIANTS = {
   // Основное действие страницы — «Записаться». На экране должно быть одно.
   primary: 'bg-primary-600 hover:bg-primary-700 text-white shadow-card',
-  // Рядом с основным: «Позвонить» — тот же вес, но не спорит за внимание.
+  // Рядом с основным: «Позвонить» — залитая лаймом пилюля, тот же приём,
+  // что на onemedical.com/virtual-care (secondary-400, тёмный тил-текст,
+  // без обводки). Осознанно заметнее прежнего тихого нейтрального варианта.
   secondary:
-    'border border-slate-300 hover:border-primary-400 text-slate-700 bg-white ' +
-    'dark:border-slate-600 dark:hover:border-primary-500 dark:text-slate-200 dark:bg-slate-800',
+    'bg-secondary-400 hover:bg-secondary-500 text-primary-800 shadow-card ' +
+    'dark:bg-secondary-500 dark:hover:bg-secondary-400 dark:text-primary-900',
   // Третьестепенное, внутри карточек и состояний («Отправить ещё одну заявку»).
   ghost: 'text-primary-600 hover:bg-primary-50 dark:text-primary-400 dark:hover:bg-primary-950/40',
 };
