@@ -20,14 +20,14 @@ export function Directions({ onPick }) {
           return (
             <div
               key={id}
-              className="group border-b border-slate-200 py-6 transition-colors hover:bg-primary-50/40 dark:border-slate-800 dark:hover:bg-primary-950/20"
+              className="group border-b border-slate-200 py-6 transition-colors dark:border-slate-800"
             >
               <div className="grid gap-x-5 gap-y-3 sm:grid-cols-[40px_1fr_auto] sm:items-baseline">
                 <span className="font-display text-2xl text-primary-200 transition-colors group-hover:text-primary-400 dark:text-primary-800 dark:group-hover:text-primary-600">
                   {String(n).padStart(2, '0')}
                 </span>
                 <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white">{t.dir[`d${n}t`]}</h3>
+                  <h3 className="font-semibold text-slate-900 transition-colors group-hover:text-primary-700 dark:text-white dark:group-hover:text-primary-300">{t.dir[`d${n}t`]}</h3>
                   <p className="text-sm text-slate-500 mt-1 dark:text-slate-400">{t.dir[`d${n}x`]}</p>
                 </div>
                 <div className="flex items-center gap-4 sm:justify-self-end">
