@@ -9,9 +9,11 @@ const VARIANTS = {
   // Основное действие страницы — «Записаться». На экране должно быть одно.
   primary: 'bg-primary-600 hover:bg-primary-700 text-white shadow-card',
   // Рядом с основным: «Позвонить» — тот же вес, но не спорит за внимание.
-  secondary: 'border border-slate-300 hover:border-primary-400 text-slate-700 bg-white',
+  secondary:
+    'border border-slate-300 hover:border-primary-400 text-slate-700 bg-white ' +
+    'dark:border-slate-600 dark:hover:border-primary-500 dark:text-slate-200 dark:bg-slate-800',
   // Третьестепенное, внутри карточек и состояний («Отправить ещё одну заявку»).
-  ghost: 'text-primary-600 hover:bg-primary-50',
+  ghost: 'text-primary-600 hover:bg-primary-50 dark:text-primary-400 dark:hover:bg-primary-950/40',
 };
 
 const SIZES = {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle2, Loader2 } from 'lucide-react';
 import { DIRECTIONS } from '../data/directions.js';
+import { useLang } from '../i18n/LangContext.jsx';
 import { Card } from './ui/Card.jsx';
 import { Button } from './ui/Button.jsx';
 import { Field, Input, Select, Textarea } from './ui/Field.jsx';
@@ -8,6 +9,7 @@ import { Field, Input, Select, Textarea } from './ui/Field.jsx';
 const initialForm = { fio: '', phone: '', direction: '', comment: '' };
 
 export function BookingForm({ presetDirection }) {
+  const { t } = useLang();
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle'); // idle | submitting | done | error
 
@@ -36,13 +38,11 @@ export function BookingForm({ presetDirection }) {
   if (status === 'done') {
     return (
       <Card className="p-8 flex flex-col items-center text-center gap-3">
-        <CheckCircle2 size={32} className="text-leaf-600" />
-        <h3 className="font-display text-xl text-slate-900">Заявка отправлена</h3>
-        <p className="text-slate-500 text-sm max-w-sm">
-          Администратор клиники свяжется с вами и подтвердит время приёма.
-        </p>
+        <CheckCircle2 size={32} className="text-leaf-600 dark:text-leaf-400" />
+        <h3 className="font-display text-xl text-slate-900 dark:text-white">{t.form.okTitle}</h3>
+        <p className="text-slate-500 text-sm max-w-sm dark:text-slate-400">{t.form.okText}</p>
         <Button variant="ghost" size="sm" onClick={() => setStatus('idle')} className="mt-2">
-          Отправить ещё одну заявку
+          {t.form.again}
         </Button>
       </Card>
     );
@@ -52,44 +52,36 @@ export function BookingForm({ presetDirection }) {
     <Card className="p-6 sm:p-8">
       <form onSubmit={handleSubmit} className="grid gap-4">
         <div className="grid sm:grid-cols-2 gap-4">
-          <Field label="Ваше имя">
-            <Input required value={form.fio} onChange={set('fio')} placeholder="Как к вам обращаться" />
+          <Field label={t.form.name}>
+            <Input required value={form.fio} onChange={set('fio')} placeholder={t.form.namePh} />
           </Field>
-          <Field label="Телефон">
+          <Field label={t.form.phone}>
             <Input required type="tel" value={form.phone} onChange={set('phone')} placeholder="+998 __ ___ __ __" />
           </Field>
         </div>
 
-        <Field label="Направление">
+        <Field label={t.form.dir}>
           <Select value={form.direction} onChange={set('direction')}>
-            <option value="">Не уверен(а), подскажите сами</option>
-            {DIRECTIONS.map((d) => (
-              <option key={d.id} value={d.id}>{d.title}</option>
+            <option value="">{t.form.dirAny}</option>
+            {DIRECTIONS.map(({ id }, i) => (
+              <option key={id} value={id}>{t.dir[`d${i + 1}t`]}</option>
             ))}
           </Select>
         </Field>
 
-        <Field label="Комментарий (необязательно)">
-          <Textarea
-            value={form.comment}
-            onChange={set('comment')}
-            placeholder="Что беспокоит, удобное время для звонка и т.п."
-          />
+        <Field label={t.form.comment}>
+          <Textarea value={form.comment} onChange={set('comment')} placeholder={t.form.commentPh} />
         </Field>
 
         {status === 'error' && (
-          <p className="text-sm text-red-600">
-            Не получилось отправить заявку. Попробуйте ещё раз или позвоните нам — +998 95 195 61 19.
-          </p>
+          <p className="text-sm text-red-600 dark:text-red-400">{t.form.err}</p>
         )}
 
         <Button type="submit" size="lg" disabled={status === 'submitting'}>
           {status === 'submitting' && <Loader2 size={16} className="animate-spin" />}
-          Отправить заявку
+          {t.form.submit}
         </Button>
-        <p className="text-xs text-slate-400 -mt-1">
-          Это заявка на приём, не оплата — администратор перезвонит и согласует время.
-        </p>
+        <p className="text-xs text-slate-400 -mt-1 dark:text-slate-500">{t.form.note}</p>
       </form>
     </Card>
   );

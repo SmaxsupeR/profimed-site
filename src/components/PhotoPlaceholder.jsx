@@ -6,16 +6,16 @@ import { Camera } from 'lucide-react';
 export function PhotoPlaceholder({ label, className = '' }) {
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-100 via-primary-50 to-leaf-100 ${className}`}
+      className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-100 via-primary-50 to-leaf-100 dark:from-primary-900 dark:via-slate-800 dark:to-leaf-900 ${className}`}
     >
       <div
-        className="absolute inset-0 opacity-[0.35]"
+        className="absolute inset-0 opacity-[0.35] dark:opacity-[0.18]"
         style={{
           backgroundImage:
             'repeating-linear-gradient(135deg, rgb(12 93 140 / 0.10) 0px, rgb(12 93 140 / 0.10) 1px, transparent 1px, transparent 14px)',
         }}
       />
-      <div className="relative h-full min-h-[160px] flex flex-col items-center justify-center gap-2 p-6 text-center text-primary-700/60">
+      <div className="relative h-full min-h-[160px] flex flex-col items-center justify-center gap-2 p-6 text-center text-primary-700/60 dark:text-primary-300/70">
         <Camera size={26} strokeWidth={1.5} />
         {label && <span className="text-xs font-medium uppercase tracking-wide">{label}</span>}
       </div>
