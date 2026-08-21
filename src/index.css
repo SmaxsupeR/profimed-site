@@ -5,10 +5,10 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
-  --pm-logo-tint: #195D56; /* primary-700 */
+  --pm-logo-tint: #16427D; /* primary-700 (клинический синий) */
 }
 :root.dark {
-  --pm-logo-tint: #4CA69B; /* primary-300 — светлее для контраста на графитовом фоне */
+  --pm-logo-tint: #83A7C9; /* primary-300 — светлее для контраста на графитовом фоне */
 }
 
 body {
@@ -71,8 +71,8 @@ body {
 
 /* Пульсирующее кольцо вокруг кнопки чата — привлекает внимание, не мигая целиком */
 @keyframes pm-fab-ring {
-  0% { box-shadow: 0 0 0 0 rgb(36 122 112 / .45); }
-  100% { box-shadow: 0 0 0 14px rgb(36 122 112 / 0); }
+  0% { box-shadow: 0 0 0 0 rgb(30 86 160 / .45); }
+  100% { box-shadow: 0 0 0 14px rgb(30 86 160 / 0); }
 }
 .pm-fab-btn { animation: pm-fab-ring 2.4s ease-out infinite; }
 
