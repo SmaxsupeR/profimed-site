@@ -83,13 +83,6 @@ body {
   .pm-totop { bottom: 92px; }
 }
 
-.pm-hatch {
-  background-image: repeating-linear-gradient(135deg, rgb(17 135 197 / .07) 0px, rgb(17 135 197 / .07) 1px, transparent 1px, transparent 16px);
-}
-.dark .pm-hatch {
-  background-image: repeating-linear-gradient(135deg, rgb(63 169 216 / .09) 0px, rgb(63 169 216 / .09) 1px, transparent 1px, transparent 16px);
-}
-
 /* Фон приветственного экрана — см. Splash.jsx. Отдельный класс (не inline),
    чтобы у тёмной темы был свой градиент, а не один захардкоженный светлый. */
 .pm-splash-bg { background: linear-gradient(160deg, #eef7fc, #dcedf6); }

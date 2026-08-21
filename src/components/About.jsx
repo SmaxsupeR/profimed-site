@@ -12,7 +12,6 @@ export function About() {
 
   return (
     <div className="relative overflow-hidden bg-primary-50 border-y border-slate-200 dark:bg-slate-800/60 dark:border-slate-800">
-      <div className="pm-hatch absolute inset-0 opacity-70 pointer-events-none" />
       <div className="relative">
         <Section>
           <SectionHeader eyebrow={t.about.eyebrow} title={t.about.title} />

@@ -34,7 +34,6 @@ export function Doctors() {
           return (
             <Card key={id} hoverable className="overflow-hidden group">
               <div className={`relative aspect-square w-full overflow-hidden bg-gradient-to-br ${tint.bg}`}>
-                <div className="pm-hatch absolute inset-0 opacity-60 pointer-events-none" />
                 <div className="relative h-full flex items-center justify-center">
                   <Icon
                     size={72}
