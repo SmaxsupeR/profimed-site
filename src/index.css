@@ -56,7 +56,7 @@ body {
 .pm-collapse > * { overflow: hidden; min-height: 0; }
 
 /* Линия таймлайна, прочерчивающаяся при появлении блока в кадре. */
-.pm-track { transform: scaleX(0); transform-origin: left center; transition: transform 1.3s cubic-bezier(.4,0,.2,1); }
+.pm-track { transform: scaleX(0); transform-origin: left center; transition: transform .5s cubic-bezier(.4,0,.2,1); }
 .is-in .pm-track { transform: scaleX(1); }
 
 @keyframes pm-fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }

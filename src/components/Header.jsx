@@ -171,7 +171,7 @@ export function Header() {
         </div>
 
         {menuOpen && (
-          <div className="lg:hidden pm-menu-anim border-t border-slate-200 bg-white px-4 pt-3.5 pb-4.5 grid gap-0.5 dark:border-slate-800 dark:bg-slate-900">
+          <div className="lg:hidden pm-menu-anim border-t border-slate-200 bg-white px-4 pt-3.5 pb-[18px] grid gap-0.5 dark:border-slate-800 dark:bg-slate-900">
             {NAV_HREFS.map((href, i) => (
               <a
                 key={href}

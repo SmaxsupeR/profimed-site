@@ -28,7 +28,7 @@ export function Faq() {
                   раньше текст выпрыгивал мгновенно, пока стрелка ехала плавно. */}
               <div className={`pm-collapse ${isOpen ? 'is-open' : ''}`}>
                 <div>
-                  <p className="text-sm text-slate-600 pb-4.5 dark:text-slate-300">{item.a}</p>
+                  <p className="text-sm text-slate-600 pb-[18px] dark:text-slate-300">{item.a}</p>
                 </div>
               </div>
             </div>

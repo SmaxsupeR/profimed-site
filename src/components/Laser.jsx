@@ -20,7 +20,7 @@ export function Laser({ onPick }) {
           <p className="text-sm text-slate-500 mb-4 dark:text-slate-400">
             <span className="text-slate-700 font-medium dark:text-slate-300">{t.laser.badge}:</span> LASIK · LESIK · ФРК
           </p>
-          <p className="text-slate-600 max-w-[32em] mb-6.5 dark:text-slate-300">{t.laser.text}</p>
+          <p className="text-slate-600 max-w-[32em] mb-[26px] dark:text-slate-300">{t.laser.text}</p>
           <div className="grid gap-4 mb-7">
             {steps.map((step) => (
               <div key={step.n} className="flex gap-3.5 items-start">

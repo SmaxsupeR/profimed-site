@@ -32,7 +32,7 @@ export function VisitPlanner({ onSubmit }) {
                 type="button"
                 onClick={() => toggle(id)}
                 aria-pressed={on}
-                className={`rounded-full border px-4.5 py-2.5 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
+                className={`rounded-full border px-[18px] py-2.5 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
                   on
                     ? 'border-primary-600 bg-primary-600 text-white shadow-card'
                     : 'border-slate-300 bg-white text-slate-700 hover:border-primary-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-primary-500'
@@ -47,7 +47,7 @@ export function VisitPlanner({ onSubmit }) {
           <p className="text-xs uppercase tracking-wide text-slate-400 font-semibold mb-2.5 dark:text-slate-500">{t.plan.summaryTitle}</p>
           <p className="font-display text-primary-700 text-[30px] leading-none mb-1 dark:text-primary-400">{plan.length}</p>
           <p className="text-sm text-slate-500 mb-1.5 dark:text-slate-400">{t.plan.countLabel}</p>
-          <p className="text-sm text-slate-600 mb-4.5 dark:text-slate-300">{timeText}</p>
+          <p className="text-sm text-slate-600 mb-[18px] dark:text-slate-300">{timeText}</p>
           <Button
             variant="secondary"
             size="sm"

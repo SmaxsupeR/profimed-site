@@ -16,7 +16,7 @@ export function JarStats() {
     <Section>
       {/* useInView здесь остаётся своим — он запускает физику банки, а не
           появление секции (появлением с недавних пор занимается сам Section). */}
-      <div ref={ref} className="flex flex-col items-center gap-4.5 text-center">
+      <div ref={ref} className="flex flex-col items-center gap-[18px] text-center">
         <SectionHeader eyebrow={t.jar.eyebrow} title={t.jar.title} />
         <p className="text-slate-600 max-w-[34em] -mt-4 dark:text-slate-300">{t.jar.desc}</p>
         {physicsFailed ? (

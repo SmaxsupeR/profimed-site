@@ -44,7 +44,7 @@ export function VisionGame({ onPick }) {
           <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{t.vision.eyebrow}</p>
           <h2 className="font-display text-2xl sm:text-3xl text-slate-900 text-balance mb-3.5 dark:text-white">{t.vision.title}</h2>
           <p className="text-slate-600 max-w-[30em] mb-2.5 dark:text-slate-300">{t.vision.sub}</p>
-          <p className="text-xs text-slate-400 max-w-[30em] mb-5.5 dark:text-slate-500">{t.vision.note}</p>
+          <p className="text-xs text-slate-400 max-w-[30em] mb-[22px] dark:text-slate-500">{t.vision.note}</p>
           <Button variant="secondary" onClick={() => onPick('ophthalmology')}>{t.vision.cta}</Button>
         </div>
 
@@ -67,7 +67,7 @@ export function VisionGame({ onPick }) {
           </div>
 
           {tab === 'sharp' && (
-            <div className="flex flex-col items-center gap-5.5">
+            <div className="flex flex-col items-center gap-[22px]">
               <span className="font-display text-slate-900 leading-none dark:text-white" style={{ fontSize: `${snellenSize}px` }}>E</span>
               <input
                 type="range"
@@ -103,7 +103,7 @@ export function VisionGame({ onPick }) {
                         key={opt}
                         type="button"
                         onClick={() => pickAnswer(opt)}
-                        className="rounded-full border border-slate-200 bg-white px-4.5 py-2 text-[15px] font-bold text-primary-700 transition-all hover:border-primary-400 hover:bg-primary-50 hover:-translate-y-0.5 dark:bg-slate-800 dark:border-slate-600 dark:text-primary-400 dark:hover:border-primary-500 dark:hover:bg-primary-950/40"
+                        className="rounded-full border border-slate-200 bg-white px-[18px] py-2 text-[15px] font-bold text-primary-700 transition-all hover:border-primary-400 hover:bg-primary-50 hover:-translate-y-0.5 dark:bg-slate-800 dark:border-slate-600 dark:text-primary-400 dark:hover:border-primary-500 dark:hover:bg-primary-950/40"
                       >
                         {opt}
                       </button>
