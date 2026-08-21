@@ -42,9 +42,9 @@ export function SectionHeader({ eyebrow, title, description, className = '' }) {
   return (
     <div className={`max-w-xl mb-10 ${className}`}>
       {eyebrow && (
-        <p className="text-sm font-semibold text-leaf-700 uppercase tracking-wide mb-3 dark:text-leaf-400">{eyebrow}</p>
+        <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{eyebrow}</p>
       )}
-      <h2 className="font-display text-3xl sm:text-4xl text-slate-900 text-balance dark:text-white">{title}</h2>
+      <h2 className="font-display text-[32px] sm:text-[42px] lg:text-[50px] leading-[1.05] text-slate-900 text-balance dark:text-white">{title}</h2>
       {description && <p className="text-slate-500 mt-3 dark:text-slate-400">{description}</p>}
     </div>
   );

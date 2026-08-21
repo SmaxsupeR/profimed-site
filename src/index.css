@@ -62,9 +62,6 @@ body {
 @keyframes pm-fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .pm-hero-anim { animation: pm-fade-up .7s ease both; }
 
-@keyframes pm-blob-pulse { 0%, 100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.12); opacity: 1; } }
-.pm-blob { animation: pm-blob-pulse 7s ease-in-out infinite; }
-
 @keyframes pm-menu-drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 @keyframes pm-menu-lift { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-8px); } }
 @keyframes pm-menu-item { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }

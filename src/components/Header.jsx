@@ -45,7 +45,7 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const topBarHeight = scrolled ? 0 : 40;
+  const topBarHeight = scrolled ? 0 : 36;
   const headerHeight = scrolled ? 60 : 72;
 
   const open = isOpenNow(now);
@@ -57,25 +57,31 @@ export function Header() {
         className="hidden lg:block bg-primary-600 overflow-hidden transition-[height] duration-300 ease-out"
         style={{ height: topBarHeight }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-10 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <span className="text-white text-[13px]">{t.top.address}</span>
-            <span className="text-white/45">·</span>
-            <span className="text-white text-[13px]">{t.top.hours}</span>
-            <span className="text-white/45">·</span>
-            <a href="mailto:info@profimed.uz" className="text-white text-[13px] hover:underline">info@profimed.uz</a>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3.5">
+            <span className="text-white/90 text-xs">{t.top.address}</span>
+            <span className="text-white/35">·</span>
+            <span className="text-white/90 text-xs">{t.top.hours}</span>
+            <span className="text-white/35">·</span>
+            <a href="mailto:info@profimed.uz" className="text-white/90 text-xs hover:underline">info@profimed.uz</a>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/90">
+          <div className="flex items-center gap-3.5">
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/90">
               <span className={`w-1.5 h-1.5 rounded-full ${open ? 'bg-emerald-300' : 'bg-amber-300'}`} />
               {open ? t.status.open : t.status.closed}
             </span>
-            <a href="tel:+998951956119" className="text-white text-[13px] font-semibold hover:underline">+998 95 195 61 19</a>
+            <a href="tel:+998951956119" className="text-white/90 text-xs font-semibold hover:underline">+998 95 195 61 19</a>
           </div>
         </div>
       </div>
 
-      <header className={`bg-white border-b border-slate-200 transition-shadow duration-300 dark:bg-slate-900 dark:border-slate-800 ${scrolled ? 'shadow-card-hover' : ''}`}>
+      <header
+        className={`border-b transition-[background-color,backdrop-filter] duration-300 ${
+          scrolled
+            ? 'backdrop-blur-md bg-white/85 border-slate-200 dark:bg-slate-900/85 dark:border-slate-800'
+            : 'bg-white border-slate-200 dark:bg-slate-900 dark:border-slate-800'
+        }`}
+      >
         <div
           className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4 transition-[height] duration-300 ease-out"
           style={{ height: headerHeight }}
