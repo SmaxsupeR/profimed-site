@@ -38,8 +38,18 @@ export function Header() {
     return () => clearInterval(id);
   }, []);
 
+  // Разные пороги на вход/выход (а не один и тот же scrollY > 40) —
+  // намеренно, с запасом больше, чем перепад высоты шапки при сжатии
+  // (108px → 60px, то есть 48px). Один порог давал бесконечное дрожание:
+  // сжатие спейсера сдвигает контент вверх, scroll anchoring в браузере
+  // компенсирует это уменьшением scrollY примерно на те же 48px, значение
+  // ныряет обратно под порог, шапка разжимается — и так по кругу на любой
+  // высоте скролла рядом с порогом. Зазор между порогами шире перепада —
+  // качели физически не могут провалиться обратно за противоположный порог.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled((prev) => (prev ? window.scrollY > 24 : window.scrollY > 96));
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
