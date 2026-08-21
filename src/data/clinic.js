@@ -13,15 +13,12 @@ export const CLINIC_LON = 69.2672273;
 export const YANDEX_REVIEWS_URL = 'https://yandex.uz/maps/org/profimed/36220995172/reviews/';
 export const TWOGIS_REVIEWS_URL = 'https://2gis.uz/tashkent/firm/70000001036911047/tab/reviews';
 
-// Рамка карты вокруг точки: примерно ±550м по долготе и ±280м по широте —
-// видно и саму клинику, и соседние ориентиры, по которым её ищут.
-const PAD_LON = 0.005;
-const PAD_LAT = 0.0025;
-
+// Виджет Яндекс.Карт вместо OpenStreetMap — картография выглядит живее
+// (не голый mapnik), и стиль карты совпадает с кнопками «Маршрут»/«Такси»
+// ниже, которые уже ведут на Яндекс.
 export const MAP_EMBED_URL =
-  'https://www.openstreetmap.org/export/embed.html' +
-  `?bbox=${CLINIC_LON - PAD_LON}%2C${CLINIC_LAT - PAD_LAT}%2C${CLINIC_LON + PAD_LON}%2C${CLINIC_LAT + PAD_LAT}` +
-  `&layer=mapnik&marker=${CLINIC_LAT}%2C${CLINIC_LON}`;
+  'https://yandex.ru/map-widget/v1/' +
+  `?ll=${CLINIC_LON}%2C${CLINIC_LAT}&z=16&pt=${CLINIC_LON}%2C${CLINIC_LAT},pm2rdl`;
 
 // Точка подачи машины — выверена по спутнику со стороны подъезда: и такси,
 // и навигатор должны привозить туда, где реально можно остановиться.
