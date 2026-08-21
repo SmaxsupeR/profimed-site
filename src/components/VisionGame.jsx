@@ -68,7 +68,12 @@ export function VisionGame({ onPick }) {
 
           {tab === 'sharp' && (
             <div className="flex flex-col items-center gap-[22px]">
-              <span className="font-display text-slate-900 leading-none dark:text-white" style={{ fontSize: `${snellenSize}px` }}>E</span>
+              {/* Высота зафиксирована под максимум слайдера (140px) — иначе
+                  сама буква меняет размер, а вместе с ней и вся карточка
+                  вокруг неё «дышит» при каждом движении бегунка. */}
+              <div className="flex items-center justify-center h-[160px]">
+                <span className="font-display text-slate-900 leading-none dark:text-white" style={{ fontSize: `${snellenSize}px` }}>E</span>
+              </div>
               <input
                 type="range"
                 min="24"
