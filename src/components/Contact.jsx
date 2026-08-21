@@ -19,7 +19,11 @@ export function Contact({ presetDirection }) {
             </li>
             <li className="flex items-start gap-3.5">
               <Phone size={20} className="text-primary-600 dark:text-primary-400 shrink-0 mt-0.5" />
-              <a href="tel:+998951956119" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 95 195 61 19</a>
+              <div className="flex flex-col gap-1">
+                <a href="tel:+998951956119" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 95 195 61 19</a>
+                <a href="tel:+998712156169" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 71 215 61 69</a>
+                <a href="tel:+998990776119" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 99 077 61 19</a>
+              </div>
             </li>
             <li className="flex items-start gap-3.5">
               <Clock size={20} className="text-primary-600 dark:text-primary-400 shrink-0 mt-0.5" />

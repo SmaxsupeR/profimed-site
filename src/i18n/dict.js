@@ -13,7 +13,7 @@ export const DICT = {
     },
     jar: { eyebrow: "Наша статистика", title: "Пациенты, переставшие носить очки", desc: "Так мы отмечаем каждую успешную операцию — виртуальная колба на нашей регистратуре, куда пациенты «сдают» очки после коррекции зрения.", label: "пациентов сняли очки после операции" },
     splash: { hello: "Добро пожаловать в ProfiMed", sub: "Здесь начинается жизнь без очков", skip: "Пропустить" },
-    facts: { f1v: "2014", f1l: "год открытия клиники", f2v: "4", f2l: "направления в одном здании", f3v: "3D", f3l: "своя КТ-диагностика", f4v: "Пн–Сб", f4l: "Пн–Пт 09:00–19:00, Сб до 18:00" },
+    facts: { f1v: "2014", f1l: "год открытия клиники", f2v: "4", f2l: "направления в одном здании", f3v: "Morita Veraview X800", f3l: "своя КТ-диагностика", f4v: "Пн–Сб", f4l: "Пн–Пт 09:00–19:00, Сб до 18:00" },
     dir: {
       eyebrow: "Направления", title: "Чем занимается клиника", cta: "Записаться →", more: "Подробнее", less: "Свернуть",
       det1: ["Проверка зрения и подбор коррекции", "Обследование перед лазерной операцией", "LASIK, LESIK и ФРК", "Приём в порядке живой очереди, без предварительной записи"],
@@ -127,7 +127,7 @@ export const DICT = {
     },
     jar: { eyebrow: "Bizning statistika", title: "Ko‘zoynak taqishni to‘xtatgan bemorlar", desc: "Har bir muvaffaqiyatli operatsiyani shunday nishonlaymiz — qabulxonamizdagi virtual kolba, unga bemorlar ko‘rish qobiliyatini tiklagach ko‘zoynaklarini «topshiradi».", label: "bemor operatsiyadan keyin ko‘zoynaksiz qoldi" },
     splash: { hello: "ProfiMedga xush kelibsiz", sub: "Ko‘zoynaksiz hayot shu yerdan boshlanadi", skip: "O‘tkazib yuborish" },
-    facts: { f1v: "2014", f1l: "klinika ochilgan yil", f2v: "4", f2l: "yo‘nalish bitta binoda", f3v: "3D", f3l: "o‘z KT-diagnostikamiz", f4v: "Du–Sha", f4l: "Du–Juma 09:00–19:00, Shanba 18:00gacha" },
+    facts: { f1v: "2014", f1l: "klinika ochilgan yil", f2v: "4", f2l: "yo‘nalish bitta binoda", f3v: "Morita Veraview X800", f3l: "o‘z KT-diagnostikamiz", f4v: "Du–Sha", f4l: "Du–Juma 09:00–19:00, Shanba 18:00gacha" },
     dir: {
       eyebrow: "Yo‘nalishlar", title: "Klinika nima bilan shug‘ullanadi", cta: "Yozilish →", more: "Batafsil", less: "Yopish",
       det1: ["Ko‘rishni tekshirish va korreksiya tanlash", "Lazerli operatsiyadan oldin tekshiruv", "LASIK, LESIK va FRK", "Navbat tartibida, oldindan yozilmasdan"],
@@ -241,7 +241,7 @@ export const DICT = {
     },
     jar: { eyebrow: "Бизнинг статистика", title: "Кўзойнак тақишни тўхтатган беморлар", desc: "Ҳар бир муваффақиятли операцияни шундай нишонлаймиз — қабулхонамиздаги виртуал колба, унга беморлар кўриш қобилиятини тиклагач кўзойнакларини «топширади».", label: "бемор операциядан кейин кўзойнаксиз қолди" },
     splash: { hello: "ProfiMedга хуш келибсиз", sub: "Кўзойнаксиз ҳаёт шу ердан бошланади", skip: "Ўтказиб юбориш" },
-    facts: { f1v: "2014", f1l: "клиника очилган йил", f2v: "4", f2l: "йўналиш битта бинода", f3v: "3D", f3l: "ўз КТ-диагностикамиз", f4v: "Ду–Ша", f4l: "Ду–Жума 09:00–19:00, Шанба 18:00гача" },
+    facts: { f1v: "2014", f1l: "клиника очилган йил", f2v: "4", f2l: "йўналиш битта бинода", f3v: "Morita Veraview X800", f3l: "ўз КТ-диагностикамиз", f4v: "Ду–Ша", f4l: "Ду–Жума 09:00–19:00, Шанба 18:00гача" },
     dir: {
       eyebrow: "Йўналишлар", title: "Клиника нима билан шуғулланади", cta: "Ёзилиш →", more: "Батафсил", less: "Ёпиш",
       det1: ["Кўришни текшириш ва коррекция танлаш", "Лазерли операциядан олдин текширув", "LASIK, LESIK ва ФРК", "Навбат тартибида, олдиндан ёзилмасдан"],
@@ -355,7 +355,7 @@ export const DICT = {
     },
     jar: { eyebrow: "Our numbers", title: "Patients who stopped wearing glasses", desc: "That's how we mark every successful surgery — a virtual jar at our front desk, where patients \u201cdrop off\u201d their glasses after vision correction.", label: "patients went glasses-free after surgery" },
     splash: { hello: "Welcome to ProfiMed", sub: "Life without glasses starts here", skip: "Skip" },
-    facts: { f1v: "2014", f1l: "the year the clinic opened", f2v: "4", f2l: "services in one building", f3v: "3D", f3l: "our own CT imaging", f4v: "Mon–Sat", f4l: "Mon–Fri 09:00–19:00, Sat until 18:00" },
+    facts: { f1v: "2014", f1l: "the year the clinic opened", f2v: "4", f2l: "services in one building", f3v: "Morita Veraview X800", f3l: "our own CT imaging", f4v: "Mon–Sat", f4l: "Mon–Fri 09:00–19:00, Sat until 18:00" },
     dir: {
       eyebrow: "Services", title: "What the clinic does", cta: "Book →", more: "More", less: "Collapse",
       det1: ["Vision testing and correction fitting", "Pre-op assessment for laser surgery", "LASIK, LESIK and PRK", "Walk-in, first come first served — no appointment needed"],

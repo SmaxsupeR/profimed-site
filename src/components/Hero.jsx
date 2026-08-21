@@ -39,7 +39,7 @@ export function Hero() {
           <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-slate-200 dark:border-slate-800">
             <FactStat value={count1} label={t.facts.f1l} className="pr-4 py-5 lg:py-6 lg:pl-0 lg:pr-6" />
             <FactStat value={count2} label={t.facts.f2l} className="pl-4 py-5 border-l border-slate-200 dark:border-slate-800 lg:py-6 lg:px-6" />
-            <FactStat value={t.facts.f3v} label={t.facts.f3l} className="pr-4 py-5 border-t border-slate-200 dark:border-slate-800 lg:py-6 lg:px-6 lg:border-t-0 lg:border-l" />
+            <FactStat value={t.facts.f3v} label={t.facts.f3l} small className="pr-4 py-5 border-t border-slate-200 dark:border-slate-800 lg:py-6 lg:px-6 lg:border-t-0 lg:border-l" />
             <FactStat value={t.facts.f4v} label={t.facts.f4l} className="pl-4 py-5 border-t border-l border-slate-200 dark:border-slate-800 lg:py-6 lg:px-6 lg:border-t-0" />
           </div>
         </div>
@@ -48,10 +48,10 @@ export function Hero() {
   );
 }
 
-function FactStat({ value, label, className = '' }) {
+function FactStat({ value, label, small, className = '' }) {
   return (
     <div className={className}>
-      <p className="font-display text-primary-700 text-[26px] leading-tight mb-1 dark:text-primary-400">{value}</p>
+      <p className={`font-display text-primary-700 leading-tight mb-1 dark:text-primary-400 ${small ? 'text-[19px]' : 'text-[26px]'}`}>{value}</p>
       <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
     </div>
   );
