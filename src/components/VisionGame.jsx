@@ -41,7 +41,7 @@ export function VisionGame({ onPick }) {
     <section ref={reveal.ref} className={`${reveal.className} max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20`}>
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{t.vision.eyebrow}</p>
+          <p className="text-sm font-medium text-slate-600 tracking-[0.08em] mb-3 dark:text-slate-400">{t.vision.eyebrow}</p>
           <h2 className="font-display text-2xl sm:text-3xl text-slate-900 text-balance mb-3.5 dark:text-slate-50">{t.vision.title}</h2>
           <p className="text-slate-600 max-w-[30em] mb-2.5 dark:text-slate-300">{t.vision.sub}</p>
           <p className="text-xs text-slate-400 max-w-[30em] mb-[22px] dark:text-slate-500">{t.vision.note}</p>

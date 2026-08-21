@@ -15,7 +15,7 @@ export function Hero() {
         <section id="top" className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="pm-hero-anim text-sm font-medium text-primary-600 tracking-[0.08em] mb-4 dark:text-primary-400">
+              <p className="pm-hero-anim text-sm font-medium text-slate-600 tracking-[0.08em] mb-4 dark:text-slate-400">
                 {t.hero.eyebrow}
               </p>
               <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-5 text-[38px] sm:text-[52px] lg:text-[68px] leading-[1.02] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
@@ -51,7 +51,7 @@ export function Hero() {
 function FactStat({ value, label, small, className = '' }) {
   return (
     <div className={className}>
-      <p className={`font-display text-primary-700 leading-tight mb-1 dark:text-primary-400 ${small ? 'text-[19px]' : 'text-[26px]'}`}>{value}</p>
+      <p className={`font-display text-slate-900 leading-tight mb-1 dark:text-slate-50 ${small ? 'text-[19px]' : 'text-[26px]'}`}>{value}</p>
       <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
     </div>
   );

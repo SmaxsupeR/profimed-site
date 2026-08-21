@@ -45,7 +45,7 @@ export function VisitPlanner({ onSubmit }) {
         </div>
         <Card className="p-6">
           <p className="text-xs uppercase tracking-wide text-slate-400 font-semibold mb-2.5 dark:text-slate-500">{t.plan.summaryTitle}</p>
-          <p className="font-display text-primary-700 text-[30px] leading-none mb-1 dark:text-primary-400">{plan.length}</p>
+          <p className="font-display text-slate-900 text-[30px] leading-none mb-1 dark:text-slate-50">{plan.length}</p>
           <p className="text-sm text-slate-500 mb-1.5 dark:text-slate-400">{t.plan.countLabel}</p>
           <p className="text-sm text-slate-600 mb-[18px] dark:text-slate-300">{timeText}</p>
           <Button

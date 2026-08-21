@@ -4,9 +4,6 @@ import { useReveal } from '../../hooks/useReveal.js';
 // ширину контента — если это оставить на усмотрение каждой секции, отступы
 // начинают гулять на 4–8 пикселей, и страница выглядит собранной наспех.
 //
-// Надпись сверху (eyebrow) — оливковая, это единственное регулярное место,
-// где второй фирменный цвет работает рядом с синим, а не спорит с ним.
-//
 // tone — фоновая полоса во всю ширину экрана под секцией. Страница длинная
 // (около 9000px), и без чередования полос середина превращается в один
 // сплошной серый фон на три тысячи пикселей подряд. Полоса рисуется внешним
@@ -42,7 +39,7 @@ export function SectionHeader({ eyebrow, title, description, className = '' }) {
   return (
     <div className={`max-w-xl mb-10 ${className}`}>
       {eyebrow && (
-        <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{eyebrow}</p>
+        <p className="text-sm font-medium text-slate-600 tracking-[0.08em] mb-3 dark:text-slate-400">{eyebrow}</p>
       )}
       <h2 className="font-display text-[32px] sm:text-[42px] lg:text-[50px] leading-[1.05] text-slate-900 text-balance dark:text-slate-50">{title}</h2>
       {description && <p className="text-slate-500 mt-3 dark:text-slate-400">{description}</p>}

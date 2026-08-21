@@ -21,14 +21,14 @@ export function JarStats() {
         <p className="text-slate-600 max-w-[34em] -mt-4 dark:text-slate-300">{t.jar.desc}</p>
         {physicsFailed ? (
           <div className="mt-2">
-            <p className="font-display text-primary-700 text-[34px] dark:text-primary-400">{PATIENTS_TOTAL}</p>
+            <p className="font-display text-slate-900 text-[34px] dark:text-slate-50">{PATIENTS_TOTAL}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400">{t.jar.label}</p>
           </div>
         ) : (
           <div className="mt-2 flex flex-col md:flex-row items-center gap-8">
             <PhysicsJar trigger={inView} onError={() => setPhysicsFailed(true)} size={240} />
             <div className="flex flex-col items-center md:items-start">
-              <p className="font-display text-primary-700 text-[44px] leading-none dark:text-primary-400">{count}</p>
+              <p className="font-display text-slate-900 text-[44px] leading-none dark:text-slate-50">{count}</p>
               <p className="text-sm text-slate-500 mt-1.5 dark:text-slate-400">{t.jar.label}</p>
             </div>
           </div>

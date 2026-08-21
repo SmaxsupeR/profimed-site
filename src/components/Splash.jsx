@@ -139,7 +139,7 @@ export function Splash() {
         >
           <div className="mt-2.5">
             {physicsFailed ? (
-              <p className="font-display text-primary-700 m-0 dark:text-primary-400" style={{ fontSize: 30 }}>{PATIENTS_TOTAL}</p>
+              <p className="font-display text-slate-900 m-0 dark:text-slate-50" style={{ fontSize: 30 }}>{PATIENTS_TOTAL}</p>
             ) : (
               <PhysicsJar
                 trigger={fillTrigger}
@@ -150,7 +150,7 @@ export function Splash() {
             )}
           </div>
           {!physicsFailed && (
-            <p className="font-display text-primary-700 m-0 dark:text-primary-400" style={{ fontSize: 30, marginTop: 6 }}>{count}</p>
+            <p className="font-display text-slate-900 m-0 dark:text-slate-50" style={{ fontSize: 30, marginTop: 6 }}>{count}</p>
           )}
           <p className="text-sm text-slate-500 m-0 dark:text-slate-400">{t.jar.label}</p>
         </div>

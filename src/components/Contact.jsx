@@ -9,7 +9,7 @@ export function Contact({ presetDirection }) {
     <Section id="contact" tone="raised">
       <div className="grid lg:grid-cols-2 gap-12">
         <div>
-          <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{t.con.eyebrow}</p>
+          <p className="text-sm font-medium text-slate-600 tracking-[0.08em] mb-3 dark:text-slate-400">{t.con.eyebrow}</p>
           <h2 className="font-display text-3xl sm:text-4xl text-slate-900 mb-8 text-balance dark:text-slate-50">{t.con.title}</h2>
 
           <ul className="space-y-5">

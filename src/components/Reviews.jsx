@@ -24,7 +24,7 @@ export function Reviews() {
       <SectionHeader eyebrow={t.rev.eyebrow} title={t.rev.title} />
 
       <Card variant="dashed" className="p-10 flex flex-col items-center text-center gap-4">
-        <MessageSquareHeart size={28} className="text-primary-400 dark:text-primary-500" strokeWidth={1.5} />
+        <MessageSquareHeart size={28} className="text-slate-400 dark:text-slate-500" strokeWidth={1.5} />
         <p className="text-slate-500 max-w-md dark:text-slate-400">{t.rev.text}</p>
         <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">{t.rev.cta}</p>
         <div className="flex flex-wrap justify-center gap-3">
