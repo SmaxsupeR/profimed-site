@@ -10,16 +10,11 @@ import { Card } from './ui/Card.jsx';
 // сохраняется подписью «фото врача» и заметкой «имя и стаж — из CRM»:
 // карточка не притворяется заполненной, но и не выглядит поломкой.
 //
-// Оттенки чередуют два фирменных цвета — новых в палитру не вводим.
+// Оба оттенка — вариации одного фирменного тила (не второй конкурирующий
+// акцент), просто разная интенсивность.
 const TINTS = [
-  {
-    bg: 'from-primary-100 via-primary-50 to-white dark:from-primary-900/50 dark:via-slate-800 dark:to-slate-800',
-    icon: 'text-primary-600/70 dark:text-primary-400/70',
-  },
-  {
-    bg: 'from-leaf-100 via-leaf-50 to-white dark:from-leaf-900/40 dark:via-slate-800 dark:to-slate-800',
-    icon: 'text-leaf-700/70 dark:text-leaf-400/70',
-  },
+  'from-primary-100 via-primary-50 to-white dark:from-primary-900/50 dark:via-slate-800 dark:to-slate-800',
+  'from-primary-50 via-white to-white dark:from-primary-950/40 dark:via-slate-800 dark:to-slate-800',
 ];
 
 export function Doctors() {
@@ -28,17 +23,19 @@ export function Doctors() {
     <Section id="doctors" tone="raised">
       <SectionHeader eyebrow={t.doc.eyebrow} title={t.doc.title} description={t.doc.desc} />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal-stagger">
+      {/* Две колонки, не четыре — крупнее портрет, меньше похоже на
+          дашборд с плитками. */}
+      <div className="grid sm:grid-cols-2 gap-6 reveal-stagger">
         {DIRECTIONS.map(({ id, icon: Icon }, i) => {
-          const tint = TINTS[i % TINTS.length];
+          const bg = TINTS[i % TINTS.length];
           return (
             <Card key={id} hoverable className="overflow-hidden group">
-              <div className={`relative aspect-square w-full overflow-hidden bg-gradient-to-br ${tint.bg}`}>
+              <div className={`relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br ${bg}`}>
                 <div className="relative h-full flex items-center justify-center">
                   <Icon
                     size={72}
                     strokeWidth={1.1}
-                    className={`${tint.icon} transition-transform duration-500 group-hover:scale-110`}
+                    className="text-primary-600/60 dark:text-primary-400/60 transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
                 <span className="absolute left-4 bottom-3.5 inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-slate-500/80 dark:text-slate-400/80">
@@ -47,8 +44,8 @@ export function Doctors() {
                 </span>
               </div>
               <div className="p-5">
-                <p className="text-xs uppercase tracking-wide text-primary-600 font-semibold mb-1 dark:text-primary-400">{t.dir[`d${i + 1}t`]}</p>
-                <p className="text-sm text-slate-400 dark:text-slate-500">{t.doc.note}</p>
+                <p className="font-semibold text-slate-900 dark:text-white">{t.dir[`d${i + 1}t`]}</p>
+                <p className="text-sm text-slate-400 mt-1 dark:text-slate-500">{t.doc.note}</p>
               </div>
             </Card>
           );

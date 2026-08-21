@@ -2,7 +2,6 @@ import { CircleDollarSign, Phone } from 'lucide-react';
 import { DIRECTIONS } from '../data/directions.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import { Section, SectionHeader } from './ui/Section.jsx';
-import { Card } from './ui/Card.jsx';
 
 // Сознательно без цифр: старый сайт как раз спалился на выдуманном/забытом
 // контенте (плейсхолдер вместо отзывов). Прайс подключаем к CRM по-настоящему
@@ -14,7 +13,7 @@ export function Prices() {
     <Section id="prices" tone="raised">
       <SectionHeader eyebrow={t.price.eyebrow} title={t.price.title} />
 
-      <Card className="overflow-hidden">
+      <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700">
         <div className="grid sm:grid-cols-2 divide-y divide-slate-100 sm:divide-y-0 dark:divide-slate-700 reveal-stagger">
           {DIRECTIONS.map(({ id }, i) => (
             <div
@@ -35,7 +34,7 @@ export function Prices() {
             <Phone size={15} /> +998 95 195 61 19
           </a>
         </div>
-      </Card>
+      </div>
     </Section>
   );
 }

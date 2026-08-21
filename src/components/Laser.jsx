@@ -13,21 +13,18 @@ export function Laser({ onPick }) {
   return (
     <section ref={reveal.ref} className={`${reveal.className} max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20`}>
       <div className="grid lg:grid-cols-2 gap-12 items-center">
-        <div className="relative">
-          <BeforeAfterSlider beforeLabel={t.laser.b4} afterLabel={t.laser.af} ariaLabel={t.laser.slideAria} />
-          <div className="hidden sm:block absolute -right-2 -bottom-5 max-w-[230px] rounded-2xl border border-slate-200 bg-white shadow-card px-4.5 py-3.5 dark:bg-slate-800 dark:border-slate-700">
-            <p className="text-xs uppercase tracking-wide text-primary-600 font-semibold mb-1 dark:text-primary-400">{t.laser.badge}</p>
-            <p className="font-display text-slate-900 text-lg dark:text-white">LASIK · LESIK · ФРК</p>
-          </div>
-        </div>
+        <BeforeAfterSlider beforeLabel={t.laser.b4} afterLabel={t.laser.af} ariaLabel={t.laser.slideAria} />
         <div>
-          <p className="text-sm font-semibold text-leaf-700 uppercase tracking-wide mb-3 dark:text-leaf-400">{t.laser.eyebrow}</p>
+          <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{t.laser.eyebrow}</p>
           <h2 className="font-display text-3xl sm:text-4xl text-slate-900 text-balance mb-3.5 dark:text-white">{t.laser.title}</h2>
+          <p className="text-sm text-slate-500 mb-4 dark:text-slate-400">
+            <span className="text-slate-700 font-medium dark:text-slate-300">{t.laser.badge}:</span> LASIK · LESIK · ФРК
+          </p>
           <p className="text-slate-600 max-w-[32em] mb-6.5 dark:text-slate-300">{t.laser.text}</p>
           <div className="grid gap-4 mb-7">
             {steps.map((step) => (
               <div key={step.n} className="flex gap-3.5 items-start">
-                <span className="shrink-0 flex items-center justify-center w-[30px] h-[30px] rounded-full bg-primary-50 text-primary-600 font-semibold text-[13px] dark:bg-primary-950/50 dark:text-primary-400">
+                <span className="shrink-0 flex items-center justify-center w-[30px] h-[30px] rounded-full border-2 border-primary-300 text-primary-600 font-semibold text-[13px] bg-slate-50 dark:border-primary-700 dark:text-primary-400 dark:bg-slate-900">
                   {step.n}
                 </span>
                 <div>

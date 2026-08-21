@@ -27,7 +27,7 @@ export function Timeline() {
                 />
               </span>
             )}
-            <span className="relative flex items-center justify-center w-10 h-10 rounded-full bg-primary-50 text-primary-600 font-display text-base mb-3.5 dark:bg-primary-950/50 dark:text-primary-400">
+            <span className="relative flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary-300 text-primary-600 font-display text-base mb-3.5 bg-white dark:border-primary-700 dark:text-primary-400 dark:bg-slate-900">
               {step.n}
             </span>
             <h3 className="font-semibold text-slate-900 text-base mb-1.5 dark:text-white">{step.t}</h3>
