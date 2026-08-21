@@ -34,7 +34,21 @@ function makeGlasses(Matter, x, y) {
   const left = Bodies.circle(x - 9, y, 6.5, { friction: 0.08 });
   const right = Bodies.circle(x + 9, y, 6.5, { friction: 0.08 });
   const bridge = Bodies.rectangle(x, y, 7, 3, { friction: 0.08 });
-  const g = Body.create({ parts: [left, right, bridge], restitution: 0.3, friction: 0.08, frictionAir: 0.001, density: 0.0018 });
+  // Дужки — та же геометрия, что рисует drawGlasses() (от ±15.5,0 до
+  // ±21,-2.5), но как настоящие физические тела: раньше это были только
+  // линии на канвасе, без формы в Matter.js, поэтому нарисованная дужка
+  // протыкала стенку банки, хотя сама симуляция уже считала очки упёршимися.
+  const armR = Bodies.rectangle(x + 18.25, y - 1.25, 6.4, 2, { friction: 0.08 });
+  Body.rotate(armR, Math.atan2(-2.5, 5.5));
+  const armL = Bodies.rectangle(x - 18.25, y - 1.25, 6.4, 2, { friction: 0.08 });
+  Body.rotate(armL, Math.atan2(-2.5, -5.5));
+  const g = Body.create({
+    parts: [left, right, bridge, armL, armR],
+    restitution: 0.3,
+    friction: 0.08,
+    frictionAir: 0.001,
+    density: 0.0018,
+  });
   Body.setAngularVelocity(g, (Math.random() - 0.5) * 0.25);
   return g;
 }
@@ -78,11 +92,39 @@ function drawJar(ctx, colors) {
   ctx.stroke();
 }
 
+// При большом количестве тесно упакованных составных тел решатель Matter.js
+// иногда не успевает полностью погасить глубокое взаимное перекрытие за
+// один шаг (особенно когда новые очки падают почти на вершину уже осевшей
+// кучи) — соседнее тело коротким рывком выталкивает другое сквозь тонкую
+// стену банки. Утолщение стен и доп. итерации решателя снижают частоту,
+// но не гарантируют ноль — поэтому после каждого шага физики держим
+// простой «страховочный» зажим: если какая-то вершина оказалась за линией
+// стены, тело сразу же подтягивается обратно внутрь.
+function clampToJar(bodies, Body, L, R) {
+  bodies.forEach((g) => {
+    let minX = Infinity, maxX = -Infinity;
+    g.parts.forEach((part) => {
+      if (part === g) return;
+      part.vertices.forEach((v) => {
+        if (v.x < minX) minX = v.x;
+        if (v.x > maxX) maxX = v.x;
+      });
+    });
+    let dx = 0;
+    if (minX < L) dx = L - minX;
+    else if (maxX > R) dx = R - maxX;
+    if (dx !== 0) {
+      Body.translate(g, { x: dx, y: 0 });
+      Body.setVelocity(g, { x: g.velocity.x * -0.2, y: g.velocity.y });
+    }
+  });
+}
+
 // `colors` — мутируемый объект ({jar, jarFaint, glass}), а не примитивы:
 // draw() читает его свойства на каждом кадре, поэтому переключение
 // светлой/тёмной темы на лету подхватывается без пересоздания симуляции.
 export function createGlassesSim(Matter, canvas, colors, spawnIntervalMs = DEFAULT_SPAWN_INTERVAL_MS) {
-  const { Engine, World, Bodies, Runner } = Matter;
+  const { Engine, World, Bodies, Body, Runner, Events } = Matter;
   const ctx = canvas.getContext('2d');
   const { L, R, TOP, BOT, CX, W, H } = GEO;
   let engine, runner, bodies = [], spawnTimer, spawned = 0, rafId = null, running = false;
@@ -112,6 +154,7 @@ export function createGlassesSim(Matter, canvas, colors, spawnIntervalMs = DEFAU
     engine.gravity.y = 1;
     const floor = Bodies.rectangle(CX, BOT + 12, R - L - 8, 16, { isStatic: true, friction: 0.5 });
     World.add(engine.world, [wall(Matter, L, TOP, L, BOT - 8), wall(Matter, R, TOP, R, BOT - 8), floor]);
+    Events.on(engine, 'afterUpdate', () => clampToJar(bodies, Body, L, R));
     runner = Runner.create();
     Runner.run(runner, engine);
     spawnTimer = setInterval(() => {
