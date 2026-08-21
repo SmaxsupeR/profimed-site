@@ -10,7 +10,7 @@ export function Hero() {
   const count2 = useCountUp(parseInt(t.facts.f2v, 10) || 0);
 
   return (
-    <div className="relative overflow-hidden bg-white dark:bg-slate-900">
+    <div className="relative overflow-hidden bg-white dark:bg-slate-950">
       <div className="relative">
         <section id="top" className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -18,7 +18,7 @@ export function Hero() {
               <p className="pm-hero-anim text-sm font-medium text-primary-600 tracking-[0.08em] mb-4 dark:text-primary-400">
                 {t.hero.eyebrow}
               </p>
-              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-5 text-[38px] sm:text-[52px] lg:text-[68px] leading-[1.02] dark:text-white" style={{ animationDelay: '90ms' }}>
+              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-5 text-[38px] sm:text-[52px] lg:text-[68px] leading-[1.02] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
                 {t.hero.h1}
               </h1>
               <p className="pm-hero-anim text-lg text-slate-600 mb-8 max-w-[32em] dark:text-slate-300" style={{ animationDelay: '180ms' }}>

@@ -60,7 +60,7 @@ export function ChatWidget() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') send(); }}
               placeholder={t.chat.placeholder}
-              className="flex-1 rounded-full border border-slate-300 bg-white px-3.5 py-2 text-[13px] outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100"
+              className="flex-1 rounded-full border border-slate-300 bg-white px-3.5 py-2 text-[13px] outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 dark:bg-slate-950 dark:border-slate-600 dark:text-slate-100"
             />
             <button
               type="button"

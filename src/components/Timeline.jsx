@@ -39,10 +39,10 @@ export function Timeline() {
                 style={{ transitionDelay: `${(step.n - 1) * SEGMENT_MS}ms` }}
               />
             </span>
-            <span className="relative flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary-300 text-primary-600 font-display text-base mb-3.5 bg-white dark:border-primary-700 dark:text-primary-400 dark:bg-slate-900">
+            <span className="relative flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary-300 text-primary-600 font-display text-base mb-3.5 bg-white dark:border-primary-700 dark:text-primary-400 dark:bg-slate-950">
               {step.n}
             </span>
-            <h3 className="font-semibold text-slate-900 text-base mb-1.5 dark:text-white">{step.t}</h3>
+            <h3 className="font-semibold text-slate-900 text-base mb-1.5 dark:text-slate-50">{step.t}</h3>
             <p className="text-sm text-slate-500 leading-relaxed dark:text-slate-400">{step.d}</p>
           </div>
           );

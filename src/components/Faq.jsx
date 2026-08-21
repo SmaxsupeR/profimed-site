@@ -19,7 +19,7 @@ export function Faq() {
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="w-full text-left border-0 bg-transparent py-4 flex items-center justify-between gap-3 cursor-pointer text-slate-900 font-semibold text-[15px] dark:text-white"
+                className="w-full text-left border-0 bg-transparent py-4 flex items-center justify-between gap-3 cursor-pointer text-slate-900 font-semibold text-[15px] dark:text-slate-50"
               >
                 {item.q}
                 <ChevronDown size={16} className={`shrink-0 text-primary-600 dark:text-primary-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />

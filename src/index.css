@@ -5,14 +5,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
-  --pm-logo-tint: #2E5653; /* primary-600 */
+  --pm-logo-tint: #195D56; /* primary-700 */
 }
 :root.dark {
-  --pm-logo-tint: #53938E; /* primary-400 — светлее для контраста на тёмном фоне */
+  --pm-logo-tint: #4CA69B; /* primary-300 — светлее для контраста на графитовом фоне */
 }
 
 body {
-  @apply bg-slate-50 text-slate-800 font-sans antialiased dark:bg-slate-900 dark:text-slate-100;
+  @apply bg-slate-50 text-slate-800 font-sans antialiased dark:bg-slate-950 dark:text-slate-100;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -71,8 +71,8 @@ body {
 
 /* Пульсирующее кольцо вокруг кнопки чата — привлекает внимание, не мигая целиком */
 @keyframes pm-fab-ring {
-  0% { box-shadow: 0 0 0 0 rgb(17 135 197 / .45); }
-  100% { box-shadow: 0 0 0 14px rgb(17 135 197 / 0); }
+  0% { box-shadow: 0 0 0 0 rgb(36 122 112 / .45); }
+  100% { box-shadow: 0 0 0 14px rgb(36 122 112 / 0); }
 }
 .pm-fab-btn { animation: pm-fab-ring 2.4s ease-out infinite; }
 
@@ -84,9 +84,11 @@ body {
 }
 
 /* Фон приветственного экрана — см. Splash.jsx. Отдельный класс (не inline),
-   чтобы у тёмной темы был свой градиент, а не один захардкоженный светлый. */
-.pm-splash-bg { background: linear-gradient(160deg, #eef7fc, #dcedf6); }
-.dark .pm-splash-bg { background: linear-gradient(160deg, #0a1a24, #0d2634); }
+   чтобы у тёмной темы был свой градиент, а не один захардкоженный светлый.
+   Тёплый айвори (светлая тема) / графит (тёмная) — тот же переход тонов,
+   что и у фона страницы, а не отдельный холодный синий градиент. */
+.pm-splash-bg { background: linear-gradient(160deg, #F7F5F0, #EEEAE2); }
+.dark .pm-splash-bg { background: linear-gradient(160deg, #1F2225, #191C1F); }
 
 /* Медицинские иконки-«побрякушки» на фоне приветствия — тихо покачиваются,
    каждая со своей задержкой/длительностью (задаются инлайн через

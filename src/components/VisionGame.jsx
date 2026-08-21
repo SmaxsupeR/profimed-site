@@ -42,7 +42,7 @@ export function VisionGame({ onPick }) {
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{t.vision.eyebrow}</p>
-          <h2 className="font-display text-2xl sm:text-3xl text-slate-900 text-balance mb-3.5 dark:text-white">{t.vision.title}</h2>
+          <h2 className="font-display text-2xl sm:text-3xl text-slate-900 text-balance mb-3.5 dark:text-slate-50">{t.vision.title}</h2>
           <p className="text-slate-600 max-w-[30em] mb-2.5 dark:text-slate-300">{t.vision.sub}</p>
           <p className="text-xs text-slate-400 max-w-[30em] mb-[22px] dark:text-slate-500">{t.vision.note}</p>
           <Button variant="secondary" onClick={() => onPick('ophthalmology')}>{t.vision.cta}</Button>
@@ -72,7 +72,7 @@ export function VisionGame({ onPick }) {
                   сама буква меняет размер, а вместе с ней и вся карточка
                   вокруг неё «дышит» при каждом движении бегунка. */}
               <div className="flex items-center justify-center h-[160px]">
-                <span className="font-display text-slate-900 leading-none dark:text-white" style={{ fontSize: `${snellenSize}px` }}>E</span>
+                <span className="font-display text-slate-900 leading-none dark:text-slate-50" style={{ fontSize: `${snellenSize}px` }}>E</span>
               </div>
               <input
                 type="range"
@@ -90,7 +90,7 @@ export function VisionGame({ onPick }) {
             <div className="flex flex-col items-center gap-4 w-full">
               {done ? (
                 <div className="text-center w-full">
-                  <p className="font-display text-slate-900 text-xl mb-1.5 dark:text-white">{resultTitle}</p>
+                  <p className="font-display text-slate-900 text-xl mb-1.5 dark:text-slate-50">{resultTitle}</p>
                   <p className="text-sm text-slate-600 max-w-[30em] mb-1.5 dark:text-slate-300">{resultDesc}</p>
                   <p className="text-xs text-slate-400 mb-4 dark:text-slate-500">{resultScore}</p>
                   <Button variant="secondary" size="sm" onClick={restart}>{t.vision.restart}</Button>

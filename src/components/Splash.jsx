@@ -81,9 +81,6 @@ export function Splash() {
       className="pm-splash-bg fixed inset-0 z-[200] flex flex-col items-center justify-center gap-4 overflow-hidden transition-opacity"
       style={{ opacity: phase === 'out' ? 0 : 1, transitionDuration: `${FADE_MS}ms` }}
     >
-      <div aria-hidden="true" className="absolute -top-24 -left-16 w-[380px] h-[380px] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(17,135,197,.16),transparent_70%)] dark:bg-[radial-gradient(circle,rgba(63,169,216,.14),transparent_70%)]" />
-      <div aria-hidden="true" className="absolute -bottom-28 -right-20 w-[420px] h-[420px] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(154,172,52,.14),transparent_70%)] dark:bg-[radial-gradient(circle,rgba(154,172,52,.12),transparent_70%)]" />
-
       {BG_ICONS.map(({ Icon, top, left, size, delay, duration }, i) => (
         <Icon
           key={i}

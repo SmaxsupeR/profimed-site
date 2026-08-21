@@ -63,8 +63,10 @@ export function Header() {
   return (
     <Fragment>
     <div className="fixed inset-x-0 top-0 z-40">
+      {/* Верхняя полоса — нейтральный графит, не тил: это адресная строка,
+          а не действие, и не должна спорить с primary-кнопками ниже. */}
       <div
-        className="hidden lg:block bg-primary-600 overflow-hidden transition-[height] duration-300 ease-out"
+        className="hidden lg:block bg-slate-900 overflow-hidden transition-[height] duration-300 ease-out"
         style={{ height: topBarHeight }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between gap-6">
@@ -77,7 +79,7 @@ export function Header() {
           </div>
           <div className="flex items-center gap-3.5">
             <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/90">
-              <span className={`w-1.5 h-1.5 rounded-full ${open ? 'bg-emerald-300' : 'bg-amber-300'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${open ? 'bg-green' : 'bg-amber-300'}`} />
               {open ? t.status.open : t.status.closed}
             </span>
             <a href="tel:+998951956119" className="text-white/90 text-xs font-semibold hover:underline">+998 95 195 61 19</a>
@@ -88,8 +90,8 @@ export function Header() {
       <header
         className={`border-b transition-[background-color,backdrop-filter] duration-300 ${
           scrolled
-            ? 'backdrop-blur-md bg-white/85 border-slate-200 dark:bg-slate-900/85 dark:border-slate-800'
-            : 'bg-white border-slate-200 dark:bg-slate-900 dark:border-slate-800'
+            ? 'backdrop-blur-md bg-white/85 border-slate-200 dark:bg-slate-950/85 dark:border-slate-800'
+            : 'bg-white border-slate-200 dark:bg-slate-950 dark:border-slate-800'
         }`}
       >
         <div
@@ -171,7 +173,7 @@ export function Header() {
         </div>
 
         {menuOpen && (
-          <div className="lg:hidden pm-menu-anim border-t border-slate-200 bg-white px-4 pt-3.5 pb-[18px] grid gap-0.5 dark:border-slate-800 dark:bg-slate-900">
+          <div className="lg:hidden pm-menu-anim border-t border-slate-200 bg-white px-4 pt-3.5 pb-[18px] grid gap-0.5 dark:border-slate-800 dark:bg-slate-950">
             {NAV_HREFS.map((href, i) => (
               <a
                 key={href}

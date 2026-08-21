@@ -1,0 +1,39 @@
+name: Deploy stage2.1 preview to GitHub Pages
+
+on:
+  push:
+    branches: [redesign/stage-2.1-clinic-identity]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-stage2.1
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      # Превью живёт в подпапке /stage2.1/ рядом с боевым сайтом и другими
+      # превью на том же GitHub Pages — поэтому base переопределяем на
+      # билде, а не храним в vite.config.js.
+      - run: npm run build -- --base=/profimed-site/stage2.1/
+      # destination_dir + keep_files: true — публикуем только в /stage2.1/
+      # той же ветки gh-pages, не трогая корень и остальные превью.
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          publish_branch: gh-pages
+          destination_dir: stage2.1
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

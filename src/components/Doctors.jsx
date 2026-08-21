@@ -44,7 +44,7 @@ export function Doctors() {
                 </span>
               </div>
               <div className="p-5">
-                <p className="font-semibold text-slate-900 dark:text-white">{t.dir[`d${i + 1}t`]}</p>
+                <p className="font-semibold text-slate-900 dark:text-slate-50">{t.dir[`d${i + 1}t`]}</p>
                 <p className="text-sm text-slate-400 mt-1 dark:text-slate-500">{t.doc.note}</p>
               </div>
             </Card>

@@ -39,7 +39,7 @@ export function BookingForm({ presetDirection }) {
     return (
       <Card className="p-8 flex flex-col items-center text-center gap-3">
         <CheckCircle2 size={32} className="text-primary-600 dark:text-primary-400" />
-        <h3 className="font-display text-xl text-slate-900 dark:text-white">{t.form.okTitle}</h3>
+        <h3 className="font-display text-xl text-slate-900 dark:text-slate-50">{t.form.okTitle}</h3>
         <p className="text-slate-500 text-sm max-w-sm dark:text-slate-400">{t.form.okText}</p>
         <Button variant="ghost" size="sm" onClick={() => setStatus('idle')} className="mt-2">
           {t.form.again}

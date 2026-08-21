@@ -18,7 +18,7 @@ import { useReveal } from '../../hooks/useReveal.js';
 
 const TONES = {
   base: '',
-  raised: 'bg-white border-y border-slate-200 dark:bg-slate-900 dark:border-slate-800',
+  raised: 'bg-white border-y border-slate-200 dark:bg-slate-950 dark:border-slate-800',
 };
 
 export function Section({ id, className = '', tone = 'base', children }) {
@@ -44,7 +44,7 @@ export function SectionHeader({ eyebrow, title, description, className = '' }) {
       {eyebrow && (
         <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-3 dark:text-primary-400">{eyebrow}</p>
       )}
-      <h2 className="font-display text-[32px] sm:text-[42px] lg:text-[50px] leading-[1.05] text-slate-900 text-balance dark:text-white">{title}</h2>
+      <h2 className="font-display text-[32px] sm:text-[42px] lg:text-[50px] leading-[1.05] text-slate-900 text-balance dark:text-slate-50">{title}</h2>
       {description && <p className="text-slate-500 mt-3 dark:text-slate-400">{description}</p>}
     </div>
   );

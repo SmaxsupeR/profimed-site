@@ -23,7 +23,7 @@ export function About() {
               {items.map((it) => (
                 <div key={it.n} className="border-b border-slate-200 py-5 dark:border-slate-700">
                   <p className="text-xs font-medium text-primary-600 tracking-[0.08em] mb-1.5 dark:text-primary-400">{it.k}</p>
-                  <h3 className="font-semibold text-slate-900 mb-1 dark:text-white">{it.title}</h3>
+                  <h3 className="font-semibold text-slate-900 mb-1 dark:text-slate-50">{it.title}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed dark:text-slate-400">{it.text}</p>
                 </div>
               ))}
