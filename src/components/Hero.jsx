@@ -12,43 +12,50 @@ export function Hero() {
   return (
     <div className="relative overflow-hidden bg-slate-50 dark:bg-slate-950">
       <div className="relative">
-        <section id="top" className="pt-10 pb-10 lg:pt-12 lg:pb-14">
-          {/* Кадр фиксированной высоты (не выводится из естественной высоты
-              текста) — иначе в более длинных локалях (RU/UZC) заголовок в 3
-              строки вместо 2 менял бы crop фотографии и высоту всего Hero.
-              Оба грид-айтема получают одинаковый min-h, текст центрируется
-              внутри него флексом. Фото сдвинуто вверх относительно текстовой
-              колонки (-top-7 при lg) и стоит на более широкой (58%, не 50%)
-              колонке — вместе с этим смещением и одиночным скруглением это и
-              есть попытка не превратиться в «два ровных прямоугольника без
-              скруглений». */}
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-            <div className="flex flex-col justify-center pm-hero-pad-l pr-4 sm:pr-6 lg:pr-8 py-8 lg:py-0 lg:min-h-[560px] xl:min-h-[600px]">
+        <section id="top" className="relative pt-8 pb-8 lg:py-0 lg:min-h-[520px] xl:min-h-[560px]">
+          {/* Композиция — не grid-колонки, а два слоя: широкое фото сзади
+              (справа, уходит под айвори дальше своей видимой границы) и
+              айвори-поверхность поверх него из ДВУХ обычных прямоугольников
+              разной ширины (не clip-path — раньше уже пробовали резать
+              форму по фото/тексту, оба раза это либо резало реальный
+              контент, либо просто рисовало ровную границу другого места).
+              Смысловое деление важно: в верхнем (широком) блоке — только
+              eyebrow+заголовок, в нижнем (уже) — текст+кнопки; так «ступень»
+              проявляется сразу после заголовка, а не прячется внизу у кнопок. */}
+          <div className="relative z-10 flex flex-col lg:h-full">
+            <div className="bg-slate-50 dark:bg-slate-950 pm-hero-pad-l pr-4 sm:pr-6 lg:pr-10 lg:w-[52%] lg:pt-14">
               <p className="pm-hero-anim text-sm font-medium text-slate-600 tracking-[0.08em] mb-4 dark:text-slate-400">
                 {t.hero.eyebrow}
               </p>
-              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-5 text-[38px] sm:text-[52px] lg:text-[56px] leading-[1.05] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
+              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-0 text-[38px] sm:text-[52px] lg:text-[64px] leading-[1.05] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
                 {t.hero.h1}
               </h1>
-              <p className="pm-hero-anim text-lg text-slate-600 mb-8 max-w-[32em] dark:text-slate-300" style={{ animationDelay: '180ms' }}>
+            </div>
+            <div className="pm-hero-anim bg-slate-50 dark:bg-slate-950 lg:w-[44%] lg:flex-1 flex flex-col justify-center pm-hero-pad-l pr-4 sm:pr-6 lg:pr-10 pt-5 pb-8 lg:py-0" style={{ animationDelay: '180ms' }}>
+              <p className="text-lg text-slate-600 mb-6 max-w-[32em] dark:text-slate-300">
                 {t.hero.sub}
               </p>
-              <div className="pm-hero-anim flex flex-wrap gap-3" style={{ animationDelay: '270ms' }}>
+              <div className="flex flex-wrap gap-3">
                 <Button href="#booking" size="lg">{t.hero.cta1}</Button>
                 <Button href="tel:+998951956119" variant="secondary" size="lg">{t.hero.cta2}</Button>
               </div>
             </div>
-            <div className="relative lg:min-h-[560px] xl:min-h-[600px]">
-              {/* Без анимации появления и без lazy — это, скорее всего,
-                  главный LCP-элемент страницы. */}
-              <img
-                src={heroPhoto}
-                alt={t.hero.photo}
-                loading="eager"
-                fetchpriority="high"
-                className="w-full h-[280px] sm:h-[360px] object-cover object-[55%_50%] lg:absolute lg:-top-7 lg:right-0 lg:bottom-0 lg:left-0 lg:h-auto lg:w-full lg:object-[58%_60%] lg:rounded-bl-[48px]"
-              />
-            </div>
+          </div>
+
+          {/* Фото — за текстом (z-index по умолчанию ниже z-10 айвори-блока
+              выше), шире своей видимой части: левый край уходит под айвори.
+              overflow-hidden на самом слое — на случай, если понадобится
+              object-position/scale для позиционирования вывески, картинка
+              не должна вылезать за пределы поля даже в мелочах браузерных
+              реализаций. Без lazy/анимации — вероятный LCP-элемент. */}
+          <div className="relative mt-6 lg:mt-0 lg:absolute lg:inset-y-0 lg:right-0 lg:w-[56%] lg:overflow-hidden">
+            <img
+              src={heroPhoto}
+              alt={t.hero.photo}
+              loading="eager"
+              fetchpriority="high"
+              className="w-full h-[280px] sm:h-[360px] object-cover object-[50%_35%] lg:h-full lg:w-full lg:object-[0%_35%]"
+            />
           </div>
         </section>
 
