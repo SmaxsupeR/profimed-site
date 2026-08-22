@@ -2,12 +2,12 @@ import { useEffect, useRef } from 'react';
 import { useTheme } from '../theme/ThemeContext.jsx';
 import { createGlassesSim, GEO, DEFAULT_SPAWN_INTERVAL_MS } from './glassesPhysics.js';
 
-// Фирменные цвета сайта (primary-* из tailwind.config.js), не значения из
-// референса — светлый и тёмный набор, чтобы контур банки и очков не терялся
-// на тёмном фоне.
+// Фирменные цвета сайта (primary-* из tailwind.config.js — клинический
+// синий), не значения из референса — светлый и тёмный набор, чтобы контур
+// банки и очков не терялся на тёмном фоне.
 const PALETTE = {
-  light: { jar: '#195D56', jarFaint: '#195D5633', glass: '#247A70' },
-  dark: { jar: '#4CA69B', jarFaint: '#4CA69B33', glass: '#83C9BB' },
+  light: { jar: '#16427D', jarFaint: '#16427D33', glass: '#1E56A0' },
+  dark: { jar: '#83A7C9', jarFaint: '#83A7C933', glass: '#ABC5DB' },
 };
 
 // Канвас с падающими в банку очками (Matter.js). Библиотека грузится
