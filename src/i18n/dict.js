@@ -9,7 +9,7 @@ export const DICT = {
       eyebrow: "В Ташкенте с 2014 года",
       h1: "Тёплый приём с точной диагностикой",
       sub: "Офтальмология, оториноларингология, стоматология и КТ-диагностика — под одной крышей, с современным оборудованием и врачами, которым доверяют не первый год.",
-      cta1: "Записаться на приём", cta2: "Позвонить в клинику", photo: "фото клиники"
+      cta1: "Записаться на приём", cta2: "Позвонить в клинику", photo: "Фасад клиники ProfiMed в Ташкенте"
     },
     jar: { eyebrow: "Наша статистика", title: "Пациенты, переставшие носить очки", desc: "Так мы отмечаем каждую успешную операцию — виртуальная колба на нашей регистратуре, куда пациенты «сдают» очки после коррекции зрения.", label: "пациентов сняли очки после операции" },
     splash: { hello: "Добро пожаловать в ProfiMed", sub: "Здесь начинается жизнь без очков", skip: "Пропустить" },
@@ -123,7 +123,7 @@ export const DICT = {
       eyebrow: "Toshkentda 2014 yildan",
       h1: "Iliq qabul va aniq diagnostika",
       sub: "Oftalmologiya, otorinolaringologiya, stomatologiya va KT-diagnostika — bitta binoda, zamonaviy jihozlar va yillar davomida ishonch qozongan shifokorlar bilan.",
-      cta1: "Qabulga yozilish", cta2: "Klinikaga qo‘ng‘iroq qilish", photo: "klinika fotosi"
+      cta1: "Qabulga yozilish", cta2: "Klinikaga qo‘ng‘iroq qilish", photo: "ProfiMed klinikasining Toshkentdagi fasadi"
     },
     jar: { eyebrow: "Bizning statistika", title: "Ko‘zoynak taqishni to‘xtatgan bemorlar", desc: "Har bir muvaffaqiyatli operatsiyani shunday nishonlaymiz — qabulxonamizdagi virtual kolba, unga bemorlar ko‘rish qobiliyatini tiklagach ko‘zoynaklarini «topshiradi».", label: "bemor operatsiyadan keyin ko‘zoynaksiz qoldi" },
     splash: { hello: "ProfiMedga xush kelibsiz", sub: "Ko‘zoynaksiz hayot shu yerdan boshlanadi", skip: "O‘tkazib yuborish" },
@@ -237,7 +237,7 @@ export const DICT = {
       eyebrow: "Тошкентда 2014 йилдан",
       h1: "Илиқ қабул ва аниқ диагностика",
       sub: "Офтальмология, оториноларингология, стоматология ва КТ-диагностика — битта бинода, замонавий жиҳозлар ва йиллар давомида ишонч қозонган шифокорлар билан.",
-      cta1: "Қабулга ёзилиш", cta2: "Клиникага қўнғироқ қилиш", photo: "клиника фотоси"
+      cta1: "Қабулга ёзилиш", cta2: "Клиникага қўнғироқ қилиш", photo: "ProfiMed клиникасининг Тошкентдаги фасади"
     },
     jar: { eyebrow: "Бизнинг статистика", title: "Кўзойнак тақишни тўхтатган беморлар", desc: "Ҳар бир муваффақиятли операцияни шундай нишонлаймиз — қабулхонамиздаги виртуал колба, унга беморлар кўриш қобилиятини тиклагач кўзойнакларини «топширади».", label: "бемор операциядан кейин кўзойнаксиз қолди" },
     splash: { hello: "ProfiMedга хуш келибсиз", sub: "Кўзойнаксиз ҳаёт шу ердан бошланади", skip: "Ўтказиб юбориш" },
@@ -349,9 +349,9 @@ export const DICT = {
     hdr: { cta: "Book a visit", ctaShort: "Book", callShort: "Call", menu: "Menu", theme: "Switch theme", themeShort: "Theme", toTop: "Back to top" },
     hero: {
       eyebrow: "In Tashkent since 2014",
-      h1: "A warm welcome with precise diagnostics",
+      h1: "Warm care, precise diagnostics",
       sub: "Ophthalmology, ENT, dentistry and CT imaging under one roof — modern equipment and doctors patients have trusted for years.",
-      cta1: "Book a visit", cta2: "Call the clinic", photo: "clinic photo"
+      cta1: "Book a visit", cta2: "Call the clinic", photo: "ProfiMed clinic facade in Tashkent"
     },
     jar: { eyebrow: "Our numbers", title: "Patients who stopped wearing glasses", desc: "That's how we mark every successful surgery — a virtual jar at our front desk, where patients \u201cdrop off\u201d their glasses after vision correction.", label: "patients went glasses-free after surgery" },
     splash: { hello: "Welcome to ProfiMed", sub: "Life without glasses starts here", skip: "Skip" },

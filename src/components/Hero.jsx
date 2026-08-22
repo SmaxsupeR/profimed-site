@@ -10,15 +10,24 @@ export function Hero() {
   const count2 = useCountUp(parseInt(t.facts.f2v, 10) || 0);
 
   return (
-    <div className="relative overflow-hidden bg-white dark:bg-slate-950">
+    <div className="relative overflow-hidden bg-slate-50 dark:bg-slate-950">
       <div className="relative">
-        <section id="top" className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+        <section id="top" className="pt-10 pb-10 lg:pt-12 lg:pb-14">
+          {/* Кадр фиксированной высоты (не выводится из естественной высоты
+              текста) — иначе в более длинных локалях (RU/UZC) заголовок в 3
+              строки вместо 2 менял бы crop фотографии и высоту всего Hero.
+              Оба грид-айтема получают одинаковый min-h, текст центрируется
+              внутри него флексом. Фото сдвинуто вверх относительно текстовой
+              колонки (-top-7 при lg) и стоит на более широкой (58%, не 50%)
+              колонке — вместе с этим смещением и одиночным скруглением это и
+              есть попытка не превратиться в «два ровных прямоугольника без
+              скруглений». */}
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+            <div className="flex flex-col justify-center pm-hero-pad-l pr-4 sm:pr-6 lg:pr-8 py-8 lg:py-0 lg:min-h-[560px] xl:min-h-[600px]">
               <p className="pm-hero-anim text-sm font-medium text-slate-600 tracking-[0.08em] mb-4 dark:text-slate-400">
                 {t.hero.eyebrow}
               </p>
-              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-5 text-[38px] sm:text-[52px] lg:text-[68px] leading-[1.02] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
+              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-5 text-[38px] sm:text-[52px] lg:text-[56px] leading-[1.05] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
                 {t.hero.h1}
               </h1>
               <p className="pm-hero-anim text-lg text-slate-600 mb-8 max-w-[32em] dark:text-slate-300" style={{ animationDelay: '180ms' }}>
@@ -29,11 +38,15 @@ export function Hero() {
                 <Button href="tel:+998951956119" variant="secondary" size="lg">{t.hero.cta2}</Button>
               </div>
             </div>
-            <div className="pm-hero-anim" style={{ animationDelay: '140ms' }}>
+            <div className="relative lg:min-h-[560px] xl:min-h-[600px]">
+              {/* Без анимации появления и без lazy — это, скорее всего,
+                  главный LCP-элемент страницы. */}
               <img
                 src={heroPhoto}
                 alt={t.hero.photo}
-                className="aspect-[4/3] w-full rounded-[28px] object-cover"
+                loading="eager"
+                fetchpriority="high"
+                className="w-full h-[280px] sm:h-[360px] object-cover object-[55%_50%] lg:absolute lg:-top-7 lg:right-0 lg:bottom-0 lg:left-0 lg:h-auto lg:w-full lg:object-[58%_60%] lg:rounded-bl-[48px]"
               />
             </div>
           </div>

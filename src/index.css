@@ -15,6 +15,19 @@ body {
   @apply bg-slate-50 text-slate-800 font-sans antialiased dark:bg-slate-950 dark:text-slate-100;
 }
 
+/* Левый отступ текстовой колонки Hero (этап 3.1) — сама секция full-bleed
+   (без max-w-6xl), поэтому текст выравнивается по левому краю обычного
+   контейнера сайта вручную через calc(). Tailwind-класс с вложенными
+   max()/calc() и запятой (`pl-[max(1.5rem,calc((100vw-72rem)/2))]`) молча
+   не компилируется — его JIT-экстрактор арбитрарных значений не разбирает
+   такую вложенность, поэтому этот единственный расчёт вынесен сюда обычным
+   CSS вместо Tailwind-класса. */
+.pm-hero-pad-l { padding-left: 1rem; }
+@media (min-width: 640px) { .pm-hero-pad-l { padding-left: 1.5rem; } }
+@media (min-width: 1024px) {
+  .pm-hero-pad-l { padding-left: max(1.5rem, calc((100vw - 72rem) / 2)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
