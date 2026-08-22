@@ -1,6 +1,7 @@
 import { MapPin, Phone, Clock, Mail } from 'lucide-react';
 import { useLang } from '../i18n/LangContext.jsx';
 import { BookingForm } from './BookingForm.jsx';
+import { Map } from './Map.jsx';
 import { Section } from './ui/Section.jsx';
 
 export function Contact({ presetDirection }) {
@@ -34,6 +35,10 @@ export function Contact({ presetDirection }) {
               <a href="mailto:info@profimed.uz" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">info@profimed.uz</a>
             </li>
           </ul>
+
+          <div className="mt-8">
+            <Map />
+          </div>
         </div>
 
         <div id="booking">

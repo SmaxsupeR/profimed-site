@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { Check } from 'lucide-react';
 import { DIRECTIONS } from '../data/directions.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import { Section, SectionHeader } from './ui/Section.jsx';
-import { Card } from './ui/Card.jsx';
 import { Button } from './ui/Button.jsx';
 
 const MIN_PER_DIRECTION = 30;
@@ -22,8 +22,8 @@ export function VisitPlanner({ onSubmit }) {
   return (
     <Section>
       <SectionHeader eyebrow={t.plan.eyebrow} title={t.plan.title} description={t.plan.sub} />
-      <div className="grid lg:grid-cols-3 gap-6 items-start">
-        <div className="lg:col-span-2 flex flex-wrap gap-2.5 reveal-stagger">
+      <div className="grid lg:grid-cols-3 gap-10 items-start">
+        <div className="lg:col-span-2 border-t border-slate-200 dark:border-slate-800 reveal-stagger">
           {DIRECTIONS.map(({ id }, i) => {
             const on = plan.includes(id);
             return (
@@ -32,18 +32,25 @@ export function VisitPlanner({ onSubmit }) {
                 type="button"
                 onClick={() => toggle(id)}
                 aria-pressed={on}
-                className={`rounded-full border px-[18px] py-2.5 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
-                  on
-                    ? 'border-primary-600 bg-primary-600 text-white shadow-card'
-                    : 'border-slate-300 bg-white text-slate-700 hover:border-primary-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-primary-500'
-                }`}
+                className="w-full flex items-center justify-between gap-3 py-4 border-b border-slate-200 text-left transition-colors hover:bg-primary-50/40 dark:border-slate-800 dark:hover:bg-primary-950/20"
               >
-                {t.dir[`d${i + 1}t`]}
+                <span className={`text-[15px] font-medium ${on ? 'text-slate-900 dark:text-slate-50' : 'text-slate-600 dark:text-slate-300'}`}>
+                  {t.dir[`d${i + 1}t`]}
+                </span>
+                <span
+                  className={`shrink-0 flex items-center justify-center w-6 h-6 rounded-full border ${
+                    on
+                      ? 'border-primary-600 bg-primary-600 text-white'
+                      : 'border-slate-300 text-transparent dark:border-slate-600'
+                  }`}
+                >
+                  <Check size={14} strokeWidth={2.5} />
+                </span>
               </button>
             );
           })}
         </div>
-        <Card className="p-6">
+        <div className="border border-slate-200 rounded-2xl p-6 dark:border-slate-800">
           <p className="text-xs uppercase tracking-wide text-slate-400 font-semibold mb-2.5 dark:text-slate-500">{t.plan.summaryTitle}</p>
           <p className="font-display text-slate-900 text-[30px] leading-none mb-1 dark:text-slate-50">{plan.length}</p>
           <p className="text-sm text-slate-500 mb-1.5 dark:text-slate-400">{t.plan.countLabel}</p>
@@ -57,7 +64,7 @@ export function VisitPlanner({ onSubmit }) {
             {t.plan.cta}
           </Button>
           <p className="text-xs text-slate-400 mt-3 dark:text-slate-500">{t.plan.note}</p>
-        </Card>
+        </div>
       </div>
     </Section>
   );

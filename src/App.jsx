@@ -19,7 +19,6 @@ import { Reviews } from './components/Reviews.jsx';
 import { Faq } from './components/Faq.jsx';
 import { CtaBand } from './components/CtaBand.jsx';
 import { Contact } from './components/Contact.jsx';
-import { Map } from './components/Map.jsx';
 import { PreFooter } from './components/PreFooter.jsx';
 import { Footer } from './components/Footer.jsx';
 import { MobileCallBar } from './components/MobileCallBar.jsx';
@@ -49,13 +48,12 @@ function Page() {
         <About />
         <VisitPlanner onSubmit={handlePickDirection} />
         <VisionGame onPick={handlePickDirection} />
-        <Doctors />
+        <Doctors onPick={handlePickDirection} />
         <Prices />
         <Reviews />
         <Faq />
         <CtaBand />
         <Contact presetDirection={presetDirection} />
-        <Map />
         <PreFooter />
       </main>
       <Footer />

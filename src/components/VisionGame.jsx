@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLang } from '../i18n/LangContext.jsx';
 import { useReveal } from '../hooks/useReveal.js';
-import { Card } from './ui/Card.jsx';
 import { Button } from './ui/Button.jsx';
 import { buildColorPlates } from './visionPlates.js';
 
@@ -48,19 +47,19 @@ export function VisionGame({ onPick }) {
           <Button variant="secondary" onClick={() => onPick('ophthalmology')}>{t.vision.cta}</Button>
         </div>
 
-        <Card className="p-8">
-          <div className="flex gap-1.5 mb-5 rounded-full bg-primary-50 p-1 dark:bg-primary-950/40">
+        <div className="border border-slate-200 rounded-2xl p-8 dark:border-slate-800">
+          <div className="flex gap-6 mb-6 border-b border-slate-200 dark:border-slate-800">
             <button
               type="button"
               onClick={() => setTab('sharp')}
-              className={`flex-1 rounded-full py-1.5 px-2.5 text-xs font-bold transition-colors ${tab ==='sharp' ? 'bg-white text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 dark:text-slate-400'}`}
+              className={`pb-3 -mb-px text-sm font-semibold border-b-2 transition-colors ${tab === 'sharp' ? 'border-primary-600 text-slate-900 dark:border-primary-400 dark:text-slate-50' : 'border-transparent text-slate-500 dark:text-slate-400'}`}
             >
               {t.vision.tabSharp}
             </button>
             <button
               type="button"
               onClick={() => setTab('color')}
-              className={`flex-1 rounded-full py-1.5 px-2.5 text-xs font-bold transition-colors ${tab ==='color' ? 'bg-white text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 dark:text-slate-400'}`}
+              className={`pb-3 -mb-px text-sm font-semibold border-b-2 transition-colors ${tab === 'color' ? 'border-primary-600 text-slate-900 dark:border-primary-400 dark:text-slate-50' : 'border-transparent text-slate-500 dark:text-slate-400'}`}
             >
               {t.vision.tabColor}
             </button>
@@ -108,7 +107,7 @@ export function VisionGame({ onPick }) {
                         key={opt}
                         type="button"
                         onClick={() => pickAnswer(opt)}
-                        className="rounded-full border border-slate-200 bg-white px-[18px] py-2 text-[15px] font-bold text-primary-700 transition-all hover:border-primary-400 hover:bg-primary-50 hover:-translate-y-0.5 dark:bg-slate-800 dark:border-slate-600 dark:text-primary-400 dark:hover:border-primary-500 dark:hover:bg-primary-950/40"
+                        className="rounded-full border border-slate-200 bg-white px-[18px] py-2 text-[15px] font-bold text-primary-700 transition-colors hover:border-primary-400 hover:bg-primary-50 dark:bg-slate-800 dark:border-slate-600 dark:text-primary-400 dark:hover:border-primary-500 dark:hover:bg-primary-950/40"
                       >
                         {opt}
                       </button>
@@ -126,7 +125,7 @@ export function VisionGame({ onPick }) {
               )}
             </div>
           )}
-        </Card>
+        </div>
       </div>
     </section>
   );
