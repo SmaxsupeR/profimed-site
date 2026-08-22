@@ -1,7 +1,7 @@
 import { useLang } from '../i18n/LangContext.jsx';
 import { useCountUp } from '../hooks/useCountUp.js';
 import { Button } from './ui/Button.jsx';
-import { PhotoPlaceholder } from './PhotoPlaceholder.jsx';
+import heroPhoto from '../assets/hero.jpg';
 
 export function Hero() {
   const { t } = useLang();
@@ -30,7 +30,11 @@ export function Hero() {
               </div>
             </div>
             <div className="pm-hero-anim" style={{ animationDelay: '140ms' }}>
-              <PhotoPlaceholder label={t.hero.photo} className="aspect-[4/3] w-full" />
+              <img
+                src={heroPhoto}
+                alt={t.hero.photo}
+                className="aspect-[4/3] w-full rounded-[28px] object-cover"
+              />
             </div>
           </div>
         </section>
