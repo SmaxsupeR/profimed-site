@@ -28,6 +28,20 @@ body {
   .pm-hero-pad-l { padding-left: max(1.5rem, calc((100vw - 72rem) / 2)); }
 }
 
+/* Панорама фото Hero (этап 3.1, коррект. 3) — в full-bleed-режиме у
+   object-fit: cover нет горизонтального запаса (картинка шире контейнера
+   по высоте, а не по ширине, cover тянется под ширину), поэтому
+   object-position по X не двигает ничего. Чтобы вывеска ProfiMed оказалась
+   в правой, чистой от градиента части кадра, увеличиваю картинку и
+   сдвигаю её вправо трансформом — только так здесь вообще есть чем
+   двигать. translateX идёт ПЕРЕД scale в списке (справа налево применяется
+   к элементу первым scale, потом сдвиг — так translateX указывается в
+   «финальных» пикселях кадра, а не в увеличенных). */
+.pm-hero-photo-shift { transform: none; }
+@media (min-width: 1024px) {
+  .pm-hero-photo-shift { transform: translateX(650px) scale(1.35); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

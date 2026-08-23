@@ -12,51 +12,60 @@ export function Hero() {
   return (
     <div className="relative overflow-hidden bg-slate-50 dark:bg-slate-950">
       <div className="relative">
-        <section id="top" className="relative pt-8 pb-8 lg:py-0 lg:min-h-[520px] xl:min-h-[560px]">
-          {/* Композиция — не grid-колонки, а два слоя: широкое фото сзади
-              (справа, уходит под айвори дальше своей видимой границы) и
-              айвори-поверхность поверх него из ДВУХ обычных прямоугольников
-              разной ширины (не clip-path — раньше уже пробовали резать
-              форму по фото/тексту, оба раза это либо резало реальный
-              контент, либо просто рисовало ровную границу другого места).
-              Смысловое деление важно: в верхнем (широком) блоке — только
-              eyebrow+заголовок, в нижнем (уже) — текст+кнопки; так «ступень»
-              проявляется сразу после заголовка, а не прячется внизу у кнопок. */}
-          <div className="relative z-10 flex flex-col lg:h-full">
-            <div className="bg-slate-50 dark:bg-slate-950 pm-hero-pad-l pr-4 sm:pr-6 lg:pr-10 lg:w-[52%] lg:pt-14">
+        <section id="top" className="relative overflow-hidden py-8 lg:py-0 lg:flex lg:items-center lg:min-h-[560px] xl:min-h-[600px]">
+          {/* Ступенчатые айвори-панели (этап 3.1, коррект. 1) технически не
+              были grid-колонками, но всё равно читались как «текст слева /
+              фото справа с фигурной границей» — прямая жёсткая линия между
+              слоями делала «слоистость» видимой лишь на бумаге, а не на
+              экране. Здесь по-другому: фото — целиком фон на весь Hero, а
+              текст защищён не панелью, а прозрачным айвори-градиентом поверх
+              фото (слева непрозрачный, справа уходит в 0). Границы между
+              «текстом» и «фото» просто нет — есть один непрерывный тон. */}
+          {/* Текст — первый в DOM: на мобильном фото стоит в обычном потоке
+              ПОСЛЕ текста (порядок eyebrow→заголовок→текст→кнопки→фото),
+              а на десктопе и фото, и градиент — abs с явным z-index, так
+              что порядок в разметке на их стэк уже не влияет. */}
+          <div className="relative z-10 pm-hero-pad-l pr-4 sm:pr-6 lg:pr-10">
+            {/* max-width — на внутреннем блоке, не на том же, что несёт
+                padding: iначе border-box считает паддинг частью max-w, и
+                реального места под текст остаётся заметно меньше, чем
+                кажется по числу (наступил на эти же грабли в этом же файле
+                на прошлом заходе). */}
+            <div className="lg:max-w-[540px]">
               <p className="pm-hero-anim text-sm font-medium text-slate-600 tracking-[0.08em] mb-4 dark:text-slate-400">
                 {t.hero.eyebrow}
               </p>
-              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-0 text-[38px] sm:text-[52px] lg:text-[64px] leading-[1.05] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
+              <h1 className="pm-hero-anim font-display text-slate-900 text-balance mb-5 text-[38px] sm:text-[52px] lg:text-[64px] leading-[1.05] dark:text-slate-50" style={{ animationDelay: '90ms' }}>
                 {t.hero.h1}
               </h1>
-            </div>
-            <div className="pm-hero-anim bg-slate-50 dark:bg-slate-950 lg:w-[44%] lg:flex-1 flex flex-col justify-center pm-hero-pad-l pr-4 sm:pr-6 lg:pr-10 pt-5 pb-8 lg:py-0" style={{ animationDelay: '180ms' }}>
-              <p className="text-lg text-slate-600 mb-6 max-w-[32em] dark:text-slate-300">
+              <p className="pm-hero-anim text-lg text-slate-600 mb-8 max-w-[32em] dark:text-slate-300" style={{ animationDelay: '180ms' }}>
                 {t.hero.sub}
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="pm-hero-anim flex flex-wrap gap-3" style={{ animationDelay: '270ms' }}>
                 <Button href="#booking" size="lg">{t.hero.cta1}</Button>
                 <Button href="tel:+998951956119" variant="secondary" size="lg">{t.hero.cta2}</Button>
               </div>
             </div>
           </div>
 
-          {/* Фото — за текстом (z-index по умолчанию ниже z-10 айвори-блока
-              выше), шире своей видимой части: левый край уходит под айвори.
-              overflow-hidden на самом слое — на случай, если понадобится
-              object-position/scale для позиционирования вывески, картинка
-              не должна вылезать за пределы поля даже в мелочах браузерных
-              реализаций. Без lazy/анимации — вероятный LCP-элемент. */}
-          <div className="relative mt-6 lg:mt-0 lg:absolute lg:inset-y-0 lg:right-0 lg:w-[56%] lg:overflow-hidden">
-            <img
-              src={heroPhoto}
-              alt={t.hero.photo}
-              loading="eager"
-              fetchpriority="high"
-              className="w-full h-[280px] sm:h-[360px] object-cover object-[50%_35%] lg:h-full lg:w-full lg:object-[0%_35%]"
-            />
-          </div>
+          <img
+            src={heroPhoto}
+            alt={t.hero.photo}
+            loading="eager"
+            fetchpriority="high"
+            className="pm-hero-photo-shift mt-6 lg:mt-0 w-full h-[280px] sm:h-[360px] object-cover object-[50%_30%] lg:absolute lg:inset-0 lg:z-0 lg:h-full lg:w-full lg:object-[50%_26%]"
+          />
+          {/* Пустой слой-градиент — есть только у lg (мобильная версия выше
+              просто ставит фото полосой под текстом, там защищать нечего).
+              Первая версия растягивала градиент до 80% ширины — по
+              скриншоту пользователя это дало сплошную дымку почти на весь
+              кадр (дерево, вывеска на земле — всё побледнело), а не
+              локальную защиту текста. Сузил: полная непрозрачность держится
+              только до ~46% (заведомо дальше, чем доходит текст — max-w
+              текстового блока + отступ слева, ~47.5% на 1440/1280), к 64%
+              уже полностью прозрачно. Дереву и большей части фото ниже 64%
+              градиент теперь не мешает. */}
+          <div className="hidden lg:block lg:absolute lg:inset-0 lg:z-[5] bg-gradient-to-r from-slate-50 from-0% via-slate-50/85 via-45% to-transparent to-65% dark:from-slate-950 dark:via-slate-950/85 dark:to-transparent" />
         </section>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-3">
