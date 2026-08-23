@@ -25,7 +25,7 @@ export function Section({ id, className = '', tone = 'base', children }) {
     <section
       id={id}
       ref={ref}
-      className={`${revealClass} max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 ${className}`}
+      className={`${revealClass} pm-container px-4 sm:px-6 py-16 sm:py-20 ${className}`}
     >
       {children}
     </section>

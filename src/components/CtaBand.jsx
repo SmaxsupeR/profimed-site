@@ -10,7 +10,7 @@ export function CtaBand() {
   // сама кнопка ниже остаётся teal, это единственный акцент на графите.
   return (
     <div className="bg-[#202327] dark:bg-[#191C1F]">
-      <div ref={reveal.ref} className={`${reveal.className} max-w-6xl mx-auto px-4 sm:px-6 py-[60px] grid gap-5`}>
+      <div ref={reveal.ref} className={`${reveal.className} pm-container px-4 sm:px-6 py-[60px] grid gap-5`}>
         <p className="text-sm font-medium tracking-[0.08em] text-slate-300">{t.band.kicker}</p>
         <h2 className="font-display text-3xl sm:text-4xl text-balance text-white max-w-[40ch]">{t.band.title}</h2>
         <p className="text-base text-slate-200 max-w-[34em]">{t.band.text}</p>

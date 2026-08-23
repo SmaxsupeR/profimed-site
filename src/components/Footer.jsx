@@ -16,7 +16,7 @@ export function Footer() {
   const { isDark, toggleTheme } = useTheme();
   return (
     <footer className="border-t border-slate-200 bg-white dark:bg-slate-950 dark:border-slate-800">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-5">
+      <div className="pm-container px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-5">
         <div className="flex items-center gap-5">
           <img src={logoMark} alt="ProfiMed" className="h-8 w-auto" style={{ filter: 'url(#pm-logo-tint)' }} />
           <p className="text-sm text-slate-400 dark:text-slate-500">© {new Date().getFullYear()} {t.foot}</p>

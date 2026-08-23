@@ -7,7 +7,7 @@ export function PreFooter() {
   const { t } = useLang();
   return (
     <div className="bg-primary-50 border-t border-slate-200 dark:bg-slate-800/60 dark:border-slate-800">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <div className="pm-container px-4 sm:px-6 py-10">
         <div className="grid sm:grid-cols-3 gap-12">
           <div>
             <p className="text-xs uppercase tracking-wide text-slate-600 font-semibold mb-3.5 dark:text-slate-300">{t.pre.s1}</p>

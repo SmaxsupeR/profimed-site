@@ -16,7 +16,7 @@ export function Laser({ onPick }) {
     // задан фиксированными светлыми классами (без dark:), а не обычной
     // парой light/dark (см. тот же приём в Quote.jsx).
     <section ref={reveal.ref} className={`${reveal.className} bg-[#202327] dark:bg-[#191C1F] py-16 sm:py-20`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="pm-container px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
         <BeforeAfterSlider beforeLabel={t.laser.b4} afterLabel={t.laser.af} ariaLabel={t.laser.slideAria} />
         <div>
           <p className="text-sm font-medium text-primary-300 tracking-[0.08em] mb-3">{t.laser.eyebrow}</p>

@@ -34,6 +34,11 @@ export default {
         // Любую замену здесь проверять так же: ls files/ | grep cyrillic.
         display: ['Literata Variable', 'Georgia', 'serif'],
         sans: ['Inter Variable', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],
+        // Hero-заголовок (этап 3.2) — отдельный токен, не трогает `display`
+        // (Literata остаётся везде вне Hero). Из трёх живых кандидатов на
+        // реальной фотографии (Prata, Spectral, Noto Serif Display) выбран
+        // Spectral 600 — см. обоснование в Hero.jsx рядом с h1.
+        hero: ['Spectral', 'Georgia', 'serif'],
       },
       colors: {
         // Клинический синий — теперь primary/интерактив (кнопки, фокус-

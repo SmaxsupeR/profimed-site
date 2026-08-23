@@ -11,7 +11,7 @@ export function Quote() {
   // в Laser.jsx).
   return (
     <div className="relative overflow-hidden bg-[#202327] dark:bg-[#191C1F]">
-      <div ref={reveal.ref} className={`${reveal.className} relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-24 flex flex-col items-center text-center gap-5`}>
+      <div ref={reveal.ref} className={`${reveal.className} relative pm-container px-4 sm:px-6 py-20 sm:py-24 flex flex-col items-center text-center gap-5`}>
         <p className="font-display text-white text-balance text-[32px] sm:text-[38px] leading-[1.3] max-w-[44ch]">
           {t.quote.text}
         </p>

@@ -69,7 +69,7 @@ export function Header() {
         className="hidden lg:block bg-slate-900 overflow-hidden transition-[height] duration-300 ease-out"
         style={{ height: topBarHeight }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between gap-6">
+        <div className="pm-container px-4 sm:px-6 h-9 flex items-center justify-between gap-6">
           <div className="flex items-center gap-3.5">
             <span className="text-white/90 text-xs">{t.top.address}</span>
             <span className="text-white/35">·</span>
@@ -95,7 +95,7 @@ export function Header() {
         }`}
       >
         <div
-          className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4 transition-[height] duration-300 ease-out"
+          className="pm-container px-4 sm:px-6 flex items-center justify-between gap-4 transition-[height] duration-300 ease-out"
           style={{ height: headerHeight }}
         >
           <a href="#top" className="flex items-center shrink-0">
