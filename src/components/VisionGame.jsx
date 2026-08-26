@@ -37,7 +37,7 @@ export function VisionGame({ onPick }) {
   const resultScore = t.vision.resultScore.replace('{c}', correctCount).replace('{n}', total);
 
   return (
-    <section ref={reveal.ref} className={`${reveal.className} max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20`}>
+    <section ref={reveal.ref} className={`${reveal.className} pm-container px-4 sm:px-6 py-16 sm:py-20`}>
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <p className="text-sm font-medium text-slate-600 tracking-[0.08em] mb-3 dark:text-slate-400">{t.vision.eyebrow}</p>

@@ -24,20 +24,35 @@ const SIZES = {
   lg: 'px-7 py-3.5 text-sm',
 };
 
+// Форма — раньше жила прямо в BASE (rounded-full, безальтернативно). Вынесена
+// отдельным параметром ради мобильного Hero CTA (этап 3.7): там по брифу
+// нужен не пилюльный, а сдержанный скруглённый прямоугольник (14–16px), а
+// добавлять класс типа `rounded-2xl` поверх через className не сработало бы
+// надёжно — rounded-full и rounded-2xl обе задают border-radius, и какая из
+// двух победит, решает порядок в сгенерированном Tailwind CSS, а не порядок
+// в строке className. shape по умолчанию 'pill' — все существующие вызовы
+// Button (шапка, MobileCallBar, Footer и т.д.) его не передают и получают
+// ровно тот же rounded-full, что и раньше.
+const SHAPES = {
+  pill: 'rounded-full',
+  rounded: 'rounded-2xl',
+};
+
 const BASE =
-  'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors ' +
+  'inline-flex items-center justify-center gap-2 font-semibold transition-colors ' +
   'disabled:opacity-60 disabled:cursor-not-allowed ' +
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2';
 
 export function Button({
   variant = 'primary',
   size = 'md',
+  shape = 'pill',
   href,
   className = '',
   children,
   ...rest
 }) {
-  const classes = `${BASE} ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
+  const classes = `${BASE} ${SHAPES[shape]} ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
 
   if (href) {
     return (

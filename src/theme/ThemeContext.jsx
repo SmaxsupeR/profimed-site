@@ -12,7 +12,7 @@ function initialTheme() {
 }
 
 export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState(initialTheme);
+  const [theme, setTheme] = useState(initialTheme);
   const [systemDark, setSystemDark] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches
   );
@@ -31,12 +31,25 @@ export function ThemeProvider({ children }) {
     document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
   }, [isDark]);
 
-  const setTheme = (next) => {
-    try { localStorage.setItem(STORAGE_KEY, next); } catch { /* приватный режим */ }
-    setThemeState(next);
-  };
+  // localStorage синхронизируется отдельным эффектом от theme, а не внутри
+  // сеттера — эффект всегда бьёт по уже закоммиченному состоянию, а не по
+  // значению, пойманному в замыкании конкретного вызова.
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch { /* приватный режим */ }
+  }, [theme]);
 
-  const toggleTheme = () => setTheme(isDark ? 'light' : 'dark');
+  // Функциональная форма setState, а не toggleTheme = () => setTheme(isDark
+  // ? 'light' : 'dark') — при быстрых повторных кликах (быстрее, чем
+  // успевает закоммититься предыдущий рендер) toggleTheme из предыдущего
+  // рендера видел устаревший isDark и либо не переключал тему, либо дёргал
+  // её непредсказуемо. С prev => ... React всегда подставляет актуальное
+  // на момент применения состояние, а не то, что было на момент клика.
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const prevIsDark = prev === 'dark' || (prev === 'system' && systemDark);
+      return prevIsDark ? 'light' : 'dark';
+    });
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, isDark, setTheme, toggleTheme }}>

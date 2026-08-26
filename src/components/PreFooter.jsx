@@ -1,13 +1,13 @@
 import { useLang } from '../i18n/LangContext.jsx';
 import { Button } from './ui/Button.jsx';
 
-const NAV_HREFS = ['#directions', '#doctors', '#prices', '#reviews', '#contact'];
+const NAV_HREFS = ['/#directions', '/#doctors', '/#prices', '/#reviews', '/#contact'];
 
 export function PreFooter() {
   const { t } = useLang();
   return (
     <div className="bg-primary-50 border-t border-slate-200 dark:bg-slate-800/60 dark:border-slate-800">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <div className="pm-container px-4 sm:px-6 py-10">
         <div className="grid sm:grid-cols-3 gap-12">
           <div>
             <p className="text-xs uppercase tracking-wide text-slate-600 font-semibold mb-3.5 dark:text-slate-300">{t.pre.s1}</p>
@@ -31,7 +31,7 @@ export function PreFooter() {
           <div>
             <p className="text-xs uppercase tracking-wide text-slate-600 font-semibold mb-3.5 dark:text-slate-300">{t.pre.s3}</p>
             <p className="text-sm text-slate-600 mb-4 dark:text-slate-300">{t.pre.text}</p>
-            <Button href="#booking" variant="secondary" size="sm">{t.pre.cta}</Button>
+            <Button href="/#booking" variant="secondary" size="sm">{t.pre.cta}</Button>
           </div>
         </div>
       </div>

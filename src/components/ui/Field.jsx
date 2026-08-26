@@ -12,12 +12,20 @@ const CONTROL =
   'focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-400 ' +
   'dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500';
 
-export function Field({ label, hint, children }) {
+// error вытесняет hint, а не встаёт под ним: две строки подсказок под одним
+// полем читаются как «поле сломалось и вдобавок что-то советует». role="alert"
+// — чтобы скринридер прочитал ошибку сразу после неудачной отправки, а не
+// только когда пользователь дойдёт до поля табом.
+export function Field({ label, hint, error, children }) {
   return (
     <label className="flex flex-col gap-1.5">
       <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
       {children}
-      {hint && <span className="text-xs text-slate-400 dark:text-slate-500">{hint}</span>}
+      {error ? (
+        <span role="alert" className="text-xs text-red-600 dark:text-red-400">{error}</span>
+      ) : (
+        hint && <span className="text-xs text-slate-400 dark:text-slate-500">{hint}</span>
+      )}
     </label>
   );
 }

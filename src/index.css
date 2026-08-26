@@ -6,26 +6,78 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
   --pm-logo-tint: #16427D; /* primary-700 (клинический синий) */
+  /* Сдвиг общего контейнера сайта (этап 3.2) влево от честного центра —
+     единый параметр, читают и .pm-container, и .pm-hero-pad-l ниже, чтобы
+     Header/секции и заголовок Hero всегда двигались вместе, одной сеткой.
+     Сейчас 0 — «как было», честное центрирование; чтобы вернуть сдвиг,
+     достаточно поменять только это значение (например, на 3rem). */
+  --pm-container-shift: 0px;
 }
 :root.dark {
   --pm-logo-tint: #83A7C9; /* primary-300 — светлее для контраста на графитовом фоне */
+}
+
+/* Перекраска логотипа через CSS mask, а не SVG filter (Header/Footer,
+   this — не Splash, там мимо). Было feFlood+feComposite (LogoTintFilter.jsx)
+   на <img>: пересчитывался при каждом переключении темы, потому что цвет —
+   var(--pm-logo-tint), а SVG filter-примитивы такого рода в Firefox идут по
+   куда более медленному пути, чем в Chromium (жалоба пользователя — рывки
+   темы именно в Firefox, в Edge всё гладко). mask-image — нативный CSS,
+   везде на GPU. Только для случаев без анимации самой заливки (Splash
+   поверх ещё аниммирует .pm-logo-fill линейным градиентом маски — заводить
+   туда второй mask-image для формы означало бы держать два слоя маски с
+   ручным mask-composite, а Splash показывается один раз за сессию и не
+   переключается по клику, так что выгоды от переделки там нет). Явных
+   width/height у элемента больше нет (это не <img>, а <span> без
+   собственного содержимого) — держит форму aspect-ratio из исходного
+   SVG viewBox (11347×4487), высота приходит снаружи через Tailwind h-*. */
+.pm-logo-mask {
+  display: inline-block;
+  aspect-ratio: 11347 / 4487;
+  background-color: var(--pm-logo-tint);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
 body {
   @apply bg-slate-50 text-slate-800 font-sans antialiased dark:bg-slate-950 dark:text-slate-100;
 }
 
+/* Общий контейнер сайта (этап 3.2) — было `max-w-6xl mx-auto`, продублированное
+   в 8 файлах (Header, Hero, Footer, PreFooter, CtaBand, Quote, Laser,
+   VisionGame, Section.jsx). Свёл в один класс с параметром сдвига
+   (--pm-container-shift выше) — чтобы «подвинуть всю сетку сайта» можно было
+   правкой одного значения, а не восьми файлов, как в этот раз. Обычный CSS,
+   не Tailwind-utility: вложенный max()/calc() с var() внутри JIT-экстрактор
+   Tailwind не собирает (та же грабля, что и у .pm-hero-pad-l ниже). */
+.pm-container { max-width: 72rem; margin-left: 0; margin-right: auto; }
+@media (min-width: 1024px) {
+  .pm-container { margin-left: max(1rem, calc((100vw - 72rem) / 2 - var(--pm-container-shift))); }
+}
+
 /* Левый отступ текстовой колонки Hero (этап 3.1) — сама секция full-bleed
    (без max-w-6xl), поэтому текст выравнивается по левому краю обычного
-   контейнера сайта вручную через calc(). Tailwind-класс с вложенными
-   max()/calc() и запятой (`pl-[max(1.5rem,calc((100vw-72rem)/2))]`) молча
-   не компилируется — его JIT-экстрактор арбитрарных значений не разбирает
-   такую вложенность, поэтому этот единственный расчёт вынесен сюда обычным
-   CSS вместо Tailwind-класса. */
+   контейнера сайта вручную через calc(). Ниже 1024px совпадает с
+   .pm-container «по построению» (там margin-left ещё 0, разница только в
+   px-4/sm:px-6, а эти же значения продублированы тут). А вот на lg+ была
+   реальная нестыковка (не оптическая — сам проверял getBoundingClientRect):
+   у .pm-container общий отступ — это margin-left (сама формула центрирования)
+   ПЛЮС padding-left (px-6, ещё 1.5rem сверху), а тут была одна голая формула
+   центрирования без этой добавки. На 1140px, например, логотип в шапке
+   стоял на 40px, а заголовок Hero — на 24px: 16px расхождения. Пол ниже —
+   та же формула центрирования + 1.5rem, а floor подняли с 1.5rem до 2.5rem
+   (=1rem флор самой .pm-container + её же 1.5rem паддинга), чтобы совпадать
+   и там, где calc() уходит в минус. Tailwind-класс с вложенными
+   max()/calc()/var() и запятой не компилируется (та же грабля, что и у
+   .pm-container выше), поэтому расчёт обычным CSS. */
 .pm-hero-pad-l { padding-left: 1rem; }
 @media (min-width: 640px) { .pm-hero-pad-l { padding-left: 1.5rem; } }
 @media (min-width: 1024px) {
-  .pm-hero-pad-l { padding-left: max(1.5rem, calc((100vw - 72rem) / 2)); }
+  .pm-hero-pad-l { padding-left: max(2.5rem, calc((100vw - 72rem) / 2 - var(--pm-container-shift) + 1.5rem)); }
 }
 
 /* Панорама фото Hero (этап 3.1, коррект. 3) — в full-bleed-режиме у
@@ -39,7 +91,16 @@ body {
    «финальных» пикселях кадра, а не в увеличенных). */
 .pm-hero-photo-shift { transform: none; }
 @media (min-width: 1024px) {
-  .pm-hero-photo-shift { transform: translateX(650px) scale(1.35); }
+  /* vw, не px: доля от Wbox постоянна на любой ширине (при px-сдвиге
+     вывеска на 1024 и на 1920 попадала в разные места кадра). translateY
+     был 90px (этап 3.1, коррект. 4) — прятал напольную вывеску снизу, но
+     на границе lg (Hbox=560, самый тесный случай) оставлял ~9–23px зазора
+     сверху: секция начинается сразу под шапкой, а фото — чуть ниже, и в
+     эту полоску была видна сплошная заливка фона вместо кадра. 67px —
+     то же самое фото сдвинуто чуть меньше вниз: сверху зазора больше нет
+     ни на одной ширине (проверено 1024–2560), напольная вывеска всё ещё
+     остаётся за нижним краем на достаточную глубину. */
+  .pm-hero-photo-shift { transform: translateX(38.2vw) translateY(67px) scale(1.24); }
 }
 
 @media (prefers-reduced-motion: reduce) {

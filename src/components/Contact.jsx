@@ -1,5 +1,6 @@
 import { MapPin, Phone, Clock, Mail } from 'lucide-react';
 import { useLang } from '../i18n/LangContext.jsx';
+import { LEGAL, isFilled } from '../data/legal.js';
 import { BookingForm } from './BookingForm.jsx';
 import { Map } from './Map.jsx';
 import { Section } from './ui/Section.jsx';
@@ -22,7 +23,7 @@ export function Contact({ presetDirection }) {
               <Phone size={20} className="text-primary-600 dark:text-primary-400 shrink-0 mt-0.5" />
               <div className="flex flex-col gap-1">
                 <a href="tel:+998951956119" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 95 195 61 19</a>
-                <a href="tel:+998712156169" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 71 215 61 69</a>
+                <a href="tel:+998712156119" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 71 215 61 19</a>
                 <a href="tel:+998990776119" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 99 077 61 19</a>
               </div>
             </li>
@@ -35,6 +36,26 @@ export function Contact({ presetDirection }) {
               <a href="mailto:info@profimed.uz" className="text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">info@profimed.uz</a>
             </li>
           </ul>
+
+          {/* Жалобы и предложения — отдельный человек и отдельный телефон,
+              не общий номер регистратуры. Здесь, а не в политике обработки
+              персональных данных: это разные роли, и пациент, который идёт
+              отзывать согласие на обработку данных, не должен попадать к
+              сотруднику по качеству обслуживания. */}
+          {isFilled(LEGAL.complaintsOfficer) && (
+            <div className="mt-8 border-t border-slate-200 pt-5 dark:border-slate-800">
+              <p className="text-sm font-semibold text-slate-900 mb-2 dark:text-slate-50">{t.con.complaintsTitle}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                {t.con.complaintsOfficer}: {LEGAL.complaintsOfficer}
+              </p>
+              <a
+                href={`tel:${LEGAL.complaintsPhone.replace(/[^+\d]/g, '')}`}
+                className="text-sm text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400"
+              >
+                {LEGAL.complaintsPhone}
+              </a>
+            </div>
+          )}
 
           <div className="mt-8">
             <Map />
