@@ -13,7 +13,7 @@ export function PreFooter() {
             <p className="text-xs uppercase tracking-wide text-slate-600 font-semibold mb-3.5 dark:text-slate-300">{t.pre.s1}</p>
             <div className="grid gap-2.5">
               {NAV_HREFS.map((href, i) => (
-                <a key={href} href={href} className="text-sm text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">
+                <a key={href} href={href} className="text-sm text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300">
                   {t.nav[i]}
                 </a>
               ))}
@@ -23,8 +23,8 @@ export function PreFooter() {
             <p className="text-xs uppercase tracking-wide text-slate-600 font-semibold mb-3.5 dark:text-slate-300">{t.pre.s2}</p>
             <div className="grid gap-2.5">
               <span className="text-sm text-slate-600 dark:text-slate-300">{t.con.addr}</span>
-              <a href="tel:+998951956119" className="text-sm text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">+998 95 195 61 19</a>
-              <a href="mailto:info@profimed.uz" className="text-sm text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">info@profimed.uz</a>
+              <a href="tel:+998951956119" className="text-sm text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300">+998 95 195 61 19</a>
+              <a href="mailto:info@profimed.uz" className="text-sm text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300">info@profimed.uz</a>
               <span className="text-sm text-slate-600 dark:text-slate-300">{t.con.hours}</span>
             </div>
           </div>

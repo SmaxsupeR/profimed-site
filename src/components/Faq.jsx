@@ -8,9 +8,10 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <Section>
-      <SectionHeader eyebrow={t.faq.eyebrow} title={t.faq.title} />
-      <div className="max-w-[46em] border-t border-slate-200 dark:border-slate-800 reveal-stagger">
+    <Section className="relative overflow-hidden">
+      <div className="relative z-10">
+        <SectionHeader eyebrow={t.faq.eyebrow} title={t.faq.title} />
+        <div className="max-w-[46em] border-t border-slate-200 dark:border-slate-800 reveal-stagger">
         {t.faq.items.map((item, i) => {
           const isOpen = openIndex === i;
           return (
@@ -34,7 +35,15 @@ export function Faq() {
             </div>
           );
         })}
+        </div>
       </div>
+
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[1%] top-1/2 hidden -translate-y-[49%] scale-x-[1.1] select-none font-question text-[clamp(560px,46vw,720px)] font-normal leading-[0.76] text-primary-600/[0.08] lg:block dark:text-primary-300/[0.11]"
+      >
+        ?
+      </span>
     </Section>
   );
 }

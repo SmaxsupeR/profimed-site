@@ -4,7 +4,10 @@ export const DICT = {
     skip: "Перейти к содержанию",
     nav: ["Направления", "Врачи", "Цены", "Отзывы", "Контакты"],
     top: { address: "Ташкент, улица Мирабад, 6", hours: "Пн–Пт 09:00–19:00, Сб 09:00–18:00" },
-    hdr: { cta: "Записаться", ctaShort: "Записаться", callShort: "Позвонить", menu: "Меню", theme: "Сменить тему", themeShort: "Тема", toTop: "Наверх" },
+    hdr: {
+      cta: "Записаться", ctaShort: "Записаться", callShort: "Позвонить", menu: "Меню", theme: "Сменить тему", themeShort: "Тема", toTop: "Наверх",
+      langLabel: "Язык сайта: {name}", langMenuLabel: "Выбор языка сайта", menuClose: "Закрыть меню",
+    },
     hero: {
       eyebrow: "В Ташкенте с 2014 года",
       h1: ["Медицина с вниманием."],
@@ -20,7 +23,7 @@ export const DICT = {
       jarAlt: "Банка на ресепшене ProfiMed, куда пациенты кладут старые очки после коррекции зрения",
     },
     splash: { hello: "Добро пожаловать в ProfiMed", sub: "Здесь начинается жизнь без очков", skip: "Пропустить" },
-    facts: { f1v: "2014", f1l: "год основания клиники", f2v: "4", f2l: "направления в одном здании", f3v: "Morita Veraview X800", f3l: "современное КТ оборудование", f4v: "Дни работы", f4l: "Пн–Пт 09:00–19:00, Сб до 18:00" },
+    facts: { f1v: "2014", f1l: "год основания клиники", f2v: "4", f2l: "направления в одном здании", f3v: "Morita Veraview X800", f3l: "современное КТ-оборудование", f4v: "Дни работы", f4l: "Пн–Пт 09:00–19:00, Сб до 18:00" },
     dir: {
       eyebrow: "Направления", title: "Чем занимается клиника",
       intro: "Четыре направления в одном здании. Диагностика, консультация и лечение без лишних поездок по разным центрам.",
@@ -32,7 +35,7 @@ export const DICT = {
       d1t: "Офтальмология", d1x: "Диагностика и лечение зрения, лазерная коррекция LASIK, LESIK и ФРК.",
       d2t: "Оториноларингология", d2x: "Лечение уха, горла и носа — от острых состояний до плановых операций.",
       d3t: "Стоматология", d3x: "Терапевтическая и эстетическая стоматология на современном оборудовании.",
-      d4t: "КТ-диагностика", d4x: "Компьютерная 3D-томография — без направления в другую клинику."
+      d4t: "КТ-диагностика", d4x: "Компьютерная 3D-томография доступна на месте — не нужно ехать в другую клинику."
     },
     laser: {
       eyebrow: "Основное направление",
@@ -58,8 +61,38 @@ export const DICT = {
       back: "Все врачи", notFound: "Такой страницы врача нет — возможно, ссылка устарела.",
       d1Name: "Усманов Акбар Агзамович", d1Role: "офтальмохирург", yearsLabel: "лет стажа"
     },
-    price: { eyebrow: "Цены", title: "Прайс-лист", val: "уточняйте у администратора", note: "Актуальный прайс подключим напрямую из CRM клиники — цифры здесь не будут устаревать." },
-    rev: { eyebrow: "Отзывы", title: "Что говорят пациенты", text: "Здесь появятся отзывы реальных пациентов — начнём собирать их с запуском сайта, без плейсхолдеров и без выдумки.", cta: "Читайте отзывы пациентов" },
+    price: {
+      eyebrow: "Цены", title: "Прайс-лист",
+      desc: "Услуги и стоимость приёма в ProfiMed. Точную стоимость лечения врач определяет после осмотра.",
+      searchPh: "Найти услугу", tabAll: "Все", addToVisit: "Добавить",
+      val: "уточняйте у администратора", currency: "сум",
+      emptyTitle: "Ничего не найдено", emptyDesc: "Попробуйте изменить запрос или выбрать другую категорию.",
+      added: "Добавлено", selectedTitle: "Выбрано услуг", clear: "Очистить", goToBooking: "Перейти к записи",
+      addAria: "Добавить услугу «{name}»", removeAria: "Удалить услугу «{name}»",
+      unselectAria: "Убрать услугу «{name}» из выбранных",
+      liveAdded: "Добавлено. Выбрано {n} {word}.", liveRemoved: "Удалено. Выбрано {n} {word}.",
+      liveClearedAll: "Список выбранных услуг очищен.",
+      unitWord: { one: "услуга", few: "услуги", many: "услуг", other: "услуг" },
+      tabShort: { ent: "ЛОР", ct: "КТ" },
+      searchReset: "Сбросить поиск", cartBarLabel: "Выбрано", toBooking: "К записи",
+      cartExpand: "Показать выбранные услуги", cartCollapse: "Свернуть список услуг",
+    },
+    svc: {
+      'oph-consult': { name: "Первичная консультация офтальмолога", desc: "Осмотр, сбор жалоб и рекомендации по дальнейшему обследованию." },
+      'oph-diag': { name: "Диагностика зрения" },
+      'ent-consult': { name: "Консультация ЛОР-врача" },
+      'ent-diag': { name: "Диагностика уха, горла и носа" },
+      'stom-consult': { name: "Консультация стоматолога" },
+      'stom-hygiene': { name: "Профессиональная гигиена полости рта", desc: "Снятие налёта и полировка эмали." },
+      'ct-scan': { name: "КТ-исследование", desc: "Зону и объём сканирования врач определяет перед процедурой." },
+      'ct-review': { name: "Консультация по результатам КТ" },
+    },
+    rev: {
+      eyebrow: "Отзывы", title: "Отзывы на независимых площадках",
+      desc: "Реальные отзывы читайте в оригинальных карточках клиники — здесь только актуальный рейтинг и ссылка, без общего среднего балла между площадками.",
+      viewReviews: "Смотреть отзывы", updatedOn: "Актуально на {date}",
+      reviewWord: { one: "отзыв", few: "отзыва", many: "отзывов", other: "отзывов" },
+    },
     band: {
       kicker: "Если не знаете, к кому идти",
       title: "Опишите, что беспокоит — администратор подскажет направление и подберёт время",
@@ -71,14 +104,20 @@ export const DICT = {
       addr: "г. Ташкент, улица Мирабад (быв. Кунаева), дом 6",
       hours: "Пн–Пт 09:00–19:00, Сб 09:00–18:00",
       complaintsTitle: "Жалобы и предложения",
-      complaintsOfficer: "Ответственное лицо"
+      complaintsOfficer: "Ответственное лицо",
+      addrLabel: "Адрес", phonesLabel: "Телефоны", hoursLabel: "Режим работы", emailLabel: "Email",
     },
     form: {
       name: "Ваше имя", namePh: "Как к вам обращаться", phone: "Телефон",
-      dir: "Направление", dirAny: "Не уверен(а), подскажите сами",
+      dir: "Направление", dirAny: "Не уверен(а), подскажите сами", dirMulti: "Направления",
+      svcTitle: "Выбранные услуги", svcAdd: "+ Добавить услуги",
+      svcEmpty: "Услуги не выбраны — администратор поможет определить необходимое направление",
+      bookingTitle: "Запись на приём", bookingTitleServices: "Ваш визит",
+      bookingSubtitle: "Оставьте контакты — администратор перезвонит и согласует удобное время приёма.",
+      bookingSubtitleServices: "Оставьте контакты — администратор перезвонит, уточнит выбранные услуги и согласует время приёма.",
       submit: "Отправить заявку", sending: "Отправляем…",
       note: "Это заявка на обратный звонок. Время приёма согласует администратор.",
-      consent: "Я согласен на обработку персональных данных и ознакомился с {link}.",
+      consent: "Даю согласие на обработку персональных данных и подтверждаю ознакомление с {link}.",
       errConsent: "Без согласия на обработку данных мы не сможем принять заявку",
       consentLink: "политикой обработки персональных данных",
       okTitle: "Заявка отправлена", okText: "Администратор перезвонит и согласует удобное время приёма.",
@@ -89,7 +128,7 @@ export const DICT = {
     },
     map: { label: "карта проезда — улица Мирабад, 6", note: "Клиника отмечена на карте — улица Мирабад (быв. Кунаева), дом 6.", route: "Построить маршрут", taxi: "Вызвать такси" },
     pre: { s1: "Разделы", s2: "Клиника", s3: "Запись", text: "Заявка — это просьба перезвонить. Время приёма администратор согласует по телефону.", cta: "Оставить заявку" },
-    chat: { fabLabel: "Задать вопрос", title: "Помощник ProfiMed", subtitle: "Черновик ИИ-ассистента — отвечает демо-фразами", placeholder: "Напишите вопрос…", send: "Отправить", greeting: "Здравствуйте! Я подскажу по расписанию и направлениям клиники. Задайте вопрос — здесь появится ответ настоящего ИИ-ассистента.", demoReply: "Спасибо за вопрос! Это заготовка: скоро сюда подключим ИИ-ассистента. Пока звоните +998 95 195 61 19 — администратор ответит точно." },
+    chat: { fabLabel: "Задать вопрос", title: "Помощник ProfiMed", subtitle: "Черновик ИИ-ассистента — отвечает демо-фразами", placeholder: "Напишите вопрос…", send: "Отправить", close: "Закрыть чат", greeting: "Здравствуйте! Я подскажу по расписанию и направлениям клиники. Задайте вопрос — здесь появится ответ настоящего ИИ-ассистента.", demoReply: "Спасибо за вопрос! Это заготовка: скоро сюда подключим ИИ-ассистента. Пока звоните +998 95 195 61 19 — администратор ответит точно." },
     timeline: {
       eyebrow: "Как проходит приём",
       title: "От обращения до плана лечения.",
@@ -109,13 +148,7 @@ export const DICT = {
       ]
     },
     status: { open: "Сейчас открыто", closed: "Сейчас закрыто" },
-    plan: {
-      eyebrow: "Планировщик визита", title: "Соберите визит из направлений",
-      sub: "Отметьте, к каким специалистам хотите попасть — прикинем, сколько времени займёт визит.",
-      summaryTitle: "Ваш визит", countLabel: "направления выбрано",
-      empty: "Пока ничего не выбрано.", timePrefix: "Ориентировочно", min: "минут",
-      cta: "Перенести в заявку", note: "Итоговое время согласует администратор по телефону."
-    },    equip: { title: "Оснащение", e1: "КТ", e2: "эксимерный лазер", e3: "ЛОР-диагностика", e4: "стоматология" },
+    equip: { title: "Оснащение", e1: "КТ", e2: "эксимерный лазер", e3: "ЛОР-диагностика", e4: "стоматология" },
     vision: {
       eyebrow: "Игра, не диагноз", title: "Проверьте, насколько мелкий текст читаете",
       sub: "Потяните бегунок, пока буква не станет едва различимой — это просто разминка для глаз, а не медицинский тест.",
@@ -133,18 +166,30 @@ export const DICT = {
     },
     foot: "ProfiMed. Медицинская клиника в Ташкенте.",
     privacyLink: "Политика конфиденциальности",
-    licenseShort: "Лицензия"
+    licenseShort: "Лицензия",
+    meta: {
+      homeTitle: "ProfiMed — офтальмология, ЛОР, стоматология и КТ в Ташкенте",
+      homeDesc: "Медицинская клиника ProfiMed в Ташкенте: офтальмология, оториноларингология, стоматология и КТ-диагностика. Запись на приём.",
+      doctorFallbackTitle: "Врачи клиники | ProfiMed",
+      doctorDesc: "Запись на приём в клинике ProfiMed в Ташкенте.",
+      doctorNotFoundTitle: "Страница врача не найдена | ProfiMed",
+      privacyTitle: "Политика обработки персональных данных — ProfiMed",
+      privacyDesc: "Какие персональные данные клиника ProfiMed получает через сайт, зачем их использует и как отозвать согласие на обработку.",
+    }
   },
 
   uz: {
     code: "uz", label: "O‘Z", full: "O‘zbekcha (lotin)", flag: "🇺🇿", htmlLang: "uz",
     skip: "Asosiy qismga o‘tish",
     nav: ["Yo‘nalishlar", "Shifokorlar", "Narxlar", "Fikrlar", "Kontaktlar"],
-    top: { address: "Toshkent, Mirobod ko‘chasi, 6", hours: "Du–Juma 09:00–19:00, Shanba 09:00–18:00" },
-    hdr: { cta: "Qabulga yozilish", ctaShort: "Yozilish", callShort: "Qo‘ng‘iroq", menu: "Menyu", theme: "Mavzuni almashtirish", themeShort: "Mavzu", toTop: "Yuqoriga" },
+    top: { address: "Toshkent, Mirobod ko‘chasi, 6", hours: "Dushanba–Juma 09:00–19:00, Shanba 09:00–18:00" },
+    hdr: {
+      cta: "Qabulga yozilish", ctaShort: "Yozilish", callShort: "Qo‘ng‘iroq", menu: "Menyu", theme: "Mavzuni almashtirish", themeShort: "Mavzu", toTop: "Yuqoriga",
+      langLabel: "Sayt tili: {name}", langMenuLabel: "Sayt tilini tanlash", menuClose: "Menyuni yopish",
+    },
     hero: {
       eyebrow: "Toshkentda 2014 yildan",
-      h1: ["E’tiborli tibbiyot."],
+      h1: ["Tibbiyot — e’tibor bilan."],
       sub: "ProfiMed — Toshkentdagi xususiy klinika, to‘rtta tibbiy yo‘nalish va o‘z KT-diagnostikasi bilan.",
       sub2: "2014 yildan biz zamonaviy jihozlar, aniq diagnostika va bemorga e’tiborli yondashuvni bitta tibbiyot markazida birlashtiramiz.",
       cta1: "Qabulga yozilish", cta2: "Klinikaga qo‘ng‘iroq qilish", photo: "ProfiMed klinikasining Toshkentdagi fasadi"
@@ -157,7 +202,7 @@ export const DICT = {
       jarAlt: "ProfiMed qabulxonasidagi banka — bemorlar korreksiyadan so‘ng eski ko‘zoynaklarini shu yerga qoldirishadi",
     },
     splash: { hello: "ProfiMedga xush kelibsiz", sub: "Ko‘zoynaksiz hayot shu yerdan boshlanadi", skip: "O‘tkazib yuborish" },
-    facts: { f1v: "2014", f1l: "klinika ochilgan yil", f2v: "4", f2l: "yo‘nalish bitta binoda", f3v: "Morita Veraview X800", f3l: "o‘z KT-diagnostikamiz", f4v: "Ish kunlari", f4l: "Du–Juma 09:00–19:00, Shanba 18:00gacha" },
+    facts: { f1v: "2014", f1l: "klinika ochilgan yil", f2v: "4", f2l: "yo‘nalish bitta binoda", f3v: "Morita Veraview X800", f3l: "o‘z KT-diagnostikamiz", f4v: "Ish kunlari", f4l: "Dushanba–Juma 09:00–19:00, Shanba 18:00gacha" },
     dir: {
       eyebrow: "Yo‘nalishlar", title: "Klinika nima bilan shug‘ullanadi",
       intro: "To‘rtta yo‘nalish — bitta binoda. Diagnostika, konsultatsiya va davolash — turli markazlarga yurmasdan.",
@@ -195,8 +240,38 @@ export const DICT = {
       back: "Barcha shifokorlar", notFound: "Bunday shifokor sahifasi topilmadi — havola eskirgan bo‘lishi mumkin.",
       d1Name: "Usmanov Akbar Agzamovich", d1Role: "oftalmoxirurg", yearsLabel: "yillik tajriba"
     },
-    price: { eyebrow: "Narxlar", title: "Narxlar ro‘yxati", val: "administrator bilan aniqlashtiring", note: "Amaldagi narxlarni klinika CRMidan to‘g‘ridan-to‘g‘ri ulaymiz — bu yerdagi raqamlar eskirmaydi." },
-    rev: { eyebrow: "Fikrlar", title: "Bemorlar nima deydi", text: "Bu yerda haqiqiy bemorlarning fikrlari paydo bo‘ladi — saytni ishga tushirish bilan yig‘ishni boshlaymiz, to‘qima matnlarsiz.", cta: "Bemorlar fikrlarini o‘qing" },
+    price: {
+      eyebrow: "Narxlar", title: "Narxlar ro‘yxati",
+      desc: "ProfiMed xizmatlari va qabul narxlari. Davolashning aniq narxini shifokor ko‘rikdan so‘ng belgilaydi.",
+      searchPh: "Xizmatni qidirish", tabAll: "Barchasi", addToVisit: "Tashrifga qo‘shish",
+      val: "administrator bilan aniqlashtiring", currency: "so‘m",
+      emptyTitle: "Hech narsa topilmadi", emptyDesc: "So‘rovni o‘zgartiring yoki boshqa toifani tanlang.",
+      added: "Qo‘shildi", selectedTitle: "Tanlangan xizmatlar", clear: "Tozalash", goToBooking: "Yozilishga o‘tish",
+      addAria: "«{name}» xizmatini qo‘shish", removeAria: "«{name}» xizmatini o‘chirish",
+      unselectAria: "«{name}» xizmatini tanlanganlardan olib tashlash",
+      liveAdded: "Qo‘shildi. Tanlandi: {n} {word}.", liveRemoved: "O‘chirildi. Tanlandi: {n} {word}.",
+      liveClearedAll: "Tanlangan xizmatlar ro‘yxati tozalandi.",
+      unitWord: { other: "xizmat" },
+      tabShort: { ent: "LOR", ct: "KT" },
+      searchReset: "Qidiruvni tozalash", cartBarLabel: "Tanlandi", toBooking: "Yozilishga",
+      cartExpand: "Tanlangan xizmatlarni ko‘rsatish", cartCollapse: "Ro‘yxatni yig‘ish",
+    },
+    svc: {
+      'oph-consult': { name: "Oftalmolog bilan birlamchi konsultatsiya", desc: "Ko‘rik, shikoyatlarni aniqlash va keyingi tekshiruv bo‘yicha tavsiyalar." },
+      'oph-diag': { name: "Ko‘rish diagnostikasi" },
+      'ent-consult': { name: "LOR shifokori konsultatsiyasi" },
+      'ent-diag': { name: "Quloq, tomoq va burun diagnostikasi" },
+      'stom-consult': { name: "Stomatolog konsultatsiyasi" },
+      'stom-hygiene': { name: "Og‘iz bo‘shlig‘ini professional tozalash", desc: "Toshni olib tashlash va emalni sayqallash." },
+      'ct-scan': { name: "KT-tekshiruvi", desc: "Skanerlash hajmi va zonasini shifokor protsedura oldidan aniqlaydi." },
+      'ct-review': { name: "KT natijalari bo‘yicha konsultatsiya" },
+    },
+    rev: {
+      eyebrow: "Fikrlar", title: "Mustaqil platformalardagi baholar",
+      desc: "Haqiqiy fikrlarni klinikaning original sahifalaridan o‘qing — bu yerda faqat joriy reyting va havola, platformalar orasidagi umumiy o‘rtacha ball yo‘q.",
+      viewReviews: "Fikrlarni ko‘rish", updatedOn: "Holat: {date}",
+      reviewWord: { other: "sharh" },
+    },
     band: {
       kicker: "Kimga borishni bilmasangiz",
       title: "Nima bezovta qilayotganini yozing — administrator yo‘nalishni aytadi va vaqt tanlaydi",
@@ -208,16 +283,22 @@ export const DICT = {
       addr: "Toshkent shahri, Mirobod (eski Kunayev) ko‘chasi, 6-uy",
       hours: "Du–Juma 09:00–19:00, Shanba 09:00–18:00",
       complaintsTitle: "Shikoyat va takliflar",
-      complaintsOfficer: "Mas’ul shaxs"
+      complaintsOfficer: "Mas’ul shaxs",
+      addrLabel: "Manzil", phonesLabel: "Telefonlar", hoursLabel: "Ish vaqti", emailLabel: "Email",
     },
     form: {
       name: "Ismingiz", namePh: "Sizga qanday murojaat qilaylik", phone: "Telefon",
-      dir: "Yo‘nalish", dirAny: "Ishonchim yo‘q, o‘zingiz aytasiz",
+      dir: "Yo‘nalish", dirAny: "Aniq bilmayman — maslahat bering", dirMulti: "Yo‘nalishlar",
+      svcTitle: "Tanlangan xizmatlar", svcAdd: "+ Xizmat qo‘shish",
+      svcEmpty: "Xizmatlar tanlanmagan — administrator kerakli yo‘nalishni aniqlashga yordam beradi",
+      bookingTitle: "Qabulga yozilish", bookingTitleServices: "Sizning tashrifingiz",
+      bookingSubtitle: "Aloqa ma’lumotlarini qoldiring — administrator qayta qo‘ng‘iroq qilib, qulay vaqtni kelishadi.",
+      bookingSubtitleServices: "Aloqa ma’lumotlarini qoldiring — administrator qayta qo‘ng‘iroq qilib, tanlangan xizmatlarni aniqlashtiradi va vaqtni kelishadi.",
       submit: "Ariza yuborish", sending: "Yuborilmoqda…",
       note: "Bu — qayta qo‘ng‘iroq uchun ariza. Qabul vaqtini administrator kelishadi.",
-      consent: "Men shaxsga doir ma’lumotlarni qayta ishlashga roziman va {link} tanishdim.",
+      consent: "Men shaxsga doir ma’lumotlarim qayta ishlanishiga rozilik beraman va {link} bilan tanishganimni tasdiqlayman.",
       errConsent: "Ma’lumotlarni qayta ishlashga rozilik bo‘lmasa, arizani qabul qila olmaymiz",
-      consentLink: "shaxsga doir ma’lumotlarni qayta ishlash siyosatiga",
+      consentLink: "shaxsga doir ma’lumotlarni qayta ishlash siyosati",
       okTitle: "Ariza yuborildi", okText: "Administrator qayta qo‘ng‘iroq qiladi va qulay vaqtni kelishadi.",
       again: "Yana bitta ariza yuborish",
       err: "Arizani yuborish imkoni bo‘lmadi. Yana urinib ko‘ring yoki qo‘ng‘iroq qiling — +998 95 195 61 19",
@@ -226,7 +307,7 @@ export const DICT = {
     },
     map: { label: "yo‘l xaritasi — Mirobod ko‘chasi, 6", note: "Klinika xaritada belgilangan — Mirobod (eski Kunayev) ko‘chasi, 6-uy.", route: "Marshrut qurish", taxi: "Taksi chaqirish" },
     pre: { s1: "Bo‘limlar", s2: "Klinika", s3: "Yozilish", text: "Ariza — qayta qo‘ng‘iroq qilish so‘rovi. Qabul vaqtini administrator telefon orqali kelishadi.", cta: "Ariza qoldirish" },
-    chat: { fabLabel: "Savol berish", title: "ProfiMed yordamchisi", subtitle: "Sun'iy intellekt yordamchisi qoralamasi — demo javoblar beradi", placeholder: "Savolingizni yozing…", send: "Yuborish", greeting: "Salom! Klinika jadvali va yo‘nalishlari bo‘yicha yordam beraman. Savol yozing — bu yerda haqiqiy sun'iy intellekt javob beradi.", demoReply: "Savolingiz uchun rahmat! Bu — qoralama: keyinroq bu yerga sun'iy intellekt ulanadi. Hozircha +998 95 195 61 19 raqamiga qo‘ng‘iroq qiling — administrator aniq javob beradi." },
+    chat: { fabLabel: "Savol berish", title: "ProfiMed yordamchisi", subtitle: "Sun'iy intellekt yordamchisi qoralamasi — demo javoblar beradi", placeholder: "Savolingizni yozing…", send: "Yuborish", close: "Chatni yopish", greeting: "Salom! Klinika jadvali va yo‘nalishlari bo‘yicha yordam beraman. Savol yozing — bu yerda haqiqiy sun'iy intellekt javob beradi.", demoReply: "Savolingiz uchun rahmat! Bu — qoralama: keyinroq bu yerga sun'iy intellekt ulanadi. Hozircha +998 95 195 61 19 raqamiga qo‘ng‘iroq qiling — administrator aniq javob beradi." },
     timeline: {
       eyebrow: "Qabul qanday o‘tadi",
       title: "Murojaatdan davolash rejasigacha.",
@@ -246,13 +327,7 @@ export const DICT = {
       ]
     },
     status: { open: "Hozir ochiq", closed: "Hozir yopiq" },
-    plan: {
-      eyebrow: "Tashrif rejalashtiruvchi", title: "Tashrifingizni yo‘nalishlardan yig‘ing",
-      sub: "Qaysi mutaxassislarga bormoqchi ekaningizni belgilang — tashrif qancha vaqt olishini taxminlaymiz.",
-      summaryTitle: "Sizning tashrifingiz", countLabel: "yo‘nalish tanlandi",
-      empty: "Hozircha hech narsa tanlanmagan.", timePrefix: "Taxminan", min: "daqiqa",
-      cta: "Arizaga o‘tkazish", note: "Yakuniy vaqtni administrator telefon orqali kelishadi."
-    },    equip: { title: "Jihozlar", e1: "KT", e2: "eksimer lazer", e3: "LOR-diagnostika", e4: "stomatologiya" },
+    equip: { title: "Jihozlar", e1: "KT", e2: "eksimer lazer", e3: "LOR-diagnostika", e4: "stomatologiya" },
     vision: {
       eyebrow: "O‘yin, tashxis emas", title: "Qanchalik mayda matn o‘qiy olishingizni tekshiring",
       sub: "Harf deyarli ko‘rinmay qolguncha slayderni torting — bu shunchaki ko‘z uchun mashq, tibbiy test emas.",
@@ -270,18 +345,30 @@ export const DICT = {
     },
     foot: "ProfiMed. Toshkentdagi tibbiyot klinikasi.",
     privacyLink: "Maxfiylik siyosati",
-    licenseShort: "Litsenziya"
+    licenseShort: "Litsenziya",
+    meta: {
+      homeTitle: "ProfiMed — Toshkentda oftalmologiya, LOR, stomatologiya va KT-diagnostika",
+      homeDesc: "ProfiMed tibbiyot klinikasi Toshkentda: oftalmologiya, otorinolaringologiya, stomatologiya va KT-diagnostika. Qabulga yozilish.",
+      doctorFallbackTitle: "Klinika shifokorlari | ProfiMed",
+      doctorDesc: "ProfiMed klinikasida (Toshkent) qabulga yozilish.",
+      doctorNotFoundTitle: "Shifokor sahifasi topilmadi | ProfiMed",
+      privacyTitle: "Shaxsga doir ma’lumotlarni qayta ishlash siyosati — ProfiMed",
+      privacyDesc: "ProfiMed klinikasi sayt orqali qanday shaxsiy ma’lumotlarni oladi, nima uchun ishlatadi va roziligni qanday qaytarib olish mumkin.",
+    }
   },
 
   uzc: {
     code: "uzc", label: "ЎЗ", full: "Ўзбекча (кирилл)", flag: "🇺🇿", htmlLang: "uz-Cyrl",
     skip: "Асосий қисмга ўтиш",
     nav: ["Йўналишлар", "Шифокорлар", "Нархлар", "Фикрлар", "Контактлар"],
-    top: { address: "Тошкент, Миробод кўчаси, 6", hours: "Ду–Жума 09:00–19:00, Шанба 09:00–18:00" },
-    hdr: { cta: "Қабулга ёзилиш", ctaShort: "Ёзилиш", callShort: "Қўнғироқ", menu: "Меню", theme: "Мавзуни алмаштириш", themeShort: "Мавзу", toTop: "Юқорига" },
+    top: { address: "Тошкент, Миробод кўчаси, 6", hours: "Душанба–Жума 09:00–19:00, Шанба 09:00–18:00" },
+    hdr: {
+      cta: "Қабулга ёзилиш", ctaShort: "Ёзилиш", callShort: "Қўнғироқ", menu: "Меню", theme: "Мавзуни алмаштириш", themeShort: "Мавзу", toTop: "Юқорига",
+      langLabel: "Сайт тили: {name}", langMenuLabel: "Сайт тилини танлаш", menuClose: "Менюни ёпиш",
+    },
     hero: {
       eyebrow: "Тошкентда 2014 йилдан",
-      h1: ["Эътиборли тиббиёт."],
+      h1: ["Тиббиёт — эътибор билан."],
       sub: "ProfiMed — Тошкентдаги хусусий клиника, тўртта тиббий йўналиш ва ўз КТ-диагностикаси билан.",
       sub2: "2014 йилдан биз замонавий жиҳозлар, аниқ диагностика ва беморга эътиборли ёндашувни битта тиббиёт марказида бирлаштирамиз.",
       cta1: "Қабулга ёзилиш", cta2: "Клиникага қўнғироқ қилиш", photo: "ProfiMed клиникасининг Тошкентдаги фасади"
@@ -294,7 +381,7 @@ export const DICT = {
       jarAlt: "ProfiMed қабулхонасидаги банка — беморлар коррекциядан сўнг эски кўзойнакларини шу ерга қолдиришади",
     },
     splash: { hello: "ProfiMedга хуш келибсиз", sub: "Кўзойнаксиз ҳаёт шу ердан бошланади", skip: "Ўтказиб юбориш" },
-    facts: { f1v: "2014", f1l: "клиника очилган йил", f2v: "4", f2l: "йўналиш битта бинода", f3v: "Morita Veraview X800", f3l: "ўз КТ-диагностикамиз", f4v: "Иш кунлари", f4l: "Ду–Жума 09:00–19:00, Шанба 18:00гача" },
+    facts: { f1v: "2014", f1l: "клиника очилган йил", f2v: "4", f2l: "йўналиш битта бинода", f3v: "Morita Veraview X800", f3l: "ўз КТ-диагностикамиз", f4v: "Иш кунлари", f4l: "Душанба–Жума 09:00–19:00, Шанба 18:00гача" },
     dir: {
       eyebrow: "Йўналишлар", title: "Клиника нима билан шуғулланади",
       intro: "Тўртта йўналиш — битта бинода. Диагностика, консультация ва даволаш — турли марказларга юрмасдан.",
@@ -332,8 +419,38 @@ export const DICT = {
       back: "Барча шифокорлар", notFound: "Бундай шифокор саҳифаси топилмади — ҳавола эскирган бўлиши мумкин.",
       d1Name: "Усманов Акбар Агзамович", d1Role: "офтальмохирург", yearsLabel: "йиллик тажриба"
     },
-    price: { eyebrow: "Нархлар", title: "Нархлар рўйхати", val: "администратор билан аниқлаштиринг", note: "Амалдаги нархларни клиника CRMидан тўғридан-тўғри улаймиз — бу ердаги рақамлар эскирмайди." },
-    rev: { eyebrow: "Фикрлар", title: "Беморлар нима дейди", text: "Бу ерда ҳақиқий беморларнинг фикрлари пайдо бўлади — сайтни ишга тушириш билан йиғишни бошлаймиз, тўқима матнларсиз.", cta: "Беморлар фикрларини ўқинг" },
+    price: {
+      eyebrow: "Нархлар", title: "Нархлар рўйхати",
+      desc: "ProfiMed хизматлари ва қабул нархлари. Даволашнинг аниқ нархини шифокор кўрикдан сўнг белгилайди.",
+      searchPh: "Хизматни қидириш", tabAll: "Барчаси", addToVisit: "Ташрифга қўшиш",
+      val: "администратор билан аниқлаштиринг", currency: "сўм",
+      emptyTitle: "Ҳеч нарса топилмади", emptyDesc: "Сўровни ўзгартиринг ёки бошқа тоифани танланг.",
+      added: "Қўшилди", selectedTitle: "Танланган хизматлар", clear: "Тозалаш", goToBooking: "Ёзилишга ўтиш",
+      addAria: "«{name}» хизматини қўшиш", removeAria: "«{name}» хизматини ўчириш",
+      unselectAria: "«{name}» хизматини танланганлардан олиб ташлаш",
+      liveAdded: "Қўшилди. Танланди: {n} {word}.", liveRemoved: "Ўчирилди. Танланди: {n} {word}.",
+      liveClearedAll: "Танланган хизматлар рўйхати тозаланди.",
+      unitWord: { other: "хизмат" },
+      tabShort: { ent: "ЛОР", ct: "КТ" },
+      searchReset: "Қидирувни тозалаш", cartBarLabel: "Танланди", toBooking: "Ёзилишга",
+      cartExpand: "Танланган хизматларни кўрсатиш", cartCollapse: "Рўйхатни йиғиш",
+    },
+    svc: {
+      'oph-consult': { name: "Офтальмолог билан бирламчи консультация", desc: "Кўрик, шикоятларни аниқлаш ва кейинги текширув бўйича тавсиялар." },
+      'oph-diag': { name: "Кўриш диагностикаси" },
+      'ent-consult': { name: "ЛОР шифокори консультацияси" },
+      'ent-diag': { name: "Қулоқ, томоқ ва бурун диагностикаси" },
+      'stom-consult': { name: "Стоматолог консультацияси" },
+      'stom-hygiene': { name: "Оғиз бўшлиғини профессионал тозалаш", desc: "Тошни олиб ташлаш ва эмални сайқаллаш." },
+      'ct-scan': { name: "КТ-текшируви", desc: "Сканерлаш ҳажми ва зонасини шифокор процедура олдидан аниқлайди." },
+      'ct-review': { name: "КТ натижалари бўйича консультация" },
+    },
+    rev: {
+      eyebrow: "Фикрлар", title: "Мустақил платформалардаги баҳолар",
+      desc: "Ҳақиқий фикрларни клиниканинг оригинал саҳифаларидан ўқинг — бу ерда фақат жорий рейтинг ва ҳавола, платформалар орасидаги умумий ўртача балл йўқ.",
+      viewReviews: "Фикрларни кўриш", updatedOn: "Ҳолат: {date}",
+      reviewWord: { other: "шарҳ" },
+    },
     band: {
       kicker: "Кимга боришни билмасангиз",
       title: "Нима безовта қилаётганини ёзинг — администратор йўналишни айтади ва вақт танлайди",
@@ -345,16 +462,22 @@ export const DICT = {
       addr: "Тошкент шаҳри, Миробод (эски Кунаев) кўчаси, 6-уй",
       hours: "Ду–Жума 09:00–19:00, Шанба 09:00–18:00",
       complaintsTitle: "Шикоят ва таклифлар",
-      complaintsOfficer: "Масъул шахс"
+      complaintsOfficer: "Масъул шахс",
+      addrLabel: "Манзил", phonesLabel: "Телефонлар", hoursLabel: "Иш вақти", emailLabel: "Email",
     },
     form: {
       name: "Исмингиз", namePh: "Сизга қандай мурожаат қилайлик", phone: "Телефон",
-      dir: "Йўналиш", dirAny: "Ишончим йўқ, ўзингиз айтасиз",
+      dir: "Йўналиш", dirAny: "Аниқ билмайман — маслаҳат беринг", dirMulti: "Йўналишлар",
+      svcTitle: "Танланган хизматлар", svcAdd: "+ Хизмат қўшиш",
+      svcEmpty: "Хизматлар танланмаган — администратор керакли йўналишни аниқлашга ёрдам беради",
+      bookingTitle: "Қабулга ёзилиш", bookingTitleServices: "Сизнинг ташрифингиз",
+      bookingSubtitle: "Алоқа маълумотларини қолдиринг — администратор қайта қўнғироқ қилиб, қулай вақтни келишади.",
+      bookingSubtitleServices: "Алоқа маълумотларини қолдиринг — администратор қайта қўнғироқ қилиб, танланган хизматларни аниқлаштиради ва вақтни келишади.",
       submit: "Ариза юбориш", sending: "Юборилмоқда…",
       note: "Бу — қайта қўнғироқ учун ариза. Қабул вақтини администратор келишади.",
-      consent: "Мен шахсга доир маълумотларни қайта ишлашга розиман ва {link} танишдим.",
+      consent: "Мен шахсга доир маълумотларим қайта ишланишига розилик бераман ва {link} билан танишганимни тасдиқлайман.",
       errConsent: "Маълумотларни қайта ишлашга розилик бўлмаса, аризани қабул қила олмаймиз",
-      consentLink: "шахсга доир маълумотларни қайта ишлаш сиёсатига",
+      consentLink: "шахсга доир маълумотларни қайта ишлаш сиёсати",
       okTitle: "Ариза юборилди", okText: "Администратор қайта қўнғироқ қилади ва қулай вақтни келишади.",
       again: "Яна битта ариза юбориш",
       err: "Аризани юбориш имкони бўлмади. Яна уриниб кўринг ёки қўнғироқ қилинг — +998 95 195 61 19",
@@ -363,7 +486,7 @@ export const DICT = {
     },
     map: { label: "йўл харитаси — Миробод кўчаси, 6", note: "Клиника харитада белгиланган — Миробод (эски Кунаев) кўчаси, 6-уй.", route: "Маршрут қуриш", taxi: "Такси чақириш" },
     pre: { s1: "Бўлимлар", s2: "Клиника", s3: "Ёзилиш", text: "Ариза — қайта қўнғироқ қилиш сўрови. Қабул вақтини администратор телефон орқали келишади.", cta: "Ариза қолдириш" },
-    chat: { fabLabel: "Савол бериш", title: "ProfiMed ёрдамчиси", subtitle: "Сунъий интеллект ёрдамчиси қораламаси — демо жавоблар беради", placeholder: "Саволингизни ёзинг…", send: "Юбориш", greeting: "Салом! Клиника жадвали ва йўналишлари бўйича ёрдам бераман. Савол ёзинг — бу ерда ҳақиқий сунъий интеллект жавоб беради.", demoReply: "Саволингиз учун раҳмат! Бу — қоралама: кейинроқ бу ерга сунъий интеллект уланади. Ҳозирча +998 95 195 61 19 рақамига қўнғироқ қилинг — администратор аниқ жавоб беради." },
+    chat: { fabLabel: "Савол бериш", title: "ProfiMed ёрдамчиси", subtitle: "Сунъий интеллект ёрдамчиси қораламаси — демо жавоблар беради", placeholder: "Саволингизни ёзинг…", send: "Юбориш", close: "Чатни ёпиш", greeting: "Салом! Клиника жадвали ва йўналишлари бўйича ёрдам бераман. Савол ёзинг — бу ерда ҳақиқий сунъий интеллект жавоб беради.", demoReply: "Саволингиз учун раҳмат! Бу — қоралама: кейинроқ бу ерга сунъий интеллект уланади. Ҳозирча +998 95 195 61 19 рақамига қўнғироқ қилинг — администратор аниқ жавоб беради." },
     timeline: {
       eyebrow: "Қабул қандай ўтади",
       title: "Мурожаатдан даволаш режасигача.",
@@ -374,7 +497,7 @@ export const DICT = {
       s4t: "Даволаш режаси", s4d: "Шифокор кейинги қадамларни тушунтиради, администратор эса кейинги ташрифни келишишга ёрдам беради."
     },
     faq: {
-      eyebrow: "Саволлар", title: "Тез-тез сораладиган саволлар",
+      eyebrow: "Саволлар", title: "Тез-тез сўраладиган саволлар",
       items: [
         { q: "Олдиндан ёзилиш керакми?", a: "Йўналишга боғлиқ: стоматологга ва КТ-диагностикага — аниқ вақтга олдиндан ёзилиб борилади. Офтальмологга ва ЛОРга — навбат тартибида, олдиндан ариза қолдириш шарт эмас." },
         { q: "Бошқа шифокордан йўлланмасиз келиш мумкинми?", a: "Ҳа, на қабулга, на КТ-диагностикага йўлланма керак эмас — текширувни бизнинг шифокоримиз кўрикдан кейин белгилайди." },
@@ -383,13 +506,7 @@ export const DICT = {
       ]
     },
     status: { open: "Ҳозир очиқ", closed: "Ҳозир ёпиқ" },
-    plan: {
-      eyebrow: "Ташриф режалаштирувчи", title: "Ташрифингизни йўналишлардан йиғинг",
-      sub: "Қайси мутахассисларга бормоқчи эканингизни белгиланг — ташриф қанча вақт олишини тахминлаймиз.",
-      summaryTitle: "Сизнинг ташрифингиз", countLabel: "йўналиш танланди",
-      empty: "Ҳозирча ҳеч нарса танланмаган.", timePrefix: "Тахминан", min: "дақиқа",
-      cta: "Аризага ўтказиш", note: "Якуний вақтни администратор телефон орқали келишади."
-    },    equip: { title: "Жиҳозлар", e1: "КТ", e2: "эксимер лазер", e3: "ЛОР-диагностика", e4: "стоматология" },
+    equip: { title: "Жиҳозлар", e1: "КТ", e2: "эксимер лазер", e3: "ЛОР-диагностика", e4: "стоматология" },
     vision: {
       eyebrow: "Ўйин, ташхис эмас", title: "Қанчалик майда матн ўқий олишингизни текширинг",
       sub: "Ҳарф деярли кўринмай қолгунча слайдерни торттинг — бу шунчаки кўз учун машқ, тиббий тест эмас.",
@@ -407,18 +524,30 @@ export const DICT = {
     },
     foot: "ProfiMed. Тошкентдаги тиббиёт клиникаси.",
     privacyLink: "Махфийлик сиёсати",
-    licenseShort: "Лицензия"
+    licenseShort: "Лицензия",
+    meta: {
+      homeTitle: "ProfiMed — Тошкентда офтальмология, ЛОР, стоматология ва КТ-диагностика",
+      homeDesc: "ProfiMed тиббиёт клиникаси Тошкентда: офтальмология, оториноларингология, стоматология ва КТ-диагностика. Қабулга ёзилиш.",
+      doctorFallbackTitle: "Клиника шифокорлари | ProfiMed",
+      doctorDesc: "ProfiMed клиникасида (Тошкент) қабулга ёзилиш.",
+      doctorNotFoundTitle: "Шифокор саҳифаси топилмади | ProfiMed",
+      privacyTitle: "Шахсга доир маълумотларни қайта ишлаш сиёсати — ProfiMed",
+      privacyDesc: "ProfiMed клиникаси сайт орқали қандай шахсий маълумотларни олади, нима учун ишлатади ва розиликни қандай қайтариб олиш мумкин.",
+    }
   },
 
   en: {
     code: "en", label: "EN", full: "English", flag: "🇬🇧", htmlLang: "en",
     skip: "Skip to content",
-    nav: ["Services", "Doctors", "Prices", "Reviews", "Contacts"],
+    nav: ["Specialities", "Doctors", "Prices", "Reviews", "Contacts"],
     top: { address: "Tashkent, 6 Mirabad street", hours: "Mon–Fri 09:00–19:00, Sat 09:00–18:00" },
-    hdr: { cta: "Book a visit", ctaShort: "Book", callShort: "Call", menu: "Menu", theme: "Switch theme", themeShort: "Theme", toTop: "Back to top" },
+    hdr: {
+      cta: "Book a visit", ctaShort: "Book", callShort: "Call", menu: "Menu", theme: "Switch theme", themeShort: "Theme", toTop: "Back to top",
+      langLabel: "Site language: {name}", langMenuLabel: "Choose site language", menuClose: "Close menu",
+    },
     hero: {
       eyebrow: "In Tashkent since 2014",
-      h1: ["Attentive medicine."],
+      h1: ["Healthcare with care."],
       sub: "ProfiMed is a private clinic in Tashkent with four medical specialties and its own CT imaging.",
       sub2: "Since 2014 we've brought together modern equipment, precise diagnostics and attentive care for every patient in one medical centre.",
       cta1: "Book a visit", cta2: "Call the clinic", photo: "ProfiMed clinic facade in Tashkent"
@@ -431,9 +560,9 @@ export const DICT = {
       jarAlt: "A jar at ProfiMed reception where patients leave their old glasses after vision correction",
     },
     splash: { hello: "Welcome to ProfiMed", sub: "Life without glasses starts here", skip: "Skip" },
-    facts: { f1v: "2014", f1l: "the year the clinic opened", f2v: "4", f2l: "services in one building", f3v: "Morita Veraview X800", f3l: "our own CT imaging", f4v: "Working days", f4l: "Mon–Fri 09:00–19:00, Sat until 18:00" },
+    facts: { f1v: "2014", f1l: "the year the clinic opened", f2v: "4", f2l: "medical departments in one building", f3v: "Morita Veraview X800", f3l: "our own CT imaging", f4v: "Working days", f4l: "Mon–Fri 09:00–19:00, Sat until 18:00" },
     dir: {
-      eyebrow: "Services", title: "What the clinic does",
+      eyebrow: "Specialities", title: "What the clinic does",
       intro: "Four specialties, one building. Diagnostics, consultation and treatment without trips across different centres.",
       cta: "Book", more: "More", less: "Collapse",
       det1: ["Vision testing and correction fitting", "Pre-op assessment for laser surgery", "LASIK, LESIK and PRK", "Walk-in, first come first served — no appointment needed"],
@@ -442,7 +571,7 @@ export const DICT = {
       det4: ["3D imaging in the clinic", "Scans for ENT and dentistry", "The scan is performed by a CT operator", "By appointment only"],
       d1t: "Ophthalmology", d1x: "Vision diagnostics and treatment, LASIK, LESIK and PRK laser correction.",
       d2t: "ENT", d2x: "Ear, nose and throat — from acute conditions to planned surgery.",
-      d3t: "Dentistry", d3x: "Therapeutic and aesthetic dentistry on modern equipment.",
+      d3t: "Dentistry", d3x: "Therapeutic and aesthetic dentistry using modern equipment.",
       d4t: "CT imaging", d4x: "3D computed tomography — no referral to another clinic needed."
     },
     laser: {
@@ -455,10 +584,10 @@ export const DICT = {
     },
     about: {
       eyebrow: "About the clinic",
-      title: ["A small clinic.", "Everything vital, nearby."],
+      title: ["A small clinic.", "Everything you need, close at hand."],
       intro: "Since 2014, ProfiMed has brought four medical services together in one centre. Diagnostics, consultations and treatment happen without extra trips to different addresses.",
       f1t: "Diagnostics on site", f1d: "CT and diagnostics for our main services are available at the clinic.",
-      f2t: "A consistent team", f2d: "Doctors and staff work together and support the patient through every stage of care.",
+      f2t: "A dedicated team", f2d: "Doctors and staff work together and support the patient through every stage of care.",
       gallery: { g1: "Clinic facade", g2: "Reception", g3: "Equipment" },
       galleryPrev: "Previous photo", galleryNext: "Next photo"
     },
@@ -469,8 +598,38 @@ export const DICT = {
       back: "All doctors", notFound: "This doctor page doesn't exist — the link may be outdated.",
       d1Name: "Akbar Usmanov", d1Role: "ophthalmic surgeon", yearsLabel: "years of experience"
     },
-    price: { eyebrow: "Prices", title: "Price list", val: "please ask the administrator", note: "The live price list will be connected straight from the clinic's CRM, so the numbers here won't go stale." },
-    rev: { eyebrow: "Reviews", title: "What patients say", text: "Reviews from real patients will appear here — we start collecting them at launch, with no placeholders and nothing invented.", cta: "Read what patients write" },
+    price: {
+      eyebrow: "Prices", title: "Price list",
+      desc: "Services and appointment prices at ProfiMed. The doctor determines the exact cost of treatment after the examination.",
+      searchPh: "Search for a service", tabAll: "All", addToVisit: "Add",
+      val: "Price available on request", currency: "UZS",
+      emptyTitle: "Nothing found", emptyDesc: "Try a different search or choose another category.",
+      added: "Added", selectedTitle: "Selected services", clear: "Clear", goToBooking: "Go to the request form",
+      addAria: "Add service “{name}”", removeAria: "Remove service “{name}”",
+      unselectAria: "Remove service “{name}” from selected",
+      liveAdded: "Added. {n} {word} selected.", liveRemoved: "Removed. {n} {word} selected.",
+      liveClearedAll: "The selected services list is cleared.",
+      unitWord: { one: "service", other: "services" },
+      tabShort: { ent: "ENT", ct: "CT" },
+      searchReset: "Reset search", cartBarLabel: "Selected", toBooking: "To the form",
+      cartExpand: "Show selected services", cartCollapse: "Collapse the list",
+    },
+    svc: {
+      'oph-consult': { name: "Initial ophthalmologist consultation", desc: "Examination, review of symptoms and recommendations for further testing." },
+      'oph-diag': { name: "Vision diagnostics" },
+      'ent-consult': { name: "ENT doctor consultation" },
+      'ent-diag': { name: "Ear, nose and throat diagnostics" },
+      'stom-consult': { name: "Dentist consultation" },
+      'stom-hygiene': { name: "Professional dental hygiene", desc: "Plaque removal and enamel polishing." },
+      'ct-scan': { name: "CT scan", desc: "The doctor defines the scan area and scope before the procedure." },
+      'ct-review': { name: "Consultation on CT scan results" },
+    },
+    rev: {
+      eyebrow: "Reviews", title: "Ratings on independent platforms",
+      desc: "Read real reviews on the clinic's original profiles — this is just the current rating and a link, with no combined average across platforms.",
+      viewReviews: "See reviews", updatedOn: "As of {date}",
+      reviewWord: { one: "review", other: "reviews" },
+    },
     band: {
       kicker: "Not sure who to see",
       title: "Describe what's bothering you — the administrator will suggest the right doctor and a time",
@@ -482,13 +641,24 @@ export const DICT = {
       addr: "6 Mirabad street (formerly Kunaev), Tashkent",
       hours: "Mon–Fri 09:00–19:00, Sat 09:00–18:00",
       complaintsTitle: "Complaints and suggestions",
-      complaintsOfficer: "Responsible person"
+      complaintsOfficer: "Responsible person",
+      addrLabel: "Address", phonesLabel: "Phone", hoursLabel: "Hours", emailLabel: "Email",
     },
     form: {
       name: "Your name", namePh: "How should we address you", phone: "Phone",
-      dir: "Service", dirAny: "I'm not sure, please advise",
+      // dir/dirMulti — «Speciality» (британское написание — см. brief:
+      // centre/licence/specialities), не «Service»: с этапа с корзиной
+      // услуг рядом в той же форме есть блок «Selected services» (конкретные
+      // платные процедуры), и «Service» для направления (Ophthalmology,
+      // ENT…) читалось бы как то же самое понятие, что и они.
+      dir: "Speciality", dirAny: "I'm not sure, please advise", dirMulti: "Specialities",
+      svcTitle: "Selected services", svcAdd: "+ Add services",
+      svcEmpty: "No services selected — the administrator will help find the right specialist",
+      bookingTitle: "Book an appointment", bookingTitleServices: "Your visit",
+      bookingSubtitle: "Leave your contact details — the administrator will call you back and agree a convenient time.",
+      bookingSubtitleServices: "Leave your contact details — the administrator will call you back, confirm the selected services and agree a time.",
       submit: "Send the request", sending: "Sending…",
-      note: "This is a call-back request. The administrator agrees the appointment time.",
+      note: "This is a call-back request. The administrator will confirm the appointment time.",
       consent: "I consent to the processing of my personal data and have read the {link}.",
       errConsent: "We cannot accept the request without consent to data processing",
       consentLink: "personal data processing policy",
@@ -499,8 +669,8 @@ export const DICT = {
       errPhone: "Please check the number — for example, +998 90 123 45 67"
     },
     map: { label: "directions — 6 Mirabad street", note: "The clinic is pinned on the map — 6 Mirabad street (formerly Kunaev).", route: "Get directions", taxi: "Order a taxi" },
-    pre: { s1: "Sections", s2: "Clinic", s3: "Booking", text: "A request is an ask for a call back. The administrator agrees the appointment time by phone.", cta: "Request a call back" },
-    chat: { fabLabel: "Ask a question", title: "ProfiMed assistant", subtitle: "AI assistant draft — replies with demo messages", placeholder: "Type your question…", send: "Send", greeting: "Hello! I can help with the clinic's hours and services. Ask a question — a real AI assistant will reply here.", demoReply: "Thanks for your question! This is a placeholder: a real AI assistant will be connected soon. For now call +998 95 195 61 19 — the administrator will help directly." },
+    pre: { s1: "Sections", s2: "Clinic", s3: "Booking", text: "Submitting this form requests a callback. The administrator will confirm the appointment time by phone.", cta: "Request a call back" },
+    chat: { fabLabel: "Ask a question", title: "ProfiMed assistant", subtitle: "AI assistant draft — replies with demo messages", placeholder: "Type your question…", send: "Send", close: "Close chat", greeting: "Hello! I can help with the clinic's hours and services. Ask a question — a real AI assistant will reply here.", demoReply: "Thanks for your question! This is a placeholder: a real AI assistant will be connected soon. For now call +998 95 195 61 19 — the administrator will help directly." },
     timeline: {
       eyebrow: "How a visit works",
       title: "From your inquiry to a treatment plan.",
@@ -520,13 +690,7 @@ export const DICT = {
       ]
     },
     status: { open: "Open now", closed: "Closed now" },
-    plan: {
-      eyebrow: "Visit planner", title: "Build your visit from our services",
-      sub: "Mark the specialists you'd like to see — we'll estimate how long the visit takes.",
-      summaryTitle: "Your visit", countLabel: "services selected",
-      empty: "Nothing selected yet.", timePrefix: "Roughly", min: "minutes",
-      cta: "Move to the request", note: "The final timing is confirmed by the administrator by phone."
-    },    equip: { title: "Equipment", e1: "CT", e2: "excimer laser", e3: "ENT diagnostics", e4: "dentistry" },
+    equip: { title: "Equipment", e1: "CT", e2: "excimer laser", e3: "ENT diagnostics", e4: "dentistry" },
     vision: {
       eyebrow: "A game, not a diagnosis", title: "See how small a text you can read",
       sub: "Drag the slider until the letter is barely readable — it's just an eye warm-up, not a medical test.",
@@ -544,6 +708,15 @@ export const DICT = {
     },
     foot: "ProfiMed. Medical clinic in Tashkent.",
     privacyLink: "Privacy policy",
-    licenseShort: "Licence"
+    licenseShort: "Licence",
+    meta: {
+      homeTitle: "ProfiMed — Ophthalmology, ENT, Dentistry and CT Imaging in Tashkent",
+      homeDesc: "ProfiMed medical clinic in Tashkent: ophthalmology, ENT, dentistry and CT imaging. Book an appointment.",
+      doctorFallbackTitle: "Our doctors | ProfiMed",
+      doctorDesc: "Book an appointment at ProfiMed clinic in Tashkent.",
+      doctorNotFoundTitle: "Doctor page not found | ProfiMed",
+      privacyTitle: "Personal Data Processing Policy — ProfiMed",
+      privacyDesc: "What personal data ProfiMed clinic collects through the website, why, and how to withdraw consent.",
+    }
   }
 };

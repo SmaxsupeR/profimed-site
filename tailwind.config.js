@@ -39,6 +39,7 @@ export default {
         // реальной фотографии (Prata, Spectral, Noto Serif Display) выбран
         // Spectral 600 — см. обоснование в Hero.jsx рядом с h1.
         hero: ['Spectral', 'Georgia', 'serif'],
+        question: ['Headland One', 'Georgia', 'serif'],
       },
       colors: {
         // Клинический синий — теперь primary/интерактив (кнопки, фокус-

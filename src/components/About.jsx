@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLang } from '../i18n/LangContext.jsx';
 import { useReveal } from '../hooks/useReveal.js';
 import { PhotoPlaceholder } from './PhotoPlaceholder.jsx';
+import { SplitSectionHeader } from './ui/Section.jsx';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/a11y';
@@ -44,37 +45,23 @@ export function About() {
         ref={sectionRef}
         className={`${revealClass} pm-container px-4 sm:px-6 py-10 sm:py-12`}
       >
-        {/* Шапка — заголовок и интро в строку на десктопе (45/55), не
-            центрированный SectionHeader и не отдельная колонка над галереей.
-            Никакого текста по центру — по брифу, всё выровнено по левому
-            краю. mb-7, не mb-8 — «шапка → галерея» это единственный отступ
-            между блоками (28px, нижняя граница диапазона 28–36 из брифа), у
-            галереи ниже своего верхнего отступа нет. */}
-        <div className="mb-7 grid gap-4 lg:grid-cols-[9fr_11fr] lg:items-start lg:gap-12">
-          <div>
-            <p className="text-sm font-medium text-slate-600 tracking-[0.08em] mb-2 dark:text-slate-400">{t.about.eyebrow}</p>
-            <h2 className="font-display text-slate-900 text-[28px] sm:text-[34px] lg:text-[38px] leading-[1.15] text-balance dark:text-slate-50">
-              {t.about.title.map((line, i) => (
-                <span key={i} className="block">{line}</span>
-              ))}
-            </h2>
-          </div>
-          <p className="text-slate-600 leading-relaxed lg:max-w-[560px] dark:text-slate-300">{t.about.intro}</p>
-        </div>
+        {/* Общий SplitSectionHeader (этап полировки 1.1/3.4) — та же
+            вёрстка, что теперь у Doctors/Timeline, вместо собственной
+            копии. mb-16(64px), не mb-7(28px) — «шапка → галерея» из
+            требуемых брифом 48–72px. */}
+        <SplitSectionHeader
+          eyebrow={t.about.eyebrow}
+          title={t.about.title.map((line, i) => (
+            <span key={i} className="block">{line}</span>
+          ))}
+          description={t.about.intro}
+          className="mb-8 border-b border-slate-200 pb-8 dark:border-slate-700"
+        />
 
-        {/* Широкая галерея на всю ширину контейнера — главный визуальный
-            элемент секции. Соотношение сторон растёт с шириной экрана
-            (4:3 → 16:9 → 15:4), а не одно и то же 2:1 везде: на мобильном
-            широкий кроп сжал бы кадр в узкую полоску, а на десктопе даже
-            2:1 при ширине контейнера ~1100px даёт ~550px высоты одной
-            галереи — ровно то самое «ещё 600-пиксельная секция», которого
-            бриф просит избежать. 15:4 на lg держит высоту около 290px —
-            нижняя граница заданного бридом диапазона 280–360px, нужная,
-            чтобы уложить всю секцию (шапка + галерея + факты + оснащение)
-            в целевые 550–650px. mb-2, не mb-7 — «галерея → факты» отступ
-            собран из этого mb-2 и pt-4 у блока фактов ниже (итого 24px),
-            а не сложен из двух полных отступов подряд. */}
-        <div className="relative mb-2 rounded-[28px] overflow-hidden aspect-[4/3] sm:aspect-[16/9] lg:aspect-[15/4]">
+        {/* Полная ширина контейнера с управляемой высотой. Нельзя сочетать
+            aspect-ratio с max-height: на широких экранах браузер переносит
+            ограничение высоты на ширину и оставляет справа пустую колонку. */}
+        <div className="relative mb-2 h-[280px] w-full overflow-hidden rounded-[28px] sm:h-[340px] lg:h-[420px]">
           <Swiper
             modules={[Navigation, Keyboard, A11y]}
             navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
@@ -111,7 +98,14 @@ export function About() {
                   ref={prevRef}
                   type="button"
                   aria-label={t.about.galleryPrev}
-                  className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-900/55 text-white backdrop-blur-sm transition-colors hover:bg-slate-900/75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                  // relative + before:absolute — тач-зона 44×44 (бриф, п.
+                  // «Размер сенсорных зон») без увеличения самой видимой
+                  // кнопки: плашка над фото компактная нарочно (бриф той же
+                  // секции запрещает «визуально тяжёлый» интерфейс), а
+                  // псевдоэлемент растягивает только зону клика/тапа за
+                  // пределы видимого кружка, не влияя на layout соседей
+                  // (position: absolute не участвует в потоке).
+                  className="relative flex h-7 w-7 items-center justify-center rounded-full bg-slate-900/55 text-white backdrop-blur-sm transition-colors before:absolute before:-inset-2 before:content-[''] hover:bg-slate-900/75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                 >
                   <ChevronLeft size={14} strokeWidth={2} />
                 </button>
@@ -119,7 +113,14 @@ export function About() {
                   ref={nextRef}
                   type="button"
                   aria-label={t.about.galleryNext}
-                  className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-900/55 text-white backdrop-blur-sm transition-colors hover:bg-slate-900/75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                  // relative + before:absolute — тач-зона 44×44 (бриф, п.
+                  // «Размер сенсорных зон») без увеличения самой видимой
+                  // кнопки: плашка над фото компактная нарочно (бриф той же
+                  // секции запрещает «визуально тяжёлый» интерфейс), а
+                  // псевдоэлемент растягивает только зону клика/тапа за
+                  // пределы видимого кружка, не влияя на layout соседей
+                  // (position: absolute не участвует в потоке).
+                  className="relative flex h-7 w-7 items-center justify-center rounded-full bg-slate-900/55 text-white backdrop-blur-sm transition-colors before:absolute before:-inset-2 before:content-[''] hover:bg-slate-900/75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                 >
                   <ChevronRight size={14} strokeWidth={2} />
                 </button>
@@ -131,7 +132,7 @@ export function About() {
         {/* Факты — один border-t сверху вместо карточек, две колонки на
             sm+. Только два факта, третьего (логика записи) больше нет —
             это уже рассказывает Timeline. */}
-        <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5 border-t border-slate-200 pt-4 dark:border-slate-700">
+        <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5 border-t border-slate-200 pt-8 dark:border-slate-700">
           <div>
             <h3 className="font-semibold text-slate-900 mb-1 dark:text-slate-50">{t.about.f1t}</h3>
             <p className="text-sm text-slate-600 leading-relaxed dark:text-slate-400">{t.about.f1d}</p>

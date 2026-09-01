@@ -1,49 +1,44 @@
-import { useEffect, useState } from 'react';
-import { Navigation, CarTaxiFront } from 'lucide-react';
 import { useLang } from '../i18n/LangContext.jsx';
-import { Button } from './ui/Button.jsx';
-import { MAP_EMBED_URL, ROUTE_URL, ROUTE_GEO_URL, TAXI_URL } from '../data/clinic.js';
+import { MAP_EMBED_URL } from '../data/clinic.js';
 
-// Карта — колонка внутри Contact (бриф: информация + карта рядом на
-// десктопе, друг под другом на мобильном), не отдельная полноширинная
-// секция. Скруглённый контур с рамкой — та же логика, что у карточек
-// (~16px, тонкая рамка, без тени), а не плитка на весь экран.
+// Голый iframe без своего border/radius/фона — full bleed внутри общей
+// карточки «Как нас найти» (см. ContactSection.jsx). Разделитель между
+// контактами и картой теперь рисует ОБЁРТКА (#contact-map-area в
+// ContactSection.jsx: border-t на mobile, border-l на desktop) — не сама
+// карта, поэтому у Map.jsx нет собственных border-классов вообще (бриф
+// прямо запрещает «вторую рамку или дополнительный радиус» вокруг iframe).
 //
-// Точка на карте — точные координаты клиники (data/clinic.js), а не рамка
-// вокруг района: раньше карта показывала весь Мирабад без метки.
+// Высота — фиксированная на каждом брейкпоинте, НЕ flex-1/auto: важно,
+// чтобы карта НИКОГДА не растягивалась выше безопасного порога, даже если
+// колонка контактов слева окажется выше (см. justify-center на обёртке в
+// ContactSection.jsx — именно она, а не сама карта, компенсирует разницу
+// высот колонок).
+//
+// lg-высота — 360px, НЕ 420–520px, как могло бы читаться из общего
+// диапазона «desktop-карта 440–520». Причина — не эстетика, а
+// инструментально проверенное ограничение самого виджета Яндекса:
+// большую карточку организации (см. MAP_EMBED_URL, oid/ol=biz) открывает
+// ВЫСОТА iframe, не ширина — порог примерно 380–400px, ниже которого
+// карточка не появляется ни при какой ширине (проверено 320–900px), выше
+// — открывается даже на самой узкой из проверенных (320px). 360px — с
+// запасом ниже порога (проверено вплоть до 380px включительно — карточки
+// нет). Официального параметра «не открывать карточку» у map-widget/v1
+// не существует — увеличивать высоту дальше без перехода на platform-JS
+// API/Конструктор с ключом владельца означало бы намеренно включить
+// нежелательную карточку (решение пользователя — зафиксировать высоту
+// ниже порога, а не мириться с карточкой). Точка на карте — координаты
+// клиники (data/clinic.js: CLINIC_LAT/LON, комментарий там же — почему
+// это отдельная пара от ARRIVAL_LAT/LON у кнопки маршрута в
+// MapActions.jsx).
 export function Map() {
   const { t } = useLang();
 
-  // Ссылка выбирается после монтирования, а не при рендере: на сервере и в
-  // первый кадр navigator недоступен/не нужен, а начальное значение —
-  // обычный https, который работает везде. На Android подменяем на geo:,
-  // чтобы открылся установленный навигатор, а не веб-карта.
-  const [routeHref, setRouteHref] = useState(ROUTE_URL);
-  useEffect(() => {
-    if (/Android/i.test(navigator.userAgent)) setRouteHref(ROUTE_GEO_URL);
-  }, []);
-
   return (
-    <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
-      <iframe
-        title={t.map.label}
-        src={MAP_EMBED_URL}
-        className="w-full h-[320px] border-0 block"
-        loading="lazy"
-      />
-      <div className="bg-primary-50 dark:bg-slate-800/60 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-slate-600 dark:text-slate-300">{t.map.note}</p>
-        <div className="flex flex-wrap gap-2.5">
-          <Button href={routeHref} target="_blank" rel="noopener noreferrer" size="sm">
-            <Navigation size={15} />
-            {t.map.route}
-          </Button>
-          <Button href={TAXI_URL} target="_blank" rel="noopener noreferrer" variant="secondary" size="sm">
-            <CarTaxiFront size={15} />
-            {t.map.taxi}
-          </Button>
-        </div>
-      </div>
-    </div>
+    <iframe
+      title={t.map.label}
+      src={MAP_EMBED_URL}
+      className="block h-[300px] w-full shrink-0 sm:h-[360px] lg:h-[360px]"
+      loading="lazy"
+    />
   );
 }

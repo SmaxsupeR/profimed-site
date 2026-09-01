@@ -25,10 +25,15 @@ export function ScrollUi() {
   return (
     <>
       <div className="fixed top-0 left-0 h-[3px] z-[70] bg-primary-600 transition-[width] duration-75 ease-linear" style={{ width: `${pct}%` }} />
+      {/* Только от lg (этап 3.15) — на мобильном/планшете и без того три
+          плавающих элемента в одной зоне экрана (чат, нижняя панель записи,
+          на прайсе ещё и панель выбранных услуг): «Наверх» здесь лишний,
+          а на телефоне с коротким экраном скролл до верха и так короткий.
+          На десктопе своей нижней CTA-панели нет — тут кнопка остаётся. */}
       <a
         href="/#top"
         aria-label={t.hdr.toTop}
-        className="pm-totop flex items-center justify-center w-11 h-11 rounded-full border border-slate-200 bg-white text-primary-600 shadow-card transition-opacity dark:bg-slate-800 dark:border-slate-700 dark:text-primary-400"
+        className="pm-totop hidden lg:flex items-center justify-center w-11 h-11 rounded-full border border-slate-200 bg-white text-primary-600 shadow-card transition-opacity dark:bg-slate-800 dark:border-slate-700 dark:text-primary-400"
         style={{ left: 20, opacity: visible ? 1 : 0, pointerEvents: visible ? 'auto' : 'none' }}
       >
         <ChevronUp size={18} />

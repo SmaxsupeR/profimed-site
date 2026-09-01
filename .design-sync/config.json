@@ -20,6 +20,7 @@
     "Textarea": "src/components/ui/Field.jsx",
     "Section": "src/components/ui/Section.jsx",
     "SectionHeader": "src/components/ui/Section.jsx",
+    "SplitSectionHeader": "src/components/ui/Section.jsx",
     "PhotoPlaceholder": "src/components/PhotoPlaceholder.jsx",
     "Header": "src/components/Header.jsx",
     "Hero": "src/components/Hero.jsx",
@@ -28,7 +29,8 @@
     "Prices": "src/components/Prices.jsx",
     "Reviews": "src/components/Reviews.jsx",
     "BookingForm": "src/components/BookingForm.jsx",
-    "Contact": "src/components/Contact.jsx",
+    "BookingSection": "src/components/BookingSection.jsx",
+    "ContactSection": "src/components/ContactSection.jsx",
     "Footer": "src/components/Footer.jsx"
   },
   "overrides": {
@@ -36,24 +38,30 @@
     "Hero": { "viewport": "1280x760" },
     "Directions": { "viewport": "1280x620" },
     "Doctors": { "viewport": "1280x760" },
-    "Prices": { "viewport": "1280x560" },
+    "Prices": { "viewport": "1280x900" },
     "Reviews": { "viewport": "1280x460" },
     "Section": { "cardMode": "column", "viewport": "1280x700" },
-    "Contact": { "cardMode": "column", "viewport": "1280x900" },
+    "SplitSectionHeader": { "cardMode": "column", "viewport": "1280x260" },
+    "BookingSection": { "cardMode": "column", "viewport": "1000x800" },
+    "ContactSection": { "cardMode": "column", "viewport": "1280x820" },
     "Footer": { "viewport": "1280x220" }
   },
   "dtsPropsFor": {
     "Button": "/** Визуальный вес. primary — главное действие экрана (оно должно быть одно), secondary — равнозначное рядом, ghost — третьестепенное. */\n  variant?: 'primary' | 'secondary' | 'ghost';\n  size?: 'sm' | 'md' | 'lg';\n  /** Задан — рендерится как <a> (якорь, tel:), иначе как <button>. */\n  href?: string;\n  type?: 'button' | 'submit' | 'reset';\n  disabled?: boolean;\n  onClick?: (e: React.MouseEvent) => void;\n  className?: string;\n  children?: React.ReactNode;",
-    "Card": "/** solid — обычная карточка, interactive — кликабельная (рендерится как <button>, доступна с клавиатуры), dashed — честное пустое состояние. */\n  variant?: 'solid' | 'interactive' | 'dashed';\n  onClick?: (e: React.MouseEvent) => void;\n  className?: string;\n  children?: React.ReactNode;",
+    "Card": "/** solid — обычная карточка, interactive — кликабельная (рендерится как <button>, доступна с клавиатуры), dashed — честное пустое состояние. */\n  variant?: 'solid' | 'interactive' | 'dashed';\n  /** Задан — рендерится как <a> (целиком кликабельная карточка-ссылка, например на внешний профиль), href побеждает variant. */\n  href?: string;\n  onClick?: (e: React.MouseEvent) => void;\n  className?: string;\n  children?: React.ReactNode;",
     "Field": "/** Подпись поля. Оборачивает контрол в <label>, поэтому клик по тексту ставит фокус в поле. */\n  label?: string;\n  /** Пояснение под полем. */\n  hint?: string;\n  children?: React.ReactNode;",
     "Input": "type?: string;\n  value?: string;\n  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;\n  placeholder?: string;\n  required?: boolean;\n  disabled?: boolean;\n  className?: string;",
     "Select": "value?: string;\n  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;\n  required?: boolean;\n  disabled?: boolean;\n  className?: string;\n  children?: React.ReactNode;",
     "Textarea": "value?: string;\n  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;\n  placeholder?: string;\n  rows?: number;\n  required?: boolean;\n  className?: string;",
     "Section": "/** Якорь для навигации по странице. */\n  id?: string;\n  className?: string;\n  children?: React.ReactNode;",
     "SectionHeader": "/** Надпись над заголовком — оливковая, единственное регулярное место второго фирменного цвета. */\n  eyebrow?: string;\n  title?: string;\n  description?: string;\n  className?: string;",
+    "SplitSectionHeader": "/** Редакторский header «заголовок слева (9fr) / описание+действия справа (11fr)» — Doctors/About/Timeline. actions — опционален (напр. стрелки Doctors), встаёт рядом с описанием и переносится под него при нехватке ширины. */\n  eyebrow?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  actions?: React.ReactNode;\n  className?: string;",
+    "Header": "/** Вызывается с true/false при открытии/закрытии мобильного меню — на сайте этим гасят MobileCallBar, пока меню открыто. */\n  onMenuOpenChange?: (open: boolean) => void;",
     "PhotoPlaceholder": "/** Подпись внутри плейсхолдера — что здесь будет за фото. */\n  label?: string;\n  className?: string;",
     "Directions": "/** Вызывается с id направления при клике по плитке. */\n  onPick: (id: string) => void;",
-    "BookingForm": "/** id направления, которое надо подставить в форму заранее. */\n  presetDirection?: string;",
-    "Contact": "/** Пробрасывается в форму заявки внутри секции. */\n  presetDirection?: string;"
+    "Prices": "/** Id выбранных услуг (обычно — состояние из App.jsx). */\n  selectedIds?: string[];\n  /** Переключить услугу — уже выбранную снимает, невыбранную добавляет. */\n  onToggleService?: (id: string) => void;\n  /** Очистить весь выбор («Очистить» в панели «Выбрано услуг»). */\n  onClearSelected?: () => void;",
+    "BookingForm": "/** id направления, которое надо подставить в форму заранее. */\n  presetDirection?: string;\n  /** Id выбранных услуг — тот же список, что и в Prices. */\n  selectedIds?: string[];\n  /** Убрать услугу из выбора (крестик у строки в блоке «Выбранные услуги»). */\n  onRemoveService?: (id: string) => void;\n  /** Вызывается после успешной отправки заявки — сюда кладут очистку выбора услуг. */\n  onSubmitted?: () => void;",
+    "BookingSection": "/** BookingForm в центрированном контейнере (720–900px) со своей секцией-обёрткой (id=\"booking\"). Пропсы пробрасываются в BookingForm без изменений. */\n  presetDirection?: string;\n  selectedIds?: string[];\n  onRemoveService?: (id: string) => void;\n  onSubmitted?: () => void;\n  /** Вызывается с true/false, когда секция входит/выходит из вьюпорта — на сайте этим гасят закреплённую панель Prices, пока форма и так на виду. */\n  onBookingInView?: (inView: boolean) => void;",
+    "ContactSection": "/** Контакты (адрес/телефоны/часы/почта/жалобы) и карта в одной карточке (id=\"contact\"): адрес, телефоны, часы работы, почта, жалобы сверху, карта и кнопки маршрута/такси снизу — без пропсов на сами данные. */\n  /** Вызывается с true/false, когда секция целиком входит/выходит из вьюпорта — на сайте этим гасят закреплённую панель Prices. */\n  onSectionInView?: (inView: boolean) => void;\n  /** Вызывается с true/false для нижней части (карта + кнопки маршрута) отдельно от всей секции — на сайте этим гасят MobileCallBar (<1024px), не панель Prices. */\n  onMapAreaInView?: (inView: boolean) => void;"
   }
 }

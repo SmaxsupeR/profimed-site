@@ -46,3 +46,43 @@ export function SectionHeader({ eyebrow, title, description, className = '' }) {
     </div>
   );
 }
+
+// SplitSectionHeader — общий «заголовок слева / описание(+действия)
+// справа» header для секций с редакторской композицией (Doctors, About,
+// Timeline — до этого каждая собирала почти одинаковый grid вручную, с
+// разным gap/масштабом заголовка). eyebrow+title — левая колонка (9fr),
+// description(+actions) — правая (11fr), lg:gap-16 (64px, нижняя граница
+// требуемых 64–96px) — теперь один и тот же набор значений у всех трёх, а
+// не три независимо подобранных.
+//
+// actions — опционален (не у всех трёх секций есть стрелки/кнопки рядом с
+// описанием). description и actions вместе в одном flex-wrap ряду: на
+// широком десктопе — в одну строку (описание слева от actions), а если
+// ширины правой колонки не хватает (граничные ~1024–1120px при длинном
+// описании) — actions сами переносятся под текст отдельной строкой, не
+// сжимая его до нечитаемой ширины (у description свой min-w и потолок
+// lg:max-w-[580px], середина требуемых 520–620px).
+export function SplitSectionHeader({ eyebrow, title, description, actions, className = '' }) {
+  const hasSideContent = Boolean(description || actions);
+
+  return (
+    <div className={`${hasSideContent ? 'grid gap-5 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:items-end lg:gap-14' : 'max-w-[760px]'} ${className}`}>
+      <div>
+        {eyebrow && (
+          <p className="mb-3 text-sm font-medium tracking-[0.08em] text-slate-600 dark:text-slate-400">{eyebrow}</p>
+        )}
+        <h2 className="font-display text-[32px] leading-[1.06] text-slate-900 text-balance sm:text-[42px] lg:text-[50px] dark:text-slate-50">
+          {title}
+        </h2>
+      </div>
+      {hasSideContent && (
+        <div className="flex flex-wrap items-end justify-between gap-x-5 gap-y-4 lg:pb-1">
+          {description && (
+            <p className="min-w-[220px] flex-1 text-[16px] leading-relaxed text-slate-600 lg:max-w-[560px] dark:text-slate-300">{description}</p>
+          )}
+          {actions && <div className="shrink-0">{actions}</div>}
+        </div>
+      )}
+    </div>
+  );
+}

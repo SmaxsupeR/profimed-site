@@ -6,6 +6,7 @@ import '@fontsource-variable/inter';
 // другое начертание этого шрифта. Файл 600.css уже включает кириллицу и
 // латиницу разом (см. fontFamily.hero в tailwind.config.js).
 import '@fontsource/spectral/600.css';
+import '@fontsource/headland-one/400.css';
 import './index.css';
 import App from './App.jsx';
 

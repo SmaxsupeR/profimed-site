@@ -22,5 +22,6 @@ export { Doctors } from './components/Doctors.jsx';
 export { Prices } from './components/Prices.jsx';
 export { Reviews } from './components/Reviews.jsx';
 export { BookingForm } from './components/BookingForm.jsx';
-export { Contact } from './components/Contact.jsx';
+export { BookingSection } from './components/BookingSection.jsx';
+export { ContactSection } from './components/ContactSection.jsx';
 export { Footer } from './components/Footer.jsx';

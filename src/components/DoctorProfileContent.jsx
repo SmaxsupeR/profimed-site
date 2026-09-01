@@ -33,7 +33,7 @@ export function DoctorProfileContent({ doctor, onBook }) {
         </h1>
         <p className="mt-1 text-slate-500 dark:text-slate-400">{role}</p>
         {doctor.factLine && (
-          <p className="mt-3 text-sm font-medium text-primary-700 dark:text-primary-400">{doctor.factLine}</p>
+          <p className="mt-3 text-sm font-medium text-primary-700 dark:text-primary-300">{doctor.factLine}</p>
         )}
         {doctor.shortBio && (
           <p className="mt-4 text-slate-600 leading-relaxed dark:text-slate-300">{doctor.shortBio}</p>
@@ -57,7 +57,7 @@ export function DoctorProfileContent({ doctor, onBook }) {
             <ul className="grid gap-3">
               {doctor.education.map((item, i) => (
                 <li key={i} className="grid grid-cols-[3.5rem_1fr] gap-3 text-sm">
-                  <span className="tabular-nums text-slate-400 dark:text-slate-500">{item.year}</span>
+                  <span className="tabular-nums text-slate-400 dark:text-slate-400">{item.year}</span>
                   <span className="text-slate-700 dark:text-slate-300">
                     {item.institution}
                     {item.qualification && <span className="text-slate-500 dark:text-slate-400"> — {item.qualification}</span>}

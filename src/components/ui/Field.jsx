@@ -24,7 +24,7 @@ export function Field({ label, hint, error, children }) {
       {error ? (
         <span role="alert" className="text-xs text-red-600 dark:text-red-400">{error}</span>
       ) : (
-        hint && <span className="text-xs text-slate-400 dark:text-slate-500">{hint}</span>
+        hint && <span className="text-xs text-slate-400 dark:text-slate-400">{hint}</span>
       )}
     </label>
   );

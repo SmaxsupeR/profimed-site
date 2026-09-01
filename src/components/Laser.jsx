@@ -52,7 +52,12 @@ export function Laser({ onPick }) {
           </h2>
           {/* Справочная деталь, не второй заголовок — вся строка одним
               приглушённым тоном, без светлого акцента на «Методы:». */}
-          <p className="text-xs text-slate-500 mb-5">{t.laser.badge}: {t.laser.methods}</p>
+          {/* slate-500 (не dark:-вариант — секция всегда графитовая
+              независимо от темы сайта, см. комментарий выше о фоне) дал
+              4.27:1 на реальном фоне секции (#191C1F) — чуть ниже порога
+              4.5:1 для 12px-текста (Lighthouse). slate-400 проходит с
+              запасом, тон остаётся тем же самым приглушённым. */}
+          <p className="text-xs text-slate-400 mb-5">{t.laser.badge}: {t.laser.methods}</p>
           <p className="text-slate-300 max-w-[34em]">{t.laser.text}</p>
         </div>
 

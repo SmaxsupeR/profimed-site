@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { useDocumentMeta } from '../hooks/useDocumentMeta.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import { useDoctors } from '../hooks/useDoctors.js';
 import { Header } from './Header.jsx';
@@ -25,6 +26,19 @@ export function DoctorPage({ slug, onBack, onPick }) {
   const doctors = useDoctors();
   const doctor = doctors.find((d) => d.routeSlug === slug);
 
+  // «Имя — роль | ProfiMed» строится из тех же t.doc.d{i}Name/d{i}Role, что
+  // уже показаны в самом профиле (см. DoctorProfileContent.jsx) — не
+  // придумывается заново под тег заголовка, а переиспользует уже
+  // согласованные значения словаря. У плейсхолдеров (имени ещё нет) —
+  // название направления вместо «имя — роль», тот же приём, что и в самом
+  // профиле (name ?? directionTitle).
+  useDocumentMeta(
+    doctor
+      ? (doctor.name ? `${doctor.name} — ${doctor.role} | ProfiMed` : `${doctor.directionTitle} | ProfiMed`)
+      : t.meta.doctorNotFoundTitle,
+    t.meta.doctorDesc
+  );
+
   return (
     <div>
       <Header />
@@ -34,7 +48,7 @@ export function DoctorPage({ slug, onBack, onPick }) {
             <button
               type="button"
               onClick={onBack}
-              className="mb-7 inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+              className="mb-7 inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-300 dark:hover:text-primary-200"
             >
               <ArrowLeft size={16} />
               {t.doc.back}

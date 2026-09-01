@@ -1,11 +1,12 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { A11y, Keyboard, Navigation } from 'swiper/modules';
+import { A11y, Keyboard } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useDoctors } from '../hooks/useDoctors.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import { useReveal } from '../hooks/useReveal.js';
 import { PhotoPlaceholder } from './PhotoPlaceholder.jsx';
+import { SplitSectionHeader } from './ui/Section.jsx';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/a11y';
@@ -33,9 +34,9 @@ import 'swiper/css/a11y';
 export function Doctors({ onOpenDoctor }) {
   const { t } = useLang();
   const { ref: sectionRef, className: revealClass } = useReveal();
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const swiperRef = useRef(null);
   const doctors = useDoctors();
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // Карточка — настоящая ссылка (<a href="/doctors/slug">), не <button> с
   // onClick: так работают правый клик «Копировать адрес ссылки», Ctrl/Cmd+
@@ -55,41 +56,30 @@ export function Doctors({ onOpenDoctor }) {
       <section
         id="doctors"
         ref={sectionRef}
-        className={`${revealClass} pm-container px-4 sm:px-6 py-10 sm:py-12`}
+        // overflow-x-hidden — обязателен именно здесь, а не только на самом
+        // Swiper. На мобильном Swiper нарочно !overflow-visible (следующая
+        // карточка выглядывает за край экрана, эффект «есть ещё карточки»),
+        // но у pm-container нет собственного overflow — это просто
+        // max-width/центрирование. Без обрезки на уровне секции этот
+        // «выглядывающий» хвост карточек раздувал ширину всего документа
+        // (шапка и мобильная панель звонка — fixed inset-x-0 — в реальных
+        // мобильных браузерах раздуваются вместе с ним, а не остаются
+        // прижатыми к экрану). Секция — правильная граница для обрезки:
+        // ровно край экрана, тот же эффект peek, но не дальше.
+        className={`${revealClass} overflow-x-hidden pm-container px-4 sm:px-6 py-10 sm:py-12`}
       >
-        <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-          <div className="grid gap-4 lg:flex-1 lg:grid-cols-[9fr_11fr] lg:items-start lg:gap-12">
-            <div>
-              <p className="text-sm font-medium text-slate-600 tracking-[0.08em] mb-2 dark:text-slate-400">{t.doc.eyebrow}</p>
-              <h2 className="font-display text-slate-900 text-[28px] sm:text-[34px] lg:text-[38px] leading-[1.15] text-balance dark:text-slate-50">
-                {t.doc.title}
-              </h2>
-            </div>
-            <p className="text-slate-600 leading-relaxed lg:max-w-[480px] dark:text-slate-300">{t.doc.desc}</p>
-          </div>
-
-          {/* Стрелки у заголовка, не поверх лиц врачей — и только от sm:
-              на телефоне вести пальцем естественнее, чем целиться в
-              кнопку 28×28px. */}
-          <div className="hidden shrink-0 items-center gap-2 sm:flex">
-            <button
-              ref={prevRef}
-              type="button"
-              aria-label={t.doc.prev}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-600 transition-colors hover:border-primary-400 hover:text-primary-700 disabled:opacity-30 dark:border-slate-600 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-400"
-            >
-              <ChevronLeft size={16} />
-            </button>
-            <button
-              ref={nextRef}
-              type="button"
-              aria-label={t.doc.next}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 text-slate-600 transition-colors hover:border-primary-400 hover:text-primary-700 disabled:opacity-30 dark:border-slate-600 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-400"
-            >
-              <ChevronRight size={16} />
-            </button>
-          </div>
-        </div>
+        {/* Общий SplitSectionHeader (этап полировки 1.1/3.3) — раньше
+            собирался вручную, своим flex+grid, с mb-7(28px) до карточек
+            (диапазон брифа 40–64) — теперь mb-12(48px) и общая с About/
+            Timeline вёрстка заголовка. Стрелки идут в actions — тот же
+            flex-wrap ряд, что и описание: на широком десктопе рядом с
+            текстом, при нехватке ширины (граничные ~1024–1120px) сами
+            переносятся под него, не сжимая описание. */}
+        <SplitSectionHeader
+          eyebrow={t.doc.eyebrow}
+          title={t.doc.title}
+          className="mb-9 sm:mb-10"
+        />
 
         {/* slidesPerView="auto" — ширина карточки задаётся ей самой
             (Tailwind-классы на слайде ниже), а не вычисляется из дробного
@@ -101,14 +91,11 @@ export function Doctors({ onOpenDoctor }) {
             ширины контейнера: карточка остаётся ~300–320px при любой
             ширине секции, а сколько их видно — уже следствие, не цель. */}
         <Swiper
-          modules={[Navigation, Keyboard, A11y]}
-          navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-          onBeforeInit={(swiper) => {
-            swiper.params.navigation.prevEl = prevRef.current;
-            swiper.params.navigation.nextEl = nextRef.current;
-          }}
+          modules={[Keyboard, A11y]}
+          onSwiper={(swiper) => { swiperRef.current = swiper; }}
           keyboard={{ enabled: true }}
           a11y={{ prevSlideMessage: t.doc.prev, nextSlideMessage: t.doc.next }}
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           slidesPerView="auto"
           spaceBetween={20}
           breakpoints={{
@@ -120,7 +107,7 @@ export function Doctors({ onOpenDoctor }) {
         >
           {doctors.map((doctor) => {
             const displayName = doctor.name ?? doctor.directionTitle;
-            const secondaryLine = doctor.name ? doctor.factLine : t.doc.note;
+            const secondaryLine = doctor.name ? doctor.factLine : null;
             return (
               <SwiperSlide key={doctor.id} className="!w-[78vw] !h-auto sm:!w-[300px] lg:!w-[320px]">
                 <a
@@ -146,7 +133,7 @@ export function Doctors({ onOpenDoctor }) {
                   {secondaryLine && (
                     <p className="text-sm text-slate-500 mt-0.5 dark:text-slate-400">{secondaryLine}</p>
                   )}
-                  <span className="mt-2 inline-flex items-center text-sm font-medium text-primary-600 group-hover:underline dark:text-primary-400">
+                  <span className="mt-2 inline-flex items-center text-sm font-medium text-primary-600 group-hover:underline dark:text-primary-300">
                     {t.doc.more} →
                   </span>
                 </a>
@@ -154,6 +141,34 @@ export function Doctors({ onOpenDoctor }) {
             );
           })}
         </Swiper>
+
+        {doctors.length > 1 && (
+          <div className="mt-7 flex items-center justify-end gap-4 border-t border-slate-200 pt-5 dark:border-slate-800">
+            <p className="text-xs font-medium tracking-[0.08em] text-slate-500 dark:text-slate-400">
+              {String(activeIndex + 1).padStart(2, '0')} / {String(doctors.length).padStart(2, '0')}
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                aria-label={t.doc.prev}
+                onClick={() => swiperRef.current?.slidePrev()}
+                disabled={activeIndex === 0}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 text-slate-600 transition-colors hover:border-primary-400 hover:text-primary-700 disabled:cursor-default disabled:opacity-30 dark:border-slate-600 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-300"
+              >
+                <ChevronLeft size={17} />
+              </button>
+              <button
+                type="button"
+                aria-label={t.doc.next}
+                onClick={() => swiperRef.current?.slideNext()}
+                disabled={activeIndex >= doctors.length - 1}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 text-slate-600 transition-colors hover:border-primary-400 hover:text-primary-700 disabled:cursor-default disabled:opacity-30 dark:border-slate-600 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-300"
+              >
+                <ChevronRight size={17} />
+              </button>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );

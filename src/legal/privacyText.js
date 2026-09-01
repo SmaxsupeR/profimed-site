@@ -497,7 +497,7 @@ export const PRIVACY = {
           { t: 'ul', v: [
             'your name or how to address you;',
             'your phone number;',
-            'the service you selected, if you specified one.',
+            'the specialty or services you selected, if any.',
           ] },
           { t: 'p', v: 'Through this form we do not request passport details, bank details, test results or medical documents.' },
           { t: 'p', v: 'The form is not intended for sharing information about your health and does not let you attach medical documents or describe your symptoms in free text. Anything relevant to your visit will be discussed with the doctor in person.' },

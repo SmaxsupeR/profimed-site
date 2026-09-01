@@ -122,7 +122,11 @@ export function Hero() {
                   по размеру, а не «почти». max-w-[300px] — чтобы блок не
                   растягивался на всю ширину колонки (та же логика, что и у
                   max-w-[620px] на самой колонке чуть выше, только у же). */}
-              <div className="pm-hero-anim flex max-w-[300px] flex-col gap-2.5 lg:hidden" style={{ animationDelay: '270ms' }}>
+              {/* id — этап полировки 2, наблюдатель в App.jsx (heroCtaInView):
+                  пока эти кнопки в кадре на мобильном, отдельная нижняя
+                  панель MobileCallBar не нужна — она дублировала бы те же
+                  по смыслу действия. */}
+              <div id="hero-mobile-actions" className="pm-hero-anim flex max-w-[300px] flex-col gap-2.5 lg:hidden" style={{ animationDelay: '270ms' }}>
                 <Button href="/#booking" size="lg" shape="rounded" className="h-[50px] w-full">
                   {t.hero.cta1}
                 </Button>

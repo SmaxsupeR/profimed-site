@@ -30,7 +30,7 @@
 ## Из чего собирать
 
 **Примитивы** — `Button`, `Card`, `Field` (+ `Input`, `Select`, `Textarea`),
-`Section` + `SectionHeader`, `PhotoPlaceholder`.
+`Section` + `SectionHeader`/`SplitSectionHeader`, `PhotoPlaceholder`.
 
 - `Button` — `variant`: `primary` | `secondary` | `ghost`, `size`: `sm` | `md` | `lg`.
   Передан `href` — отрендерится ссылкой, иначе кнопкой. **На экране одна `primary`.**
@@ -39,10 +39,13 @@
 - `Field` оборачивает контрол в `<label>`: всегда клади `Input`/`Select`/`Textarea`
   внутрь `Field`, а не голыми.
 - `Section` + `SectionHeader` держат единую ширину и вертикальный ритм — свои
-  отступы для секций не изобретай.
+  отступы для секций не изобретай. Для композиции «заголовок слева / описание
+  (+действия) справа» (Doctors/About/Timeline) — `SplitSectionHeader`, не
+  ручной grid: один и тот же масштаб заголовка и gutter (64px) у всех трёх.
 
 **Готовые секции страницы** — `Header`, `Hero`, `Directions`, `Doctors`, `Prices`,
-`Reviews`, `BookingForm`, `Contact`, `Footer`. Это блоки лендинга клиники,
+`Reviews`, `BookingForm`, `BookingSection`, `ContactSection`, `Footer`.
+Это блоки лендинга клиники,
 собранные из примитивов выше.
 
 ## Чего не делать

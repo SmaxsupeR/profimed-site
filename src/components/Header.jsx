@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { Menu, X, Sun, Moon, ChevronDown, ChevronRight, Check, Phone } from 'lucide-react';
 import { useLang } from '../i18n/LangContext.jsx';
 import { useTheme } from '../theme/ThemeContext.jsx';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 import { DICT } from '../i18n/dict.js';
 import { Button } from './ui/Button.jsx';
 import logoMark from '../assets/profimed-logo-mark.svg';
@@ -21,7 +22,15 @@ function isOpenNow(now) {
   return tashMin >= 540 && tashMin < closeMin;
 }
 
-export function Header() {
+// Список фокусируемых элементов внутри узла — общий помощник для фокус-
+// ловушки мобильного меню и (когда-нибудь) любого другого самодельного
+// диалога на сайте.
+function focusableIn(node) {
+  if (!node) return [];
+  return [...node.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+}
+
+export function Header({ onMenuOpenChange } = {}) {
   const { lang, setLang, t } = useLang();
   const { isDark, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,26 +43,42 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   // Высота шапки на мобильном и десктопе теперь разная (этап 3.6, бриф
   // «Target Header height: approximately 64–68px» — именно для мобильной
-  // шапки, десктопные 60/72 трогать не просили). matchMedia, а не просто
-  // «meta-flag» из CSS: число используется в JS (высота спейсера ниже,
-  // высота открытого меню — 100dvh минус эта же высота), так что breakpoint
-  // должен быть виден и здесь, не только в Tailwind-классах. Порог — тот
-  // же 1024px, что и у всех lg:-классов в этом файле.
-  const [isDesktop, setIsDesktop] = useState(
-    () => window.matchMedia('(min-width: 1024px)').matches
-  );
+  // шапки, десктопные 60/72 трогать не просили). Живая media query
+  // (useMediaQuery — этап 3.23, общий хук вместо своего matchMedia-эффекта
+  // здесь, тот же приём теперь и в App.jsx для порога чата у карты), а не
+  // просто «meta-flag» из CSS: число используется в JS (высота спейсера
+  // ниже, высота открытого меню — 100dvh минус эта же высота), так что
+  // breakpoint должен быть виден и здесь, не только в Tailwind-классах.
+  // Порог — тот же 1024px, что и у всех lg:-классов в этом файле.
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)');
-    const onChange = () => setIsDesktop(mq.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
+  // Ссылки для доступности мобильного меню (этап 3.15): обёртка шапки —
+  // чтобы найти её соседей по DOM и временно инертировать их, пока меню
+  // открыто; сама панель меню — для фокус-ловушки и поиска первого
+  // фокусируемого элемента; кнопка-гамбургер — чтобы вернуть фокус ей
+  // после закрытия.
+  const wrapperRef = useRef(null);
+  const menuPanelRef = useRef(null);
+  const menuBtnRef = useRef(null);
+  const wasMenuOpenRef = useRef(false);
+  const menuTitleId = 'pm-mobile-menu-title';
+  const menuPanelId = 'pm-mobile-menu';
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(id);
   }, []);
+
+  // Этап полировки 2.5 — App.jsx (Page()) держит menuOpen как ещё один
+  // сигнал в формуле mobileCallBarHidden: пока открыто мобильное меню,
+  // MobileCallBar не должна оставаться на виду позади него (сама шапка уже
+  // вешает inert на соседей ниже — это про доступность/tab-order, а не про
+  // то, что видно на экране). onMenuOpenChange — необязательный проп: без
+  // него (например, в изолированном превью .design-sync) компонент ведёт
+  // себя как раньше, просто некому сообщать.
+  useEffect(() => {
+    onMenuOpenChange?.(menuOpen);
+  }, [menuOpen, onMenuOpenChange]);
 
   // Разные пороги на вход/выход (а не один и тот же scrollY > 40) —
   // намеренно, с запасом больше, чем перепад высоты шапки при сжатии
@@ -72,6 +97,87 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Доступность открытого мобильного меню (P1 бриф этапа 3.15) — четыре
+  // вещи разом, потому что все они относятся к одному и тому же жизненному
+  // циклу «меню открыто»:
+  //   1. фокус уходит на первый интерактивный пункт внутри панели;
+  //   2. Tab/Shift+Tab не выходят за пределы панели (ручная ловушка —
+  //      без сторонней библиотеки ради одного диалога на сайте);
+  //   3. Escape закрывает меню;
+  //   4. всё, что физически СНАРУЖИ шапки (main, футер, плавающие кнопки),
+  //      получает inert — скринридер и Tab туда не попадут, пока меню
+  //      открыто, реальная страница внизу для клавиатуры/AT перестаёт
+  //      существовать до закрытия.
+  // wrapperRef — сама шапка (position: fixed), а не document.body целиком:
+  // так под inert попадают только настоящие «остальные» элементы (main,
+  // Footer, MobileCallBar, ScrollUi, ChatWidget — все они смонтированы
+  // соседями шапки в одном родительском <div>, см. App.jsx), а не сама
+  // шапка, часть которой (открытая панель) должна остаться интерактивной.
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper || !wrapper.parentElement) return undefined;
+    if (!menuOpen) return undefined;
+
+    const siblings = [...wrapper.parentElement.children].filter((el) => el !== wrapper);
+    siblings.forEach((el) => el.setAttribute('inert', ''));
+
+    const panel = menuPanelRef.current;
+    const items = focusableIn(panel);
+    (items[0] ?? panel)?.focus();
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setMenuOpen(false);
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const current = focusableIn(panel);
+      if (current.length === 0) return;
+      const first = current[0];
+      const last = current[current.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      siblings.forEach((el) => el.removeAttribute('inert'));
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [menuOpen]);
+
+  // Фокус возвращается на кнопку-гамбургер после закрытия — но только если
+  // меню действительно было открыто этим же переключением (а не при первом
+  // рендере компонента, где menuOpen и так уже false).
+  useEffect(() => {
+    if (wasMenuOpenRef.current && !menuOpen) {
+      menuBtnRef.current?.focus();
+    }
+    wasMenuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  // Закрытие выпадающего списка языка по Escape — тот же самодельный
+  // паттерн, что и у мобильного меню выше, но без фокус-ловушки/inert:
+  // список компактный, не подменяет собой всю страницу, обычного клика/
+  // Tab вне списка (уже закрывающего его через фон-оверлей ниже) достаточно.
+  useEffect(() => {
+    if (!langMenuOpen) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setLangMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [langMenuOpen]);
+
   const topBarHeight = scrolled ? 0 : 36;
   const headerHeight = isDesktop ? (scrolled ? 60 : 72) : (scrolled ? 64 : 68);
 
@@ -82,10 +188,49 @@ export function Header() {
   // («…19:00, Сб…»), формат одинаковый во всех 4 языках. split — это чисто
   // отображение уже существующих данных, не новая бизнес-логика про часы.
   const hoursLines = t.top.hours.split(', ');
+  // Кнопка визуально показывает только код языка (t.hdr.langLabel ниже
+  // подставляет DICT[lang].full в развёрнутое описание для aria-label) —
+  // но WCAG 2.5.3 «Label in Name» требует, чтобы доступное имя СОДЕРЖАЛО
+  // видимый текст дословно (это поймал Lighthouse: label-content-name-
+  // mismatch), иначе управление голосом («нажми RU») не находит кнопку по
+  // тому, что на ней написано. DICT[lang].label спереди — тот самый
+  // видимый текст, остальное — то же развёрнутое описание, что и раньше.
+  const langAriaLabel = `${DICT[lang].label} — ${t.hdr.langLabel.replace('{name}', DICT[lang].full)}`;
+
+  // Список языка — одна и та же разметка нужна и в десктопном, и в
+  // мобильном кластере (этап 3.15: добавлены role="listbox"/"option" и
+  // aria-label списка — общий рендер, чтобы оба места не разъезжались).
+  const renderLangMenu = (topClass) => (
+    <>
+      <div className="fixed inset-0 z-40" onClick={() => setLangMenuOpen(false)} />
+      <div
+        role="listbox"
+        aria-label={t.hdr.langMenuLabel}
+        className={`pm-menu-anim absolute right-0 ${topClass} z-50 min-w-[212px] grid gap-0.5 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-card dark:border-slate-700 dark:bg-slate-800`}
+      >
+        {LANG_ORDER.map((code) => (
+          <button
+            key={code}
+            type="button"
+            role="option"
+            aria-selected={code === lang}
+            onClick={() => { setLang(code); setLangMenuOpen(false); }}
+            className="flex items-center justify-between gap-2.5 rounded-lg px-2.5 py-2.5 text-sm text-slate-700 hover:bg-primary-50 dark:text-slate-200 dark:hover:bg-slate-700"
+          >
+            <span className="flex items-center gap-2 whitespace-nowrap">
+              <span aria-hidden="true">{DICT[code].flag}</span>
+              {DICT[code].full}
+            </span>
+            {code === lang && <Check size={15} className="text-primary-600" aria-hidden="true" />}
+          </button>
+        ))}
+      </div>
+    </>
+  );
 
   return (
     <Fragment>
-    <div className="fixed inset-x-0 top-0 z-40">
+    <div ref={wrapperRef} className="fixed inset-x-0 top-0 z-40">
       {/* Верхняя полоса — нейтральный графит, не тил: это адресная строка,
           а не действие, и не должна спорить с primary-кнопками ниже. */}
       <div
@@ -132,13 +277,13 @@ export function Header() {
 
           <nav className="hidden lg:flex items-center gap-6">
             {NAV_HREFS.map((href, i) => (
-              <a key={href} href={href} className="text-sm font-medium text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">
+              <a key={href} href={href} className="text-sm font-medium text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300">
                 {t.nav[i]}
               </a>
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3.5">
+          <div className="hidden lg:flex items-center gap-2.5 xl:gap-3.5">
             {/* Компактный статус «открыто/закрыто» в самой шапке (этап 3.5) —
                 показываем только когда topBarHeight схлопнут (scrolled):
                 в развёрнутом виде та же информация уже есть в топбаре
@@ -147,48 +292,52 @@ export function Header() {
                 «быстрый доступ», а не копия всей строки топбара — адрес и
                 почта здесь не нужны, только то, что реально пропадает при
                 скролле (статус) и то, что за ним обычно ищут (часы). Тот
-                же isOpenNow/t.status/t.top.hours, что и в топбаре. */}
+                же isOpenNow/t.status/t.top.hours, что и в топбаре.
+
+                Настоящая причина найденного бага (этап 3.16) — не телефон
+                и не CTA, а этот бейдж: он единственный появляется ТОЛЬКО
+                при scrolled, и именно его добавление (плюс собственный
+                gap) на некоторых языках (напр. ЎЗ — «Ҳозир очиқ» шире, чем
+                «RU») дотягивало общую ширину ряда (статус + язык + тема +
+                телефон + CTA + навигация) до предела pm-container. Браузер
+                в ответ сжимал самые «эластичные» соседние элементы
+                (телефон, CTA) — а раз у них white-space обычный, вместо
+                сжатия текст переносился на вторую строку. hidden xl:flex —
+                на lg (1024–1279px, самая тесная зона: контейнер там ещё не
+                упёрся в свой max-width, места объективно меньше, чем на
+                1280+) бейдж не рендерится вовсе, и добавлять ему нечего;
+                с 1280px (xl) места достаточно даже с ним. gap-2.5→xl:
+                gap-3.5 у самого кластера — та же логика, точечный запас
+                на lg. Телефон и CTA теперь ещё и shrink-0/whitespace-nowrap
+                (см. их классы ниже) — так на переносе строк не потеряется
+                уже ничего, даже если для другого языка в будущем расчёт
+                опять станет впритык. */}
             {scrolled && (
               <span
-                className="pm-menu-item-anim inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400"
+                className="pm-menu-item-anim hidden xl:inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium text-slate-500 dark:text-slate-400"
                 title={t.top.hours}
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${open ? 'bg-green' : 'bg-amber-300'}`} />
                 {open ? t.status.open : t.status.closed}
               </span>
             )}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
                 type="button"
                 onClick={() => setLangMenuOpen((v) => !v)}
-                aria-haspopup="true"
+                aria-haspopup="listbox"
                 aria-expanded={langMenuOpen}
-                className="flex items-center gap-1.5 h-[38px] px-3.5 rounded-full border border-slate-300 text-sm font-semibold text-slate-600 hover:border-primary-400 hover:text-primary-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-400"
+                aria-controls="pm-lang-menu-desktop"
+                aria-label={langAriaLabel}
+                className="flex items-center gap-1.5 h-[38px] px-3.5 rounded-full border border-slate-300 text-sm font-semibold text-slate-600 hover:border-primary-400 hover:text-primary-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-300"
               >
-                {DICT[lang].label}
-                <ChevronDown size={12} />
+                <span aria-hidden="true">{DICT[lang].label}</span>
+                <ChevronDown size={12} aria-hidden="true" />
               </button>
               {langMenuOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setLangMenuOpen(false)} />
-                  <div className="pm-menu-anim absolute right-0 top-[46px] z-50 min-w-[212px] grid gap-0.5 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-card dark:border-slate-700 dark:bg-slate-800">
-                    {LANG_ORDER.map((code) => (
-                      <button
-                        key={code}
-                        type="button"
-                        onClick={() => { setLang(code); setLangMenuOpen(false); }}
-                        aria-current={code === lang}
-                        className="flex items-center justify-between gap-2.5 rounded-lg px-2.5 py-2 text-sm text-slate-700 hover:bg-primary-50 dark:text-slate-200 dark:hover:bg-slate-700"
-                      >
-                        <span className="flex items-center gap-2 whitespace-nowrap">
-                          <span aria-hidden="true">{DICT[code].flag}</span>
-                          {DICT[code].full}
-                        </span>
-                        {code === lang && <Check size={15} className="text-primary-600" />}
-                      </button>
-                    ))}
-                  </div>
-                </>
+                <div id="pm-lang-menu-desktop">
+                  {renderLangMenu('top-[46px]')}
+                </div>
               )}
             </div>
 
@@ -197,17 +346,26 @@ export function Header() {
               onClick={toggleTheme}
               aria-label={t.hdr.theme}
               title={t.hdr.theme}
-              className="flex items-center justify-center w-[38px] h-[38px] rounded-full border border-slate-300 text-slate-600 hover:border-primary-400 hover:text-primary-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-400"
+              className="shrink-0 flex items-center justify-center w-[38px] h-[38px] rounded-full border border-slate-300 text-slate-600 hover:border-primary-400 hover:text-primary-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-primary-500 dark:hover:text-primary-300"
             >
               {isDark ? <Sun size={17} /> : <Moon size={17} />}
             </button>
 
-            <a href="tel:+998951956119" className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400">
-              <Phone size={15} />
+            {/* Номер остаётся текстом (этап 3.16, коррект.) — по прямому
+                требованию: первая версия правки прятала цифры за одной
+                иконкой, это не подошло. shrink-0 + whitespace-nowrap —
+                номер физически не может перенестись на вторую строку,
+                чем бы ни сжимался ряд слева от него; настоящий источник
+                бага (см. ниже, у статус-бейджа) исправлен отдельно. */}
+            <a
+              href="tel:+998951956119"
+              className="shrink-0 flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300"
+            >
+              <Phone size={15} className="shrink-0" />
               +998 95 195 61 19
             </a>
 
-            <Button href="/#booking" size="sm">{t.hdr.cta}</Button>
+            <Button href="/#booking" size="sm" className="shrink-0 whitespace-nowrap">{t.hdr.cta}</Button>
           </div>
 
           {/* Мобильный утилити-кластер (этап 3.4) — раньше здесь до
@@ -222,40 +380,30 @@ export function Header() {
               всегда только одна ветка (у другой родитель на display:none
               по брейкпоинту) — тот же приём, что и с nav/мобильным меню
               ниже. Звонок и «Записаться» тут нарочно не дублируются — на
-              мобильном их уже держит липкая MobileCallBar снизу. */}
-          <div className="flex items-center gap-1 lg:hidden">
+              мобильном их уже держит липкая MobileCallBar снизу.
+
+              Кнопки — 44×44px реальной зоны нажатия (этап 3.15, было 36px):
+              иконка внутри осталась того же размера, вырос только сам
+              button (h-11 w-11 вместо h-9 w-9) — тот же приём, что бриф
+              просит для крестиков и переключателя категорий в Prices.jsx. */}
+          <div className="flex items-center gap-0.5 lg:hidden">
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setLangMenuOpen((v) => !v)}
-                aria-haspopup="true"
+                aria-haspopup="listbox"
                 aria-expanded={langMenuOpen}
-                className="flex h-9 items-center gap-1 rounded-md px-2 text-xs font-semibold text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400"
+                aria-controls="pm-lang-menu-mobile"
+                aria-label={langAriaLabel}
+                className="flex h-11 items-center gap-1 rounded-md px-2 text-xs font-semibold text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300"
               >
-                {DICT[lang].label}
-                <ChevronDown size={11} />
+                <span aria-hidden="true">{DICT[lang].label}</span>
+                <ChevronDown size={11} aria-hidden="true" />
               </button>
               {langMenuOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setLangMenuOpen(false)} />
-                  <div className="pm-menu-anim absolute right-0 top-[38px] z-50 min-w-[212px] grid gap-0.5 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-card dark:border-slate-700 dark:bg-slate-800">
-                    {LANG_ORDER.map((code) => (
-                      <button
-                        key={code}
-                        type="button"
-                        onClick={() => { setLang(code); setLangMenuOpen(false); }}
-                        aria-current={code === lang}
-                        className="flex items-center justify-between gap-2.5 rounded-lg px-2.5 py-2 text-sm text-slate-700 hover:bg-primary-50 dark:text-slate-200 dark:hover:bg-slate-700"
-                      >
-                        <span className="flex items-center gap-2 whitespace-nowrap">
-                          <span aria-hidden="true">{DICT[code].flag}</span>
-                          {DICT[code].full}
-                        </span>
-                        {code === lang && <Check size={15} className="text-primary-600" />}
-                      </button>
-                    ))}
-                  </div>
-                </>
+                <div id="pm-lang-menu-mobile">
+                  {renderLangMenu('top-[44px]')}
+                </div>
               )}
             </div>
 
@@ -263,7 +411,7 @@ export function Header() {
               type="button"
               onClick={toggleTheme}
               aria-label={t.hdr.theme}
-              className="flex h-9 w-9 items-center justify-center rounded-full text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-400"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-slate-600 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300"
             >
               {isDark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
@@ -271,13 +419,19 @@ export function Header() {
             {/* Плюс/крест — тот же контрол переключает открытие/закрытие,
                 но брифу (п.2) нужен «простой тонкий X», а не гамбургер того
                 же начертания: у крестика strokeWidth занижен, у гамбургера
-                оставлен дефолтный вес lucide (2). */}
+                оставлен дефолтный вес lucide (2).
+
+                aria-controls/aria-expanded уже были; добавлен id панели —
+                описывает её роль экранному диктору вместе с role="dialog"
+                на самой панели ниже (этап 3.15). */}
             <button
+              ref={menuBtnRef}
               type="button"
-              className="-mr-1.5 flex h-9 w-9 items-center justify-center text-slate-700 dark:text-slate-200"
+              className="-mr-0.5 flex h-11 w-11 items-center justify-center text-slate-700 dark:text-slate-200"
               onClick={() => setMenuOpen((v) => !v)}
-              aria-label={t.hdr.menu}
+              aria-label={menuOpen ? t.hdr.menuClose : t.hdr.menu}
               aria-expanded={menuOpen}
+              aria-controls={menuPanelId}
             >
               {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} />}
             </button>
@@ -305,12 +459,27 @@ export function Header() {
             больше, чем короткий экран может показать целиком, меню
             скроллится само, а не обрезает CTA снизу. dvh, не vh — на
             мобильных браузерах с уезжающей адресной строкой vh даёт скачок
-            высоты при скролле, dvh отслеживает реальный видимый вьюпорт. */}
+            высоты при скролле, dvh отслеживает реальный видимый вьюпорт.
+
+            role="dialog"/aria-modal/aria-labelledby (этап 3.15) — панель
+            ведёт себя как настоящий модальный диалог (фокус-ловушка внутри,
+            остальная страница инертна, Escape закрывает — см. эффект выше),
+            поэтому и озвучивается скринридером как диалог, а не как просто
+            ещё один кусок навигации на странице. tabIndex=-1 — чтобы саму
+            панель можно было сфокусировать программно как запасной вариант,
+            если внутри вдруг не окажется ни одного focusableIn-элемента. */}
         {menuOpen && (
           <div
+            ref={menuPanelRef}
+            id={menuPanelId}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={menuTitleId}
+            tabIndex={-1}
             className="lg:hidden pm-menu-anim flex flex-col overflow-y-auto border-t border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950"
             style={{ height: `calc(100dvh - ${headerHeight}px)` }}
           >
+            <h2 id={menuTitleId} className="sr-only">{t.hdr.menu}</h2>
             {/* Статус/часы/телефон из топбара (этап 3.5, раскладка — 3.6) —
                 топбар с этой информацией виден только на десктопе (hidden
                 lg:block), на мобильном её не было нигде. Не вся строка
@@ -341,7 +510,7 @@ export function Header() {
               </div>
               <a
                 href="tel:+998951956119"
-                className="pm-menu-item-anim mt-4 inline-flex items-center gap-2 text-[15px] font-semibold text-primary-700 dark:text-primary-400"
+                className="pm-menu-item-anim mt-4 inline-flex items-center gap-2 text-[15px] font-semibold text-primary-700 dark:text-primary-300"
               >
                 <Phone size={16} />
                 +998 95 195 61 19
@@ -367,7 +536,7 @@ export function Header() {
                   key={href}
                   href={href}
                   onClick={() => setMenuOpen(false)}
-                  className="group pm-menu-item-anim flex items-center justify-between rounded-lg py-3.5 text-[21px] font-medium leading-tight text-slate-900 transition-colors hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500 active:text-primary-700 dark:text-slate-50 dark:hover:text-primary-400 dark:active:text-primary-400"
+                  className="group pm-menu-item-anim flex items-center justify-between rounded-lg py-3.5 text-[21px] font-medium leading-tight text-slate-900 transition-colors hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500 active:text-primary-700 dark:text-slate-50 dark:hover:text-primary-300 dark:active:text-primary-400"
                 >
                   {t.nav[i]}
                   <ChevronRight

@@ -7,7 +7,15 @@
 
 const VARIANTS = {
   // Основное действие страницы — «Записаться». На экране должно быть одно.
-  primary: 'bg-primary-600 hover:bg-primary-700 text-white shadow-card',
+  // border border-transparent (правка после ревью) — secondary ниже несёт
+  // реальный 1px border, и при auto-высоте (нет явного height, только
+  // padding) border добавляется К высоте, а не поглощается ею: primary без
+  // этого класса рендерился на 2px ниже secondary при прочих одинаковых
+  // padding/тексте — заметно, когда они стоят рядом (MapActions.jsx,
+  // MobileCallBar.jsx). Прозрачная рамка той же ширины — тот же box-model,
+  // визуально ничего не меняет (цвет не виден на заливке), но высота
+  // теперь совпадает с secondary день в день.
+  primary: 'border border-transparent bg-primary-600 hover:bg-primary-700 text-white shadow-card',
   // Рядом с основным: «Позвонить» — тёплая светлая поверхность с графитовым
   // контуром и текстом, тот же вес, что и у primary, но не спорит за
   // внимание (бриф, п.12 — без заливки, без лайма/зелёного).
@@ -15,7 +23,7 @@ const VARIANTS = {
     'border border-slate-300 hover:border-primary-400 text-slate-700 bg-white ' +
     'dark:border-slate-600 dark:hover:border-primary-500 dark:text-slate-200 dark:bg-slate-800',
   // Третьестепенное, внутри карточек и состояний («Отправить ещё одну заявку»).
-  ghost: 'text-primary-600 hover:bg-primary-50 dark:text-primary-400 dark:hover:bg-primary-950/40',
+  ghost: 'text-primary-600 hover:bg-primary-50 dark:text-primary-300 dark:hover:bg-primary-950/40',
 };
 
 const SIZES = {

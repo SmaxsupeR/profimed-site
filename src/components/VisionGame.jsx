@@ -43,7 +43,7 @@ export function VisionGame({ onPick }) {
           <p className="text-sm font-medium text-slate-600 tracking-[0.08em] mb-3 dark:text-slate-400">{t.vision.eyebrow}</p>
           <h2 className="font-display text-2xl sm:text-3xl text-slate-900 text-balance mb-3.5 dark:text-slate-50">{t.vision.title}</h2>
           <p className="text-slate-600 max-w-[30em] mb-2.5 dark:text-slate-300">{t.vision.sub}</p>
-          <p className="text-xs text-slate-400 max-w-[30em] mb-[22px] dark:text-slate-500">{t.vision.note}</p>
+          <p className="text-xs text-slate-400 max-w-[30em] mb-[22px] dark:text-slate-400">{t.vision.note}</p>
           <Button variant="secondary" onClick={() => onPick('ophthalmology')}>{t.vision.cta}</Button>
         </div>
 
@@ -91,13 +91,13 @@ export function VisionGame({ onPick }) {
                 <div className="text-center w-full">
                   <p className="font-display text-slate-900 text-xl mb-1.5 dark:text-slate-50">{resultTitle}</p>
                   <p className="text-sm text-slate-600 max-w-[30em] mb-1.5 dark:text-slate-300">{resultDesc}</p>
-                  <p className="text-xs text-slate-400 mb-4 dark:text-slate-500">{resultScore}</p>
+                  <p className="text-xs text-slate-400 mb-4 dark:text-slate-400">{resultScore}</p>
                   <Button variant="secondary" size="sm" onClick={restart}>{t.vision.restart}</Button>
                 </div>
               ) : (
                 <>
                   <img src={plates[index].src} alt="Ishihara plate" className="w-[140px] h-[140px] rounded-full" />
-                  <p className="text-xs text-slate-400 text-center dark:text-slate-500">
+                  <p className="text-xs text-slate-400 text-center dark:text-slate-400">
                     {t.vision.plateLabel.replace('{i}', index + 1).replace('{n}', plates.length)}
                   </p>
                   <p className="text-sm text-slate-600 text-center dark:text-slate-300">{t.vision.question}</p>
@@ -107,7 +107,7 @@ export function VisionGame({ onPick }) {
                         key={opt}
                         type="button"
                         onClick={() => pickAnswer(opt)}
-                        className="rounded-full border border-slate-200 bg-white px-[18px] py-2 text-[15px] font-bold text-primary-700 transition-colors hover:border-primary-400 hover:bg-primary-50 dark:bg-slate-800 dark:border-slate-600 dark:text-primary-400 dark:hover:border-primary-500 dark:hover:bg-primary-950/40"
+                        className="rounded-full border border-slate-200 bg-white px-[18px] py-2 text-[15px] font-bold text-primary-700 transition-colors hover:border-primary-400 hover:bg-primary-50 dark:bg-slate-800 dark:border-slate-600 dark:text-primary-300 dark:hover:border-primary-500 dark:hover:bg-primary-950/40"
                       >
                         {opt}
                       </button>
@@ -120,7 +120,7 @@ export function VisionGame({ onPick }) {
                   >
                     {t.vision.choiceNone}
                   </button>
-                  <p className="text-xs text-slate-400 text-center dark:text-slate-500">{t.vision.colorHint}</p>
+                  <p className="text-xs text-slate-400 text-center dark:text-slate-400">{t.vision.colorHint}</p>
                 </>
               )}
             </div>

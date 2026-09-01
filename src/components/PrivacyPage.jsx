@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { useDocumentMeta } from '../hooks/useDocumentMeta.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import { LEGAL, isFilled } from '../data/legal.js';
 import { PRIVACY } from '../legal/privacyText.js';
@@ -20,6 +21,12 @@ export function PrivacyPage() {
   const { t, lang } = useLang();
   const doc = PRIVACY[lang] ?? PRIVACY.ru;
   const labels = doc.operatorLabels;
+
+  // privacy/index.html даёт статичный русский <title>/description на
+  // первый показ (см. комментарий в vite.config.js) — верный дефолт для
+  // прямого захода и для поисковика. Хук поправляет их на клиенте, если
+  // язык не русский или переключился уже после монтирования.
+  useDocumentMeta(t.meta.privacyTitle, t.meta.privacyDesc);
 
   // Лицензия разложена на три строки, а не склеена в одну: номер, срок
   // действия и выдавший орган — разные по смыслу сведения, и слепленные
@@ -80,7 +87,7 @@ export function PrivacyPage() {
           </a>
           <a
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-300 dark:hover:text-primary-200"
           >
             <ArrowLeft size={16} />
             {doc.back}
@@ -125,7 +132,7 @@ export function PrivacyPage() {
                         <dt className="text-sm text-slate-600 dark:text-slate-400">{label}</dt>
                         <dd className="text-sm text-slate-900 dark:text-slate-200">
                           {href ? (
-                            <a href={href} className="text-primary-700 hover:underline dark:text-primary-400">{value}</a>
+                            <a href={href} className="text-primary-700 hover:underline dark:text-primary-300">{value}</a>
                           ) : value}
                         </dd>
                       </div>

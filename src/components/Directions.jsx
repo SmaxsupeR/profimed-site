@@ -61,7 +61,22 @@ export function Directions({ onPick }) {
                 className="absolute -left-4 top-0 bottom-0 w-[3px] origin-center scale-y-0 bg-primary-500 transition-transform duration-300 group-hover:scale-y-100 sm:-left-6"
               />
               <div className="grid gap-x-5 gap-y-2 sm:grid-cols-[64px_1fr_auto] sm:items-baseline">
-                <span className="font-display text-4xl leading-none text-primary-200 transition-colors group-hover:text-primary-400 dark:text-primary-800 dark:group-hover:text-primary-600">
+                {/* aria-hidden — декоративный порядковый номер (та же
+                    информация уже в заголовке направления рядом), не
+                    самостоятельный контент. Заодно чинит найденный
+                    Lighthouse баг: dark:text-primary-800 на тёмном фоне
+                    страницы (#1F2225) давал контраст 1.41:1 — число было
+                    практически невидимым, а не «сдержанным водяным
+                    знаком», как задумано (сравните со светлой темой, там
+                    primary-200 всё же читается). primary-400/dark:hover
+                    primary-300 — та же логика «тише в покое, ярче при
+                    наведении», что и в светлой теме (200→400), но
+                    подобранная под тёмный фон: обе ступени попадают в
+                    видимый диапазон вместо почти чёрного на чёрном. */}
+                <span
+                  aria-hidden="true"
+                  className="font-display text-4xl leading-none text-primary-200 transition-colors group-hover:text-primary-400 dark:text-primary-400 dark:group-hover:text-primary-300"
+                >
                   {String(n).padStart(2, '0')}
                 </span>
                 <div>
@@ -72,7 +87,7 @@ export function Directions({ onPick }) {
                   <button
                     type="button"
                     onClick={() => onPick(id)}
-                    className="group/cta inline-flex items-center gap-1 rounded text-sm font-medium text-primary-600 whitespace-nowrap transition-colors hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:text-primary-400 dark:hover:text-primary-300"
+                    className="group/cta inline-flex items-center gap-1 rounded text-sm font-medium text-primary-600 whitespace-nowrap transition-colors hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:text-primary-300 dark:hover:text-primary-200"
                   >
                     {t.dir.cta}
                     <ArrowRight size={14} className="transition-transform group-hover/cta:translate-x-0.5" />
@@ -81,7 +96,7 @@ export function Directions({ onPick }) {
                     type="button"
                     onClick={() => setOpenId(isOpen ? null : id)}
                     aria-expanded={isOpen}
-                    className="inline-flex items-center gap-1 rounded text-xs font-medium text-slate-400 whitespace-nowrap transition-colors hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:text-slate-500 dark:hover:text-slate-300"
+                    className="inline-flex items-center gap-1 rounded text-xs font-medium text-slate-400 whitespace-nowrap transition-colors hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:text-slate-400 dark:hover:text-slate-300"
                   >
                     {isOpen ? t.dir.less : t.dir.more}
                     <ChevronDown size={13} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />

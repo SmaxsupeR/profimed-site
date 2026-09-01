@@ -39,22 +39,24 @@ export function Timeline() {
         ref={sectionRef}
         className={`${revealClass} pm-container px-4 sm:px-6 py-12 sm:py-14 lg:py-16`}
       >
-        {/* Шапка — один компактный ряд, не отдельная треть высоты секции.
-            lg:grid-cols-[auto_1fr]: левая колонка (eyebrow+заголовок) по
-            содержимому, не по доле ширины — заголовку задан max-w, чтобы
-            он не тянулся на всю доступную ширину и оставлял intro-абзацу
-            разумное место. title теперь просто строка (не массив построчных
-            span) — заголовок короткий и сам естественно ложится в 1–2
-            строки на любом языке без принудительных разрывов. */}
-        <div className="mb-8 lg:mb-10 grid gap-4 lg:grid-cols-[auto_1fr] lg:items-start lg:gap-12">
-          <div>
-            <p className="text-sm font-medium text-primary-600 tracking-[0.08em] mb-2 dark:text-primary-300">{t.timeline.eyebrow}</p>
-            <h2 className="font-display text-slate-900 text-[26px] sm:text-[30px] lg:text-[32px] leading-[1.2] text-balance lg:max-w-[440px] dark:text-slate-50">
-              {t.timeline.title}
-            </h2>
-          </div>
-          <p className="text-slate-600 leading-relaxed lg:max-w-[380px] dark:text-slate-300">{t.timeline.intro}</p>
-        </div>
+        {/* Общий SplitSectionHeader (этап полировки 1.1/3.2) — та же
+            вёрстка/масштаб заголовка, что теперь у Doctors/About, вместо
+            собственного lg:grid-cols-[auto_1fr]. mb-16(64px), не
+            mb-8/lg:mb-10(32/40px) — «шапка → этапы» из требуемых брифом
+            56–80px. title теперь просто строка (не массив построчных span)
+            — заголовок короткий и сам естественно ложится в 1–2 строки на
+            любом языке без принудительных разрывов. */}
+        <header className="mb-10 max-w-[760px] sm:mb-12">
+          <p className="mb-3 text-sm font-medium tracking-[0.08em] text-slate-600 dark:text-slate-400">
+            {t.timeline.eyebrow}
+          </p>
+          <h2 className="font-display text-[32px] leading-[1.06] text-slate-900 text-balance sm:text-[42px] lg:text-[50px] dark:text-slate-50">
+            {t.timeline.title}
+          </h2>
+          <p className="mt-4 max-w-[680px] text-[16px] leading-relaxed text-slate-600 dark:text-slate-300">
+            {t.timeline.intro}
+          </p>
+        </header>
 
         {/* Четыре шага в один ряд на десктопе — не друг под другом. Никаких
             кружков/линии-коннектора: у каждого шага своя короткая
