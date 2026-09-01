@@ -1,0 +1,46 @@
+name: Deploy stage4 preview to GitHub Pages
+
+on:
+  push:
+    branches: [redesign/stage-4.0-layout-contacts-map]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-stage4
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      # Превью живёт в подпапке /stage4/ рядом с боевым сайтом и другими
+      # превью на том же GitHub Pages — поэтому base переопределяем на
+      # билде, а не храним в vite.config.js.
+      - run: npm run build -- --base=/profimed-site/stage4/
+      # destination_dir + keep_files: true — публикуем только в /stage4/
+      # той же ветки gh-pages, не трогая корень и остальные превью.
+      #
+      # Важно: этот workflow триггерится ТОЛЬКО на свою собственную ветку
+      # (redesign/stage-4.0-layout-contacts-map), в отличие от
+      # deploy-stage3.1.yml/deploy-stage3.12.yml, которые по ошибке были
+      # оба привязаны к одной ветке redesign/stage-3.1-hero-art-direction
+      # и взаимно перезаписывали друг другу папки при каждом пуше. Новые
+      # этапы — только так: одна ветка = один workflow = одна папка.
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          publish_branch: gh-pages
+          destination_dir: stage4
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
