@@ -2,7 +2,7 @@ name: Deploy stage3.12 preview to GitHub Pages
 
 on:
   push:
-    branches: [redesign/stage-3.1-hero-art-direction]
+    branches: [redesign/stage-3.12-doctors-about-privacy]
   workflow_dispatch:
 
 permissions:
@@ -28,6 +28,15 @@ jobs:
       - run: npm run build -- --base=/profimed-site/stage3.12/
       # destination_dir + keep_files: true — публикуем только в /stage3.12/
       # той же ветки gh-pages, не трогая корень и остальные превью.
+      #
+      # Раньше этот workflow был закоммичен прямо в ветку
+      # redesign/stage-3.1-hero-art-direction и триггерился с неё же
+      # (тот же push, что и deploy-stage3.1.yml) — оба деплоя срабатывали
+      # одновременно на любой пуш в эту ветку и взаимно перезаписывали
+      # друг другу папки на gh-pages. Теперь у этапа 3.12 своя ветка
+      # (redesign/stage-3.12-doctors-about-privacy, восстановлена из
+      # исходного коммита этого этапа) и свой триггер — как и у всех
+      # остальных этапов.
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
